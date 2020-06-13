@@ -1,0 +1,392 @@
+<div class="content">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card-body record-emp-deatil p-0">
+                            <div class="d-md-flex mt-0">
+                                <form [formGroup]="ProductForm">
+                                    <ul class="nav nav-tabs side-nav nav-tabs-vertical flex-column wmin-md-200 mb-md-0 border-bottom-0 left-side-div">
+                                        <li class="nav-item"><a href="#ProductInfo-tab1" class="nav-link active" data-toggle="tab"><i class="icon-info22"></i> &nbsp; Product
+                                        Information</a></li>
+                                        <li class="nav-item"><a href="#ProductFeatures-tab3" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Features </a>
+                                        </li>
+
+                                        <li class="nav-item" *ngIf="f.productID.value>0"><a href="#ProductDetails-tab4" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Details</a>
+                                        </li>
+
+                                        <li class="nav-item"><a href="#ProductImages-tab5" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Images </a>
+                                        </li>
+                                        <li class="nav-item"><a href="#ProductNotes-tab2" class="nav-link" data-toggle="tab"><i class="icon-address-book3"></i>&nbsp; Product Notes</a></li>
+
+
+                                    </ul>
+                                </form>
+                                <div class="tab-content w-100 tab-right-sec">
+
+                                    <div class="tab-pane fade active show" id="ProductInfo-tab1">
+                                        <form [formGroup]="ProductForm">
+                                            <h6 style="font-weight: 700;">Product Information</h6>
+                                            <mat-divider></mat-divider>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Product Name <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="productName">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Brand Name <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="brandId">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstBrand" [value]="row.brandId">
+                                                                {{row.name}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Category Name <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="categoryID" (selectionChange)="LoadSubCategory($event)">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstCategory" [value]="row.categoryID">
+                                                                {{row.categoryName}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Sub-Category Name <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="subCategoryID">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstSubCategory" [value]="row.subCategoryID">
+                                                                {{row.name}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Supplier Name <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="supplierID">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstSupplier" [value]="row.supplierID">
+                                                                {{row.fname}} {{row.lName}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="active">Active</mat-checkbox>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Title
+                                                            <!-- <span class="error">*</span> -->
+                                                        </mat-label>
+                                                        <input type="text" matInput formControlName="title">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Subtitle
+                                                            <!-- <span class="error">*</span> -->
+                                                        </mat-label>
+                                                        <input type="text" matInput formControlName="subTitle">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- <h6 style="font-weight: 700;">Product Discount</h6>
+                                            <mat-divider></mat-divider>
+                                           
+                                            <h6 style="font-weight: 700;">Product Features</h6>
+                                            <mat-divider></mat-divider>
+                                           
+                                            <h6 style="font-weight: 700;">Product Notes</h6>
+                                            <mat-divider></mat-divider> -->
+                                            <div class="col-md-12 text-center">
+                                                <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
+                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductNotes-tab2">
+                                        <form [formGroup]="ProductForm">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Short Details <span class="error">*</span></mat-label>
+                                                        <textarea type="text" matInput formControlName="shortDetails" style="height: 125px;"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Description <span class="error">*</span></mat-label>
+                                                        <textarea type="text" matInput formControlName="description" style="height: 125px;"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
+                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductFeatures-tab3">
+                                        <form [formGroup]="ProductForm">
+                                            <div class="row">
+
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="productAvailable">Product Available</mat-checkbox>
+                                                </div>
+
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="featured">Featured</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="latest">Latest</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="onSale">OnSale</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="topSelling">Top Selling</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                    <mat-checkbox formControlName="hotOffer">Hot Offer</mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
+                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductDetails-tab4">
+                                        <form [formGroup]="ProductDetailForm">
+                                            <h6 style="font-weight: 700;">Product Details</h6>
+                                            <!-- <mat-divider></mat-divider> -->
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Stock Qty <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="qty" maxlength="10" [mask]="NumberMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Price <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="price" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Sale Price <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="salePrice" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-3">
+
+                                                </div> -->
+                                                <div class="col-md-2 mt-2">
+                                                    <mat-checkbox formControlName="availableSize">Available Size</mat-checkbox>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <!-- <mat-form-field appearance="outline">
+                                                        <mat-label>Size </mat-label>
+                                                        <input type="text" matInput formControlName="size">
+                                                    </mat-form-field> -->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Size <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="size">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option value="S">S</mat-option>
+                                                            <mat-option value="M">M</mat-option>
+                                                            <mat-option value="L">L</mat-option>
+                                                            <mat-option value="XL">XL</mat-option>
+                                                            <mat-option value="XXL">XXL</mat-option>
+                                                            <mat-option value="XXXL">XXXL</mat-option>
+                                                            <!-- <mat-option *ngFor="let row of lstCategory" [value]="row.categoryID">
+                                                                {{row.categoryName}}
+                                                            </mat-option> -->
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2 mt-2">
+                                                    <mat-checkbox formControlName="availableColors">Available Colors</mat-checkbox>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Color <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="color">
+                                                    </mat-form-field>
+
+                                                </div>
+                                                <!-- <div class="col-md-2 mt-2">
+                                                    <mat-checkbox formControlName="discountAvailable">Discount Available</mat-checkbox>
+                                                </div> -->
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Discount</mat-label>
+                                                        <input type="text" matInput formControlName="discount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-8 mt-2 text-center">
+
+                                                    <button type="button" class="btn btn-success btn-lg" (click)="SaveProductDetails()">Save</button> &nbsp;
+                                                    <button type="button" class="btn btn-warn btn-lg" (click)="ResetProductDetails()">Reset</button> &nbsp;
+                                                    <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="height: 400px; overflow: auto;">
+                                                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
+
+                                                        <ng-container matColumnDef="qty">
+                                                            <th mat-header-cell *matHeaderCellDef>Qty</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="price">
+                                                            <th mat-header-cell *matHeaderCellDef>Price</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="salePrice">
+                                                            <th mat-header-cell *matHeaderCellDef>Sale Price</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.salePrice}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="availableSize">
+                                                            <th mat-header-cell *matHeaderCellDef>Available Size</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.availableSize?'Yes':'No'}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="size">
+                                                            <th mat-header-cell *matHeaderCellDef>Size</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.size}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="availableColors">
+                                                            <th mat-header-cell *matHeaderCellDef>Available Colors</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.availableColors?'Yes':'No'}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="color">
+                                                            <th mat-header-cell *matHeaderCellDef>Color</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="discount">
+                                                            <th mat-header-cell *matHeaderCellDef>Discount</th>
+                                                            <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
+                                                        </ng-container>
+
+
+                                                        <ng-container matColumnDef="Edit">
+                                                            <th mat-header-cell *matHeaderCellDef> Edit </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <a href="javaScript:void(0);" (click)="Edit(element)">
+                                                                    <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                                                </a>
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="Delete">
+                                                            <th mat-header-cell *matHeaderCellDef> Delete </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <a href="javaScript:void(0);" (click)="Delete(element)">
+                                                                    <i class="mi-delete mi-2x" style="color: red;" aria-hidden="true"></i>
+                                                                </a>
+                                                            </td>
+                                                        </ng-container>
+
+                                                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                                    </table>
+                                                    <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                    <div class="tab-pane fade" id="ProductImages-tab5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+
+                                                <div class="form-group row" style="margin-left: 1px;">
+                                                    Banner Image :
+                                                    <label for="BannerImg" class="mi-file-upload mi-2x" style="color: blue;"> </label> &nbsp;
+                                                    <input id="BannerImg" type="file" style="display: none;" (change)="UploadBannerImg($event)" />
+                                                    <!-- <div *ngIf="submitted && (f.bannerImg.errors || f.bannerImg.value==[])">
+                                                        <div *ngIf="(f.bannerImg.errors.required || f.bannerImg.value==[])" style="color: red;">File is required.</div>
+                                                    </div> -->
+                                                    <div *ngFor='let url of BannerImage; index as i;'>
+                                                        <img class="example2-header-image" [src]="url" (click)="ShowImage(url);">
+                                                        <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'banner');"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="margin-left: 1px;">
+                                                    Default Image :
+                                                    <label for="SmallImg" class="mi-file-upload mi-2x" style="color: blue;"> </label> &nbsp;
+                                                    <input id="SmallImg" type="file" style="display: none;" (change)="UploadSmallImg($event)" />
+                                                    <div *ngIf="submitted && (f.smallImg.errors || f.smallImg.value==[])">
+                                                        <div *ngIf="(f.smallImg.errors.required || f.smallImg.value==[])" style="color: red;">File is required.</div>
+                                                    </div>
+                                                    <div *ngFor='let url of SmallImage; index as i'>
+                                                        <img class="example2-header-image" [src]="url" (click)="ShowImage(url);">
+                                                        <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'small');"></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row" style="margin-left: 1px;">
+                                                    Product Images :
+                                                    <label for="ProductImg" class="mi-file-upload mi-2x" style="color: blue;"> </label> &nbsp;
+                                                    <input id="ProductImg" type="file" style="display: none;" (change)="UploadProductImages($event)" multiple="" />
+                                                    <div *ngIf="submitted && (f.productImg.errors || f.productImg.value==[])">
+                                                        <div *ngIf="(f.productImg.errors.required || f.productImg.value==[])" style="color: red;">File is required.</div>
+                                                    </div>
+                                                    <div *ngFor='let url of images; index as i;'>
+                                                        <img class="example-header-image" [src]="url" (click)="ShowImage(url);">
+                                                        <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <mat-card class="example-card">
+
+                                                            <img mat-card-image [src]="previewUrl" style="min-height: 370px;max-height: 370px;">
+                                                        </mat-card>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-3 text-center">
+                                            <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
+                                            <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

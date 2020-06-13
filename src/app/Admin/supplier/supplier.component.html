@@ -1,0 +1,203 @@
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateBrand,'');" class="btn btn-warning btn-lg">Add New
+                                </button></div>
+                    </div>
+
+                    <div class="new-section">
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
+                                <mat-form-field class="example-chip-list example-full-width">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)" class="btn-search" style=" padding-bottom: 15px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="height: 400px; overflow: auto;">
+                            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
+
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef>Supplier Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fname}} {{element.mName}} {{element.lName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="address1">
+                                    <th mat-header-cell *matHeaderCellDef>Address</th>
+                                    <!-- <td mat-cell *matCellDef="let element"> {{element.address1}} </td> -->
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.address1}}, City - {{element.city}}, State - {{element.state}}, ({{element.country}}) - {{element.postalCode}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="city">
+                                    <th mat-header-cell *matHeaderCellDef>City</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="state">
+                                    <th mat-header-cell *matHeaderCellDef>State</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="country">
+                                    <th mat-header-cell *matHeaderCellDef>Country</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="postalCode">
+                                    <th mat-header-cell *matHeaderCellDef>PostalCode</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.postalCode}} </td>
+                                </ng-container> -->
+                                <ng-container matColumnDef="phone">
+                                    <th mat-header-cell *matHeaderCellDef>Phone</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="email">
+                                    <th mat-header-cell *matHeaderCellDef>Email</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="paymentMethod">
+                                    <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.paymentMethod}} </td>
+                                </ng-container>
+                                <!-- <ng-container matColumnDef="notes">
+                                    <th mat-header-cell *matHeaderCellDef>Notes</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+                                </ng-container> -->
+                                <ng-container matColumnDef="active">
+                                    <th mat-header-cell *matHeaderCellDef>Active</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.active?'Active':'In-Active'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Edit">
+                                    <th mat-header-cell *matHeaderCellDef> Edit </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="Edit(templateBrand,element)">
+                                            <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateBrand>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Add / Edit Supplier</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="SupplierForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>First Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="fname" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Middle Name </mat-label>
+                            <input type="text" matInput formControlName="mName" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Last Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="lName" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="address1" maxlength="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="city" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="state" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="country" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PostalCode <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="postalCode" minlength="6" [mask]="zipMask" [dropSpecialCharacters]="true" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Phone <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="phone" minlength="10" [mask]="phoneMask" [dropSpecialCharacters]="true" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="email" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Payment Method <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="paymentMethod" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <mat-checkbox formControlName="active">Active</mat-checkbox>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Notes </mat-label>
+                            <textarea type="text" matInput formControlName="notes" maxlength="500"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>

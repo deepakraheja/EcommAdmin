@@ -1,0 +1,39 @@
+<ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="large">
+    <p class="loading"></p>
+</ngx-spinner>
+<!-- Top Navbar -->
+<app-header></app-header>
+
+<!-- Page content -->
+<div class="page-content">
+
+    <!-- Main sidebar Navigation -->
+    <!-- <div class="sidebar sidebar-dark sidebar-main  sidebar-expand-md">
+        <app-sidebar></app-sidebar>
+    </div> -->
+    <!-- /main sidebar -->
+
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+        <!-- Page header -->
+
+        <!-- /page header -->
+
+        <!-- Content area -->
+        <div class="">
+            <router-outlet></router-outlet>
+
+        </div>
+        <!-- /content area -->
+
+        <!-- Footer -->
+        <app-footer></app-footer>
+        <!-- /footer -->
+
+    </div>
+    <!-- /main content -->
+
+</div>
+<!-- /page content -->

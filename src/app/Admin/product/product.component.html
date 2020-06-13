@@ -1,0 +1,97 @@
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Supplier Name</mat-label>
+                                <mat-select [formControl]="SelectsupplierID" (selectionChange)="LoadData($event)">
+                                    <mat-option value="">All</mat-option>
+                                    <mat-option *ngFor="let row of lstSupplier" value="{{row.supplierID}}">
+                                        {{row.fname}} {{row.lName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-9 text-right pb-3"><button mat-raised-button (click)="onAddNew();" class="btn btn-warning btn-lg">Add New
+                                </button></div>
+                    </div>
+
+                    <div class="new-section">
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
+                                <mat-form-field class="example-chip-list example-full-width">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)" class="btn-search" style=" padding-bottom: 15px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="height: 400px; overflow: auto;">
+                            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
+
+                                <ng-container matColumnDef="frontImage">
+                                    <th mat-header-cell *matHeaderCellDef>Image</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <img src="{{ImagePath}}/{{element.productID}}/frontImage/{{element.frontImage}}" class="ProductFrontImage">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="productName">
+                                    <th mat-header-cell *matHeaderCellDef>Product Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="brandName">
+                                    <th mat-header-cell *matHeaderCellDef>Brand</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.brandName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="subcategoryName">
+                                    <th mat-header-cell *matHeaderCellDef>Sub-Category</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.subcategoryName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="supplierName">
+                                    <th mat-header-cell *matHeaderCellDef>Supplier</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="title">
+                                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="subTitle">
+                                    <th mat-header-cell *matHeaderCellDef>SubTitle</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.subTitle}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="active">
+                                    <th mat-header-cell *matHeaderCellDef>Active</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.active?'Active':'In-Active'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Edit">
+                                    <th mat-header-cell *matHeaderCellDef> Edit </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="Edit(element)">
+                                            <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

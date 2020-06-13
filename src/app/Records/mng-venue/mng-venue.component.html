@@ -1,0 +1,143 @@
+<!-- <div class="page-header page-header-light">
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Records / Manage Venue</span>
+            </div>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+</div> -->
+<!-- Content area -->
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <!-- <div class="card-header header-elements-inline">
+                    <h2 class="card-title">Manage Venue</h2>
+                    <div class="header-elements">
+                        <div class="list-icons">
+
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="card-body">
+                    <!-- <form action="#"> -->
+                    <div class="row">
+                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew();" class="btn btn-warning btn-lg btn-record-addnew">Add New</button></div>
+                    </div>
+                    <div class="new-section">
+
+                        <!-- <h2 *ngIf="showheader" class="card-title">Search Result</h2>
+                    <hr *ngIf="showheader">
+                    <div *ngIf="norecord">No Records found.</div> -->
+
+                        <div class="row">
+                            <div class="col-lg-10 col-xs-10 col-sm-12 pl-4">
+                                <mat-form-field class="example-chip-list">
+                                    <mat-chip-list #chipList aria-label="branchlst selection">
+                                        <mat-chip *ngFor="let branchlst of AdvanceSearchFilter" [selectable]="selectable" [removable]="removable" (removed)="remove(branchlst)">
+                                            {{branchlst.name}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="Search" [matChipInputFor]="chipList" (keyup)="applyFilter($event)">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2 col-xs-2 col-sm-12 text-right">
+                                <div class="dt-btn">
+                                    <div class="dt-cell-btn">
+                                        <button type="button" mat-button class="btn btn-primary btn-record-emp" (click)="drawer.toggle()">
+                                    Filter &nbsp; <i class="filter4"></i>
+                                </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-drawer-container class="custom-container">
+                            <div class="custom-sidenav-content">
+                                <div class="col-md-12">
+                                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 col-md-12 no-shadow">
+
+                                        <ng-container matColumnDef="name">
+                                            <th mat-header-cell *matHeaderCellDef> Venue Name </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="address1">
+                                            <th mat-header-cell *matHeaderCellDef> Address </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.address1}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="city">
+                                            <th mat-header-cell *matHeaderCellDef> City </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="state">
+                                            <th mat-header-cell *matHeaderCellDef> State </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="phone1">
+                                            <th mat-header-cell *matHeaderCellDef> Phone </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.phone1}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="Edit">
+                                            <th mat-header-cell *matHeaderCellDef> Edit </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <a href="venue/{{element.venueId}}">
+                                                    <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                                    <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+                                    <mat-paginator [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons>
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                            <mat-drawer #drawer class="custom-sidenav" mode="side" position="end">
+                                <div class="col-md-12">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Branch Name</mat-label>
+                                        <mat-select [formControl]="selectedBranch" (selectionChange)="Search($event)">
+                                            <mat-option value="0">All</mat-option>
+                                            <mat-option *ngFor="let row of brData" value="{{row.branchId}}">
+                                                {{row.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-12">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select [formControl]="selectedStatus" (selectionChange)="Search($event)">
+                                            <mat-option value="0">All</mat-option>
+                                            <mat-option *ngFor="let lst of lstStatus" value="{{lst.statusId}}">
+                                                {{lst.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </mat-drawer>
+                        </mat-drawer-container>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /main charts -->

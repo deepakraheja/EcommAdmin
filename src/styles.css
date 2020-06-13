@@ -1,0 +1,1002 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~ngx-toastr/toastr.css";
+@import "~assets/global_assets/css/icons/icomoon/styles.min.css";
+@import "~assets/css/bootstrap.css";
+@import "~assets/css/bootstrap_limitless.min.css";
+@import "~assets/css/layout.css";
+@import "~assets/css/colors.min.css";
+@import "~assets/css/Loader.css";
+@import "~assets/css/style.css";
+html,
+body {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+}
+
+.dropdown-toggle::after {
+    line-height: 0;
+    ;
+}
+
+.navbar-brand {
+    padding: 0px !important;
+    ;
+}
+
+.content-wrapper content {
+    min-height: calc(100vh - 127px);
+}
+
+.navbar-dark {
+    color: rgba(255, 255, 255, .9);
+    background-color: #37445d;
+    border-bottom-color: rgba(255, 255, 255, .1);
+}
+
+.navbar-brand img {
+    height: 40px;
+    display: block;
+}
+
+.navbar-top {
+    padding-top: 74px;
+}
+
+.mat-form-field {
+    display: block !important;
+}
+
+
+/* .mat-elevation-z8 {
+    box-shadow: none;
+} */
+
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Choose File";
+}
+
+.custom-file-label {
+    top: 4px;
+    right: 0;
+    z-index: 1;
+    height: calc(1.5385em + 1.6rem + 2px);
+    line-height: 2.5;
+}
+
+.custom-file-label::after {
+    height: calc(1.5385em + 1.6rem);
+    line-height: 2.5;
+}
+
+.side-nav {
+    width: 250px;
+    transition: 0.5s;
+    @media screen and (max-width: 520px) {
+        width: 100%;
+    }
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.space-all {
+    padding: 1rem 1rem 0.5rem;
+    flex-grow: 1;
+    min-height: 65px;
+}
+
+.main-navigation .dropdown-item {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.main-navigation .dropdown-item i {
+    font-size: 14px;
+    padding: 5px;
+    background: #388e3c;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+/*====== Material Stylesheet and header ====*/
+
+.material-grey-primary {
+    background: #455A64 !important;
+}
+
+.material-grey-secondary {
+    background: #607D8B;
+    color: #fff;
+}
+
+.material-green-primary {
+    background: #689F38 !important;
+}
+
+.material-green-secondary {
+    background: #8eb85e;
+    color: #fff;
+}
+
+
+/* .material-red-primary {
+background: #F57C00 !important;
+ }
+   .material-red-secondary {
+       background: #FF9800;
+       color:#fff;
+      } */
+
+.material-blue-primary {
+    background: #4278e3 !important;
+}
+
+.material-blue-secondary {
+    background: #628de7;
+    color: #fff;
+}
+
+.material-yellow-primary {
+    background: #F57C00 !important;
+}
+
+.material-yellow-secondary {
+    background: #FF9800;
+    color: #fff;
+}
+
+.logo-img {
+    width: 48px;
+    padding: 0px 8px;
+    margin-top: 4px;
+}
+
+.dropdown-list {
+    display: block !important;
+    line-height: 35px;
+}
+
+.bg-yellow-icon:before {
+    color: #c18014 !important;
+}
+
+.bg-green-icon:before {
+    color: #689F38 !important;
+}
+
+.bg-blue-icon:before {
+    color: #3F51B5 !important;
+}
+
+.bg-white-icon:before {
+    content: "\eb34";
+    font-size: 14px;
+    padding: 5px;
+    background: #ffffff;
+    color: #31576f;
+    border-radius: 5px;
+}
+
+.fa-tachometer:before {
+    content: "\ebdc";
+}
+
+.dropdown-user .bg-white-icon {
+    display: contents;
+}
+
+.material-dark-grey-primary {
+    background: #455A64 !important;
+}
+
+.navbar-dark .navbar-nav-link {
+    color: rgba(255, 255, 255, .9);
+    font-weight: 600;
+}
+
+
+/*====== Right admin header ====*/
+
+.admin-dropdown {
+    font-family: inherit;
+    outline: 0px;
+    cursor: pointer;
+    border: none;
+    padding: 0px 10px 0px 0px;
+    -webkit-appearance: none;
+    align-items: center;
+    line-height: 32px;
+    cursor: pointer;
+    font-size: 11px;
+    border-radius: 9999px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.38);
+    display: flex;
+    transition: background-color 120ms ease-in 0s;
+}
+
+.admin-dropdown a::after {
+    padding: 0px 10px 0px 0px;
+}
+
+.admin-dropdown a,
+.admin-dropdown span {
+    padding: 0px !important;
+}
+
+.dropdown-menu-right a {
+    text-align: center;
+    display: block;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 10px !important;
+}
+
+.dropdown-menu-right a:first-child {
+    border-top: 0px solid rgb(221, 221, 221);
+}
+
+.dropdown-menu-right i {
+    margin-right: 0px;
+}
+
+.dropdown-menu-right {
+    padding: 0px !important;
+    border-radius: 6px;
+}
+
+.dropdown-menu-right .user-name {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.admin-dropdown a:hover,
+.admin-dropdown a:active {
+    background: none !important;
+}
+
+.username-dropdown {
+    background: none !important;
+}
+
+.dropdown-menu-left a {
+    display: block;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 10px !important;
+}
+
+.dropdown-menu-left {
+    padding: 0px !important;
+    border-radius: 6px;
+}
+
+.dropdown-menu-left a:first-child {
+    border-top: 0px solid rgb(221, 221, 221);
+}
+
+.filter4:before {
+    content: "\eb6f";
+    font-family: icomoon!important;
+    font-size: 16px;
+    font-style: initial;
+}
+
+.new-section {
+    border: solid 1px #e0e0e0;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+}
+
+
+/*====== Admin Branch Button ====*/
+
+.btn-admin-branch {
+    background: #eaebeb;
+    border-radius: 6 !important;
+    padding: 7px 15px !important;
+    font-size: 16px;
+    border-left: solid 0px #e0e0e0 !important;
+    color: #545555;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px !important;
+}
+
+.btn-admin-branch:active {
+    background: #f57c00 !important;
+    color: #fff !important;
+    border-color: #eaebeb !important;
+}
+
+.btn-admin-branch:focus {
+    background: #eaebeb;
+}
+
+.btn-admin-branch:hover {
+    background: #f57c00;
+    color: #fff;
+    ;
+}
+
+
+/*====== Record emp Button ====*/
+
+.btn-record-emp {
+    background: #eaebeb;
+    border-radius: 6 !important;
+    padding: 7px 15px !important;
+    font-size: 12px;
+    border-left: solid 0px #e0e0e0 !important;
+    color: #545555;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px !important;
+}
+
+.btn-record-emp:active {
+    background: #4278e3 !important;
+    color: #fff !important;
+    border-color: #eaebeb !important;
+}
+
+.btn-record-emp:focus {
+    background: #eaebeb;
+}
+
+.btn-record-emp:hover {
+    background: #4278e3;
+    color: #fff;
+    ;
+}
+
+
+/*====== Payroll Button ====*/
+
+.btn-payroll {
+    background: #eaebeb;
+    border-radius: 6 !important;
+    padding: 7px 15px !important;
+    font-size: 16px;
+    border-left: solid 0px #e0e0e0 !important;
+    color: #545555;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px !important;
+}
+
+.btn-payroll:active {
+    background: #689F38 !important;
+    color: #fff !important;
+    border-color: #eaebeb !important;
+}
+
+.btn-payroll:focus {
+    background: #eaebeb;
+}
+
+.btn-payroll:hover {
+    background: #689F38;
+    color: #fff;
+    ;
+}
+
+
+/*====== Record Addnew Button ====*/
+
+.btn-record-addnew {
+    background: #4278e3;
+    cursor: pointer;
+}
+
+.btn-record-addnew:active {
+    background: #4278e3 !important;
+    color: #fff !important;
+}
+
+.btn-record-addnew:focus {
+    background: #4278e3;
+}
+
+.btn-record-addnew:hover {
+    background: #4278e3;
+    color: #fff;
+    ;
+}
+
+.mat-chip-list-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.space-all h1 {
+    font-size: 35px;
+}
+
+.custom-container {
+    width: 100%;
+    min-height: 345px;
+    max-height: 100%;
+    border-top: 1px solid rgb(224, 224, 224);
+}
+
+.custom-sidenav {
+    padding: 20px;
+    width: 300px;
+    background: #fafafa;
+}
+
+.custom-sidenav-content th {
+    text-transform: uppercase;
+    background: #fafafa;
+}
+
+.custom-sidenav-content td {
+    width: 15%;
+}
+
+th b {
+    text-transform: uppercase !important;
+    color: #666666;
+}
+
+.custom-sidenav-content .col-md-12 {
+    padding: 0px;
+}
+
+.sign-in h1 {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.sign-in table tr th {
+    font-size: 18px;
+}
+
+.sign-in table tr td {
+    font-size: 18px;
+}
+
+.navbar-light-shade .navbar-nav-link:active {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade .navbar-nav-link:hover {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade .navbar-nav-link:focus {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade .navbar-nav-link:visited {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade .navbar-nav-link:focus-within {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade .active>.navbar-nav-link,
+.navbar-light-shade .navbar-nav-link.active,
+.navbar-light-shade .navbar-nav-link.show,
+.navbar-light-shade .show>.navbar-nav-link {
+    border-radius: 20px !important;
+}
+
+.navbar-light-shade a.navbar-nav-link {
+    LINE-HEIGHT: 4PX;
+    padding: 13px 13px;
+    margin: 3px;
+}
+
+.navbar-light-shade a {
+    margin: 10px 5px !important;
+}
+
+.wrapper-page .display-table {
+    width: 100%;
+    display: table;
+    position: absolute;
+    height: 100%;
+}
+
+.wrapper-page .display-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.CSC-heading {
+    padding-top: 12px;
+    font-size: 18px;
+    padding-right: 20px;
+}
+
+.dt-btn {
+    width: 100%;
+    display: table;
+    height: 100%;
+}
+
+.dt-cell-btn {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.d-inline-box {
+    display: -webkit-inline-box;
+}
+
+.navbar-expand-md {
+    margin: 0px 0px;
+    border: 0;
+}
+
+.input-md-s {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/*====== dashboard sign in time ====*/
+
+.invoice {
+    position: relative;
+    background-color: #FFF;
+    min-height: 680px;
+    padding: 15px
+}
+
+.invoice header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3989c6
+}
+
+.invoice .company-details {
+    text-align: right
+}
+
+.invoice .company-details .name {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.invoice .contacts {
+    margin-bottom: 20px
+}
+
+.invoice .invoice-to {
+    text-align: left
+}
+
+.invoice .invoice-to .to {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.invoice .invoice-details {
+    text-align: right
+}
+
+.invoice .invoice-details .invoice-id {
+    margin-top: 0;
+    color: #3989c6
+}
+
+.invoice main {
+    padding-bottom: 50px
+}
+
+.invoice main .thanks {
+    margin-top: -100px;
+    font-size: 2em;
+    margin-bottom: 50px
+}
+
+.invoice main .notices {
+    padding-left: 6px;
+    border-left: 6px solid #3989c6
+}
+
+.invoice main .notices .notice {
+    font-size: 1.2em
+}
+
+.invoice table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.invoice table td {
+    padding: 10px 15px;
+    font-size: 11px !important;
+    background: #fff;
+    /* font-weight: bold; */
+    border: 1px solid #ddd;
+}
+
+.invoice table th {
+    padding: 10px 15px;
+    background: #f8f6f8;
+    border-bottom: 1px solid #ccc;
+}
+
+.invoice table th {
+    white-space: nowrap;
+    font-weight: 300;
+    font-size: 11px;
+}
+
+.invoice table td h3 {
+    margin: 0;
+    font-weight: 400;
+    color: #3989c6;
+    font-size: 1.2em
+}
+
+.invoice table .qty,
+.invoice table .total,
+.invoice table .unit {
+    text-align: right;
+    font-size: 1.2em
+}
+
+.invoice table .no {
+    color: #fff;
+    font-size: 1.6em;
+    background: #949494
+}
+
+.invoice table .unit {
+    background: #f3f3f3;
+    color: #232121;
+}
+
+.invoice table .total {
+    background: #e8e8e8;
+    color: #232121;
+}
+
+.invoice table tbody tr:last-child td {
+    border: none
+}
+
+.invoice table tfoot td {
+    background: 0 0;
+    border-bottom: none;
+    white-space: nowrap;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-top: 1px solid #aaa
+}
+
+.invoice table tfoot tr:first-child td {
+    border-top: none
+}
+
+.invoice table tfoot tr:last-child td {
+    color: #3989c6;
+    font-size: 1.4em;
+    border-top: 1px solid #3989c6
+}
+
+.invoice table tfoot tr td:first-child {
+    border: none
+}
+
+.invoice footer {
+    width: 100%;
+    text-align: center;
+    color: #777;
+    border-top: 1px solid #aaa;
+    padding: 8px 0
+}
+
+@media print {
+    .invoice {
+        font-size: 11px!important;
+        overflow: hidden!important
+    }
+    .invoice footer {
+        position: absolute;
+        bottom: 10px;
+        page-break-after: always
+    }
+    .invoice>div:last-child {
+        page-break-before: always
+    }
+}
+
+.invoice .badge-mark {
+    width: 13px;
+    height: 13px;
+    border: solid 4px #455a64 !important;
+}
+
+.invoice h4 {
+    background: #9fbac7;
+    margin: 0;
+    color: #fff;
+    font-size: 11px;
+    padding: 6px 15px;
+    font-weight: 400;
+}
+
+.invoice h6 {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5385;
+    color: #333;
+    text-align: left;
+    border-bottom: solid 2px #455a64;
+    display: inline-block;
+}
+
+.invoice h2 {
+    margin-bottom: 0px;
+    font-size: 11px;
+}
+
+.signin-head {
+    background: #f8f6f8;
+    padding: 10px 30px;
+    border: 1px solid #ddd;
+}
+
+.add-info {
+    margin: 0px !important;
+    padding: 25px 37px !important;
+}
+
+.cdk-overlay-pane .mat-dialog-container {
+    padding: 0px;
+}
+
+.add-info-head {
+    background: #e4e4e4;
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.add-info-head img {
+    width: 80px;
+    padding: 10px;
+}
+
+.add-info-head button {
+    padding: 3px 13px;
+    margin-top: 20px;
+    font-size: 21px;
+    color: #7b5656;
+}
+
+.mat-dialog-container {
+    overflow: initial !important;
+}
+
+.add-info-foot {
+    padding: 20px 37px 37px;
+    border-top: solid 1px #ddd;
+}
+
+.info-input {
+    margin: 18px 0 9px;
+}
+
+.modal-text-heading {
+    padding: 15px 20px 1px;
+}
+
+.modal-text-heading h2 {
+    margin: 0px;
+}
+
+.left-side-div a {
+    border-bottom: solid 1px #e0e8fa !important;
+    font-size: 15px;
+    border-left: solid 0px #e0e8fa !important;
+}
+
+.left-side-div a:focus {
+    border-bottom: solid 1px #e0e8fa !important;
+}
+
+.left-side-div a:focus-within {
+    border-bottom: solid 1px #e0e8fa !important;
+}
+
+.left-side-div a:hover {
+    color: #628de7 !important;
+}
+
+.left-side-div {
+    background: #f8fbff;
+}
+
+.left-side-div .nav-item.show .nav-link,
+.left-side-div .nav-link.active {
+    border-bottom: solid 1px #4278e3 !important;
+    background: #ffffff;
+    border-right: solid 1px #e0e8fa !important;
+    color: #628de7;
+    border-left: solid 0px #e0e8fa !important;
+}
+
+.emp-sect-head h2 {
+    font-weight: normal;
+    font-size: 20px;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #333333;
+}
+
+.tab-right-sec {
+    background: #f8fbff;
+    padding: 0px 30px;
+    padding-top: 30px;
+}
+
+.section-dive {
+    border: solid 1px #efefef;
+    border-radius: 4px;
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.record-emp-deatil .col-form-label {
+    font-weight: 500;
+    color: #8e8d8d;
+}
+
+.edit-pencil-icon i {
+    background: #fff;
+    height: 45px;
+    width: 45px;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    line-height: 45px;
+}
+
+.edit-pencil-icon a {
+    border: 0px !important;
+}
+
+.edit-pencil-icon a:hover {
+    background: initial;
+    border: 0px !important;
+}
+
+.edit-pencil-icon a:active {
+    background: initial;
+    border: 0px !important;
+}
+
+.edit-pencil-icon a:focus-within {
+    background: initial;
+    border: 0px !important;
+}
+
+.edit-pencil-icon a:focus {
+    background: initial;
+    border: 0px !important;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    padding: 0px 20px !important;
+}
+
+.modal-body {
+    margin: 20px 0px !important;
+}
+
+.left-side-div .nav-link::before {
+    width: 0px;
+    position: initial;
+}
+
+.tab-right-sec .form-group {
+    margin-bottom: 0px;
+}
+
+
+/* Employee Profile pic */
+
+.avatar {}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    margin: 0px auto;
+    margin-top: -100px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: 1px solid rgb(239, 239, 239);
+    margin-bottom: 50px;
+    background: #fff;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+    .side-nav {
+        width: 100%;
+        transition: 0.5s;
+    }
+    .d-inline-block {
+        display: initial !important;
+    }
+    .d-inline-box {
+        display: initial !important;
+    }
+    .d-inline-flex {
+        display: initial !important;
+        float: initial !important;
+    }
+    .admin-dropdown {
+        display: initial !important;
+        padding: 0px 30px;
+        border-radius: 0px;
+    }
+}
+
+.tab-right-sec .tab-pane {
+    border: solid 1px #efefef;
+    border-radius: 4px;
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.d-inline-flex {
+    display: inline-flex;
+}
+
+.example-header-image {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.example2-header-image {
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.ProductFrontImage {
+    min-width: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    max-height: 70px;
+    margin: 4px 0px 4px 0px;
+}

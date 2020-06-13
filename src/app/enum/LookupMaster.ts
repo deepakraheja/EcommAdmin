@@ -1,0 +1,21 @@
+export  enum MasterTypes
+    {
+        None = 0,
+        GenderTypes=1,
+        MaritalStatusTypes=2,
+        GloveSize=3,
+        PantSize=4,
+        CoatSize=5,
+        BootSize=6,
+        TaxStatus=7,
+        GaurdCardStatus=9,
+        SuspensionTypes=15,
+        CommendationTypes=16,
+        JobTypes=17,
+        RoundingMethods=19,
+        RoundingIntervals=20,
+        CriticalTimeTypes=18,
+        HeightTypes=21,
+        WeightTypes=22,
+        EmergencyRelationshipTypes=23,
+    }
