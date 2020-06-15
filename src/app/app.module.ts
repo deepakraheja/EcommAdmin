@@ -21,10 +21,7 @@ import { DatePipe } from '@angular/common';
 import { SafePipeModule } from 'safe-pipe';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AppFooterComponent } from './_layout/app-footer/app-footer.component';
-import { CountryStateCityComponent } from './shared/country-state-city/country-state-city.component';
 import { UnAuthComponent } from './un-auth/un-auth.component';
-import { VenueComponent } from './shared/venue/venue.component';
-import { ClientComponent } from './shared/client/client.component';
 import { ConfirmBoxComponent } from './confirm-box/confirm-box.component';
 
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -62,11 +59,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { MngVenueComponent } from './Records/mng-venue/mng-venue.component';
-import { VenueDetailsComponent } from './Records/venue-details/venue-details.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { MngClientComponent } from './Records/mng-client/mng-client.component';
-import { ClientDetailsComponent } from './Records/client-details/client-details.component';
 import { GlobalConstantsService } from './Service/global-constants.service';
 import { CategoryComponent } from './Admin/category/category.component';
 import { SubCategoryComponent } from './Admin/sub-category/sub-category.component';
@@ -84,18 +77,10 @@ import { SupplierComponent } from './Admin/supplier/supplier.component';
     AppFooterComponent,
     AppLayoutComponent,
     AdminLoginComponent,
-    MngClientComponent,
     AppSidebarComponent,
     ConfirmBoxComponent,
-    ClientDetailsComponent,
-    CountryStateCityComponent,
-    
     HomeComponent,
     UnAuthComponent,
-    MngVenueComponent,
-    VenueComponent,
-    VenueDetailsComponent,
-    ClientComponent,
     CategoryComponent,
     SubCategoryComponent,
     BrandComponent,
