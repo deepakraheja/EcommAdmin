@@ -478,7 +478,11 @@ export class ProductDetailComponent implements OnInit {
     this.previewUrl = val;
   }
 
+  ShowPopUpImage(val) {
+    this.PopUpPreviewUrl = val;
+  }
   Edit(element) {
+    this.images = [];
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [element.productSizeColorId],
       productId: [element.productId],
@@ -533,6 +537,7 @@ export class ProductDetailComponent implements OnInit {
     this.PopUpPreviewUrl = lst.productImg[0];
     const dialogRef = this.dialog.open(template, {
       width: '60vw',
+      height: '80vh',
       data: lst
     });
     dialogRef.disableClose = true;
