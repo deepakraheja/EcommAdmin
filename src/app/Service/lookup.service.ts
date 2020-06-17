@@ -22,4 +22,5 @@ export class LookupService {
       this._url + this._methodName, this._param
     );
   }
+  
 }

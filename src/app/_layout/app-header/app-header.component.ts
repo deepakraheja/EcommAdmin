@@ -12,7 +12,7 @@ import { GlobalConstantsService } from 'src/app/Service/global-constants.service
 export class AppHeaderComponent implements OnInit {
   menuname: string = "";
   public admin: boolean = false;
-  public record: boolean = false;
+  public product: boolean = false;
   public payroll: boolean = false;
   public report: boolean = false;
   menuIconClass: string = "";
@@ -40,21 +40,21 @@ export class AppHeaderComponent implements OnInit {
 
       this.admin = true;
       // this.payroll = false;
-      // this.record = false;
+      this.product = false;
       // this.report = false;
 
     }
-    // if (this._LocalStorage.getValueOnLocalStorage("Selected") == "2") {
-    //   this.menuname = "Records";
-    //   this.menuIconClass = "icon-stack material-blue-primary bg-white-icon bg-blue-icon";
-    //   this.materialprimary = "navbar navbar-expand-md navbar-dark material-blue-primary";
-    //   this.materialsecondary = "material-blue-secondary space-all";
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "2") {
+      this.menuname = "Product";
+      this.menuIconClass = "icon-stack material-blue-primary bg-white-icon bg-blue-icon";
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-blue-primary";
+      this.materialsecondary = "material-blue-secondary space-all";
 
-    //   this.record = true;
-    //   this.admin = false;
-    //   this.payroll = false;
-    //   this.report = false;
-    // }
+      this.product = true;
+      this.admin = false;
+      // this.payroll = false;
+      // this.report = false;
+    }
     // if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
     //   this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
     //   this.materialsecondary = "material-green-secondary space-all";

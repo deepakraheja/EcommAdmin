@@ -9,7 +9,7 @@
 
 
     <ul class="navbar-nav">
-        <li> <img src="assets\global_assets\images\CSC-logo4.png" class="logo-img"> <span class="CSC-heading"> <b>Company Name</b></span> </li>
+        <li> <img src="assets\images\logo.png" class="logo-img"> <span class="CSC-heading"> <b>VIKRAM CREATIONS PRIVATE LIMITED</b></span> </li>
 
     </ul>
     <div class="d-md-none">
@@ -37,9 +37,9 @@
                         class="fa-tachometer icon-users material-dark-grey-primary"></i>Dashboard</a>
                         <a href="Category" class="dropdown-item" (click)="ChangeName('1')"><i
                         class="icon-users material-yellow-primary"></i>Admin</a>
-                        <!-- <a href="mngEmp" class="dropdown-item" (click)="ChangeName('2')"><i
-                        class="icon-stack material-blue-primary"></i>Records</a>
-                        <a href="EmployeeTimeApproval" class="dropdown-item" (click)="ChangeName('3')"><i
+                        <a href="product" class="dropdown-item" (click)="ChangeName('2')"><i
+                        class="icon-stack material-blue-primary"></i>Product</a>
+                        <!-- <a href="EmployeeTimeApproval" class="dropdown-item" (click)="ChangeName('3')"><i
                         class="icon-cash material-green-primary"></i>
                     Payroll</a>
                         <a href="EmpSignInSignOut" class="dropdown-item" (click)="ChangeName('4')"><i
@@ -63,7 +63,7 @@
                         <span>Brand</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="product" class="nav-item ">
                     <a [routerLink]="'/product'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Product</span>
                     </a>
@@ -73,12 +73,12 @@
                         <span> Supplier</span>
                     </a>
                 </li>
-                <!--<li *ngIf="admin" class="nav-item ">
-                    <a [routerLink]="'/ManageRoles'" class="navbar-nav-link" routerLinkActive="active">
-                        <span> Role</span>
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/fabric'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Fabric</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <!--<li *ngIf="admin" class="nav-item ">
                     <a [routerLink]="'/modList'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Module</span>
                     </a>

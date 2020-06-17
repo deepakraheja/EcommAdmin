@@ -13,6 +13,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SupplierService } from 'src/app/Service/supplier.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { LookupService } from 'src/app/Service/lookup.service';
+import { FabricService } from 'src/app/Service/Fabric.service';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -26,6 +27,7 @@ export class ProductDetailComponent implements OnInit {
   lstCategory: any = [];
   lstSubCategory: any = [];
   lstSupplier: any = [];
+  lstFabric: any = [];
   ProductId: any;
   lstColor: any = [];
   images = [];
@@ -38,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
   showMask = false;
   NumberMask = null;
   lstData = [];
-  displayedColumns: string[] = ['productImg', 'qty', 'price', 'salePrice', 'availableSize', 'size', 'availableColors', 'color', 'discount', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['Upload', 'qty', 'price', 'salePrice', 'availableSize', 'size', 'availableColors', 'color', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   PopUpProductImg = [];
   public PopUpPreviewUrl: any;
@@ -55,7 +57,8 @@ export class ProductDetailComponent implements OnInit {
     private _productService: ProductService,
     private modalService: BsModalService,
     private _supplierService: SupplierService,
-    private _lookupService: LookupService
+    private _lookupService: LookupService,
+    private _FabricService: FabricService
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -88,7 +91,10 @@ export class ProductDetailComponent implements OnInit {
       bannerImg: ['', [Validators.required]],
       smallImg: ['', [Validators.required]],
       title: [''],
-      subTitle: ['']
+      subTitle: [''],
+      tagDesign: [''],
+      articalNo: [''],
+      fabricId: [''],
     });
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
@@ -128,7 +134,7 @@ export class ProductDetailComponent implements OnInit {
 
     this.LoadSupplier();
     this.LoadProductDetail();
-
+    this.LoadFabric();
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -189,6 +195,16 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  LoadFabric() {
+    let obj = {
+      IsActive: 1
+    }
+    this.spinner.show();
+    this._FabricService.GetFabric(obj).subscribe(res => {
+      this.lstFabric = res;
+    });
+  }
+
   LoadSubCategory(event: any) {
     debugger
     if (this.ProductForm.value.categoryID != "") {
@@ -241,9 +257,11 @@ export class ProductDetailComponent implements OnInit {
         active: [res[0].active],
         bannerImg: [res[0].bannerImg],
         smallImg: [res[0].smallImg, [Validators.required]],
-
         title: [res[0].title],
-        subTitle: [res[0].subTitle]
+        subTitle: [res[0].subTitle],
+        tagDesign: [res[0].tagDesign],
+        articalNo: [res[0].articalNo],
+        fabricId: [res[0].fabricId],
       });
       //bannerImg
       if (res[0].bannerImg == null)
@@ -307,7 +325,10 @@ export class ProductDetailComponent implements OnInit {
         bannerImg: this.ProductForm.value.bannerImg,
         smallImg: this.ProductForm.value.smallImg,
         title: this.ProductForm.value.title,
-        subTitle: this.ProductForm.value.subTitle
+        subTitle: this.ProductForm.value.subTitle,
+        tagDesign: this.ProductForm.value.tagDesign,
+        articalNo: this.ProductForm.value.articalNo,
+        fabricId: Number(this.ProductForm.value.fabricId)
       };
       this._productService.SaveProduct(obj).subscribe(res => {
         this.spinner.hide();
@@ -423,13 +444,13 @@ export class ProductDetailComponent implements OnInit {
         reader.onload = (event: any) => {
           debugger
           //console.log(event.target.result);
-          this.images.push(event.target.result);
-          this.previewUrl = event.target.result;
-          this.ProductDetailForm.updateValueAndValidity();
-          this.ProductDetailForm.patchValue({
-            productImg: this.images
-          });
-          this.ProductDetailForm.updateValueAndValidity();
+          this.PopUpProductImg.push(event.target.result);
+          this.PopUpPreviewUrl = event.target.result;
+          // this.ProductDetailForm.updateValueAndValidity();
+          // this.ProductDetailForm.patchValue({
+          //   productImg: this.images
+          // });
+          // this.ProductDetailForm.updateValueAndValidity();
         }
         reader.readAsDataURL(event.target.files[i]);
       }
@@ -463,11 +484,10 @@ export class ProductDetailComponent implements OnInit {
           this._toasterService.success("Image removed successfully.");
         }
         if (type == 'product') {
-          this.images.slice(index, 1);
-
-          const productImg = this.ProductDetailForm.value.productImg;
-          productImg.splice(index, 1);
-          this.ProductDetailForm.updateValueAndValidity();
+          this.PopUpProductImg.slice(index, 1);
+          // const productImg = this.ProductDetailForm.value.productImg;
+          // productImg.splice(index, 1);
+          // this.ProductDetailForm.updateValueAndValidity();
           this._toasterService.success("Image removed successfully.");
         }
       }

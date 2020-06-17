@@ -68,6 +68,7 @@ import { ProductComponent } from './Admin/product/product.component';
 import { ProductDetailComponent } from './Admin/product-detail/product-detail.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SupplierComponent } from './Admin/supplier/supplier.component';
+import { FabricComponent } from './Admin/fabric/fabric.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { SupplierComponent } from './Admin/supplier/supplier.component';
     ProductDetailComponent,
     ConfirmationComponent,
     SupplierComponent,
+    FabricComponent,
     
   ],
   imports: [
