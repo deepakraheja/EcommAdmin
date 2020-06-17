@@ -100,7 +100,7 @@
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Fabric / Material</mat-label>
                                                         <mat-select formControlName="fabricId">
-                                                            <!-- <mat-option value="">Select</mat-option> -->
+                                                            <mat-option value="0">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstFabric" [value]="row.fabricId">
                                                                 {{row.name}}
                                                             </mat-option>
@@ -141,7 +141,7 @@
                                             <mat-divider></mat-divider> -->
                                             <div class="col-md-12 text-center">
                                                 <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
-                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                                <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
                                             </div>
                                         </form>
                                     </div>
@@ -163,7 +163,7 @@
                                             </div>
                                             <div class="col-md-12 text-center">
                                                 <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
-                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                                <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
                                             </div>
                                         </form>
                                     </div>
@@ -193,7 +193,7 @@
                                             </div>
                                             <div class="col-md-12 text-center">
                                                 <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
-                                                <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                                <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
                                             </div>
                                         </form>
                                     </div>
@@ -277,7 +277,7 @@
 
                                                 <div class="col-md-6 mt-2 text-center">
 
-                                                    <button type="button" class="btn btn-success btn-lg" (click)="SaveProductDetails()">Save</button> &nbsp;
+                                                    <button type="button" class="btn btn-primary btn-lg" (click)="SaveProductDetails()">Save</button> &nbsp;
                                                     <button type="button" class="btn btn-secondary btn-lg" (click)="ResetProductDetails()">Reset</button> &nbsp;
                                                     <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button>
                                                 </div>
@@ -297,7 +297,7 @@
                                                             </td>
                                                         </ng-container> -->
                                                         <ng-container matColumnDef="Upload">
-                                                            <th mat-header-cell *matHeaderCellDef>Upload Images</th>
+                                                            <th mat-header-cell *matHeaderCellDef>Upload Img</th>
                                                             <td mat-cell *matCellDef="let element">
                                                                 <a href="javaScript:void(0);" (click)="OpenImagePopUp(templateImagesShow,element)">Upload</a>
                                                             </td>
@@ -415,7 +415,7 @@
                                         </div>
                                         <div class="col-md-12 mt-3 text-center">
                                             <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
-                                            <button type="button" class="btn btn-success btn-lg" (click)="Save()">Save</button> &nbsp;
+                                            <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
                                         </div>
                                     </div>
 
@@ -444,6 +444,7 @@
                             Product Images :
                             <label for="ProductImg" class="mi-file-upload mi-2x" style="color: blue;"> </label> &nbsp;
                             <input id="ProductImg" type="file" style="display: none;" (change)="UploadProductImages($event)" multiple="" />
+                            <br>
                             <div *ngFor='let url of PopUpProductImg; index as i;'>
                                 <img class="example-header-image" [src]="url" (click)="ShowPopUpImage(url);">
                                 <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
@@ -466,7 +467,8 @@
             </div>
         </form>
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions align="center">
+        <button mat-button class="btn btn-primary btn-lg" (click)="SaveProductColorSizeImages();">Save</button>
         <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
     </mat-dialog-actions>
 </ng-template>

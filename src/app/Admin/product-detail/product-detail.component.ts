@@ -43,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
   displayedColumns: string[] = ['Upload', 'qty', 'price', 'salePrice', 'availableSize', 'size', 'availableColors', 'color', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   PopUpProductImg = [];
+  public SelectedProductSizeColorId: Number = 0;
   public PopUpPreviewUrl: any;
   constructor(
     private formBuilder: FormBuilder,
@@ -125,7 +126,7 @@ export class ProductDetailComponent implements OnInit {
       lookupColorId: ['', Validators.required],
       discount: [''],
       discountAvailable: [false],
-      productImg: ['', [Validators.required]],
+      //productImg: ['', [Validators.required]],
     });
   }
   ngOnInit(): void {
@@ -150,7 +151,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadProductDetail() {
-
     this.spinner.show();
     let obj = {
       ProductId: this.ProductId
@@ -366,7 +366,7 @@ export class ProductDetailComponent implements OnInit {
         lookupColorId: Number(this.ProductDetailForm.value.lookupColorId),
         discount: this.ProductDetailForm.value.discount == "" ? 0 : Number(this.ProductDetailForm.value.discount),
         discountAvailable: this.ProductDetailForm.value.discountAvailable,
-        productImg: this.ProductDetailForm.value.productImg,
+        //productImg: this.ProductDetailForm.value.productImg,
         CreatedBy: Number(this.LoggedInUserId),
         // CreatedDate:this.ProductForm.value.productName],
         Modifiedby: Number(this.LoggedInUserId),
@@ -385,6 +385,19 @@ export class ProductDetailComponent implements OnInit {
         }
       });
     }
+  }
+
+  SaveProductColorSizeImages() {
+    let obj = {
+      ProductId: Number(this.ProductId),
+      ProductSizeColorId: this.SelectedProductSizeColorId,
+      productImg: this.PopUpProductImg
+    };
+    this.spinner.show();
+    this._productService.SaveProductSizeColorImages(obj).subscribe(res => {
+      this.spinner.hide();
+      this._toasterService.success("Images has been uploaded successfully.");
+    });
   }
 
   onBack() {
@@ -470,21 +483,24 @@ export class ProductDetailComponent implements OnInit {
         debugger
 
         if (type == 'banner') {
-          this.BannerImage.slice(index, 1);
+          this.BannerImage.splice(index, 1);
           const bannerImg = this.ProductForm.value.bannerImg;
           bannerImg.splice(index, 1);
           this.ProductForm.updateValueAndValidity();
           this._toasterService.success("Image removed successfully.");
         }
         if (type == 'small') {
-          this.SmallImage.slice(index, 1);
+          this.SmallImage.splice(index, 1);
           const smallImg = this.ProductForm.value.smallImg;
           smallImg.splice(index, 1);
           this.ProductForm.updateValueAndValidity();
           this._toasterService.success("Image removed successfully.");
         }
         if (type == 'product') {
-          this.PopUpProductImg.slice(index, 1);
+          debugger
+          //var ProductLst=this.PopUpProductImg;
+          this.PopUpProductImg.splice(index, 1);
+          //this.PopUpProductImg=ProductLst;
           // const productImg = this.ProductDetailForm.value.productImg;
           // productImg.splice(index, 1);
           // this.ProductDetailForm.updateValueAndValidity();
@@ -502,7 +518,7 @@ export class ProductDetailComponent implements OnInit {
     this.PopUpPreviewUrl = val;
   }
   Edit(element) {
-    this.images = [];
+    //this.images = [];
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [element.productSizeColorId],
       productId: [element.productId],
@@ -515,17 +531,17 @@ export class ProductDetailComponent implements OnInit {
       lookupColorId: [element.lookupColorId, Validators.required],
       discount: [element.discount],
       discountAvailable: [element.discountAvailable],
-      productImg: [element.productImg, [Validators.required]],
+      //productImg: [element.productImg, [Validators.required]],
     });
     //ProductImages
-    if (element.productImg == null)
-      this.previewUrl = null;
-    else {
-      //this.previewUrl = res[0].productImg[0];
-      for (let index = 0; index < element.productImg.length; index++) {
-        this.images.push(element.productImg[index]);
-      }
-    }
+    // if (element.productImg == null)
+    //   this.previewUrl = null;
+    // else {
+    //   //this.previewUrl = res[0].productImg[0];
+    //   for (let index = 0; index < element.productImg.length; index++) {
+    //     this.images.push(element.productImg[index]);
+    //   }
+    // }
   }
   Delete(element) {
     const initialState = {
@@ -553,6 +569,7 @@ export class ProductDetailComponent implements OnInit {
 
   OpenImagePopUp(template: TemplateRef<any>, lst) {
     debugger
+    this.SelectedProductSizeColorId = lst.productSizeColorId;
     this.PopUpProductImg = lst.productImg;
     this.PopUpPreviewUrl = lst.productImg[0];
     const dialogRef = this.dialog.open(template, {
@@ -562,7 +579,8 @@ export class ProductDetailComponent implements OnInit {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
+      this.SelectedProductSizeColorId = 0;
+      this.LoadProductDetail();
     });
   }
 }

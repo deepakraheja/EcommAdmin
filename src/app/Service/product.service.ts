@@ -45,7 +45,13 @@ export class ProductService {
       this._url + this._methodName, this._param
     );
   }
-
+  SaveProductSizeColorImages(_obj: any): Observable<any> {
+    this._methodName = "SaveProductSizeColorImages/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
   GetProductSizeColorById(_obj: any): Observable<any> {
     this._methodName = "GetProductSizeColorById/";
     this._param = _obj;
