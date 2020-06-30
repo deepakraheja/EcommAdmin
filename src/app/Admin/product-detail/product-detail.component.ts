@@ -14,6 +14,7 @@ import { SupplierService } from 'src/app/Service/supplier.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { LookupService } from 'src/app/Service/lookup.service';
 import { FabricService } from 'src/app/Service/Fabric.service';
+import { TagService } from 'src/app/Service/tag.service';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -22,12 +23,15 @@ import { FabricService } from 'src/app/Service/Fabric.service';
 export class ProductDetailComponent implements OnInit {
   ProductForm: FormGroup;
   ProductDetailForm: FormGroup;
+  EditProductDetailForm: FormGroup;
   LoggedInUserId: string;
   lstBrand: any = [];
   lstCategory: any = [];
   lstSubCategory: any = [];
   lstSupplier: any = [];
+  lstTag: any = [];
   lstFabric: any = [];
+  lstFabricType: any = [];
   ProductId: any;
   lstColor: any = [];
   images = [];
@@ -59,7 +63,8 @@ export class ProductDetailComponent implements OnInit {
     private modalService: BsModalService,
     private _supplierService: SupplierService,
     private _lookupService: LookupService,
-    private _FabricService: FabricService
+    private _FabricService: FabricService,
+    private _TagService: TagService
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -89,27 +94,44 @@ export class ProductDetailComponent implements OnInit {
       topSelling: [false],
       hotOffer: [false],
       active: [false],
-      bannerImg: ['', [Validators.required]],
+      bannerImg: [''],
       smallImg: ['', [Validators.required]],
       title: [''],
       subTitle: [''],
-      tagDesign: [''],
+      tagId: ['0'],
       articalNo: [''],
-      fabricId: [''],
+      fabricId: ['0'],
+      fabricTypeId: ['0']
     });
+
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
       productId: [this.ProductId],
-      qty: ['', Validators.required],
-      price: ['', Validators.required],
-      salePrice: ['', Validators.required],
+      // qty: [''],
+      // price: [''],
+      // salePrice: [''],
+      // availableSize: [false],
+      // availableColors: [false],
+      arraySize: ['', Validators.required],
+      arrayColor: ['', Validators.required],
+      // discount: [''],
+      // discountAvailable: [false],
+      //productImg: ['', [Validators.required]],
+    });
+
+    this.EditProductDetailForm = this.formBuilder.group({
+      productSizeColorId: [0],
+      productId: [this.ProductId],
+      qty: [''],
+      price: [''],
+      salePrice: [''],
       availableSize: [false],
       availableColors: [false],
       size: ['', Validators.required],
       lookupColorId: ['', Validators.required],
       discount: [''],
       discountAvailable: [false],
-      productImg: ['', [Validators.required]],
+      //productImg: ['', [Validators.required]],
     });
 
   }
@@ -117,15 +139,15 @@ export class ProductDetailComponent implements OnInit {
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
       productId: [this.ProductId],
-      qty: ['', Validators.required],
-      price: ['', Validators.required],
-      salePrice: ['', Validators.required],
-      availableSize: [false],
-      availableColors: [false],
-      size: ['', Validators.required],
-      lookupColorId: ['', Validators.required],
-      discount: [''],
-      discountAvailable: [false],
+      // qty: [''],
+      // price: [''],
+      // salePrice: [''],
+      // availableSize: [false],
+      // availableColors: [false],
+      arraySize: ['', Validators.required],
+      arrayColor: ['', Validators.required],
+      // discount: [''],
+      // discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
   }
@@ -135,7 +157,9 @@ export class ProductDetailComponent implements OnInit {
 
     this.LoadSupplier();
     this.LoadProductDetail();
+    this.LoadTag();
     this.LoadFabric();
+
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -143,6 +167,7 @@ export class ProductDetailComponent implements OnInit {
   }
   get f() { return this.ProductForm.controls; }
   get f1() { return this.ProductDetailForm.controls; }
+  get f2() { return this.EditProductDetailForm.controls; }
 
   addMask(obj: Object) {
     this.DecimalMask = "0*.00";
@@ -157,6 +182,7 @@ export class ProductDetailComponent implements OnInit {
     };
     this._productService.GetProductSizeColorById(obj).subscribe(res => {
       this.spinner.hide();
+      this.lstData = res;
       this.dataSource = new MatTableDataSource<any>(res);
     });
   }
@@ -195,6 +221,16 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  LoadTag() {
+    let obj = {
+      Active: 1
+    }
+    this.spinner.show();
+    this._TagService.GetTag(obj).subscribe(res => {
+      this.lstTag = res;
+    });
+  }
+
   LoadFabric() {
     let obj = {
       IsActive: 1
@@ -203,6 +239,25 @@ export class ProductDetailComponent implements OnInit {
     this._FabricService.GetFabric(obj).subscribe(res => {
       this.lstFabric = res;
     });
+  }
+
+  LoadFabricType(event: any) {
+    debugger
+    if (this.ProductForm.value.fabricId != "") {
+      let obj = {
+        FabricId: Number(this.ProductForm.value.fabricId),
+        Active: 1
+      }
+      this.spinner.show();
+      this._FabricService.GetAllFabricType(obj).subscribe(res => {
+        this.spinner.hide();
+        this.lstFabricType = res;
+      });
+    }
+    else {
+      this.lstFabricType = [];
+      this.spinner.hide();
+    }
   }
 
   LoadSubCategory(event: any) {
@@ -259,9 +314,10 @@ export class ProductDetailComponent implements OnInit {
         smallImg: [res[0].smallImg, [Validators.required]],
         title: [res[0].title],
         subTitle: [res[0].subTitle],
-        tagDesign: [res[0].tagDesign],
+        tagId: [res[0].tagId],
         articalNo: [res[0].articalNo],
         fabricId: [res[0].fabricId],
+        fabricTypeId: [res[0].fabricTypeId]
       });
       //bannerImg
       if (res[0].bannerImg == null)
@@ -291,6 +347,7 @@ export class ProductDetailComponent implements OnInit {
       //   }
       // }
       this.LoadSubCategory("");
+      this.LoadFabricType("");
     });
   }
 
@@ -326,9 +383,10 @@ export class ProductDetailComponent implements OnInit {
         smallImg: this.ProductForm.value.smallImg,
         title: this.ProductForm.value.title,
         subTitle: this.ProductForm.value.subTitle,
-        tagDesign: this.ProductForm.value.tagDesign,
+        tagId: Number(this.ProductForm.value.tagId),
         articalNo: this.ProductForm.value.articalNo,
-        fabricId: Number(this.ProductForm.value.fabricId)
+        fabricId: Number(this.ProductForm.value.fabricId),
+        fabricTypeId: Number(this.ProductForm.value.fabricTypeId)
       };
       this._productService.SaveProduct(obj).subscribe(res => {
         this.spinner.hide();
@@ -357,16 +415,16 @@ export class ProductDetailComponent implements OnInit {
       let obj = {
         productSizeColorId: Number(this.ProductDetailForm.value.productSizeColorId),
         productId: Number(this.ProductId),
-        qty: Number(this.ProductDetailForm.value.qty),
-        price: Number(this.ProductDetailForm.value.price),
-        salePrice: Number(this.ProductDetailForm.value.salePrice),
-        availableSize: this.ProductDetailForm.value.availableSize,
-        availableColors: this.ProductDetailForm.value.availableColors,
-        size: this.ProductDetailForm.value.size,
-        lookupColorId: Number(this.ProductDetailForm.value.lookupColorId),
-        discount: this.ProductDetailForm.value.discount == "" ? 0 : Number(this.ProductDetailForm.value.discount),
-        discountAvailable: this.ProductDetailForm.value.discountAvailable,
-        //productImg: this.ProductDetailForm.value.productImg,
+        // qty: Number(this.EditProductDetailForm.value.qty),
+        // price: Number(this.EditProductDetailForm.value.price),
+        // salePrice: Number(this.EditProductDetailForm.value.salePrice),
+        // availableSize: this.EditProductDetailForm.value.availableSize,
+        // availableColors: this.EditProductDetailForm.value.availableColors,
+        arraySize: this.ProductDetailForm.value.arraySize,
+        arrayColor: this.ProductDetailForm.value.arrayColor,
+        // discount: this.EditProductDetailForm.value.discount == "" ? 0 : Number(this.EditProductDetailForm.value.discount),
+        // discountAvailable: this.EditProductDetailForm.value.discountAvailable,
+        // productImg: this.EditProductDetailForm.value.productImg,
         CreatedBy: Number(this.LoggedInUserId),
         // CreatedDate:this.ProductForm.value.productName],
         Modifiedby: Number(this.LoggedInUserId),
@@ -378,6 +436,46 @@ export class ProductDetailComponent implements OnInit {
           this.images = [];
           this.LoadProductDetail();
           this.ResetProductDetails();
+          this._toasterService.success("Record has been saved successfully.");
+        }
+        else {
+          this._toasterService.error("Server error, Please try again after some time.");
+        }
+      });
+    }
+  }
+
+  UpdateProductDetails() {
+    this.submitted = true;
+    debugger
+    if (this.EditProductDetailForm.invalid) {
+      this.EditProductDetailForm.markAllAsTouched();
+      this._toasterService.error("All the * marked fields are mandatory");
+      return;
+    }
+    else {
+      this.spinner.show();
+      let obj = {
+        productSizeColorId: Number(this.EditProductDetailForm.value.productSizeColorId),
+        productId: Number(this.ProductId),
+        qty: Number(this.EditProductDetailForm.value.qty),
+        price: Number(this.EditProductDetailForm.value.price),
+        salePrice: Number(this.EditProductDetailForm.value.salePrice),
+        availableSize: this.EditProductDetailForm.value.availableSize,
+        availableColors: this.EditProductDetailForm.value.availableColors,
+        size: this.EditProductDetailForm.value.size,
+        lookupColorId: Number(this.EditProductDetailForm.value.lookupColorId),
+        discount: this.EditProductDetailForm.value.discount == "" ? 0 : Number(this.EditProductDetailForm.value.discount),
+        discountAvailable: this.EditProductDetailForm.value.discountAvailable,
+        CreatedBy: Number(this.LoggedInUserId),
+        Modifiedby: Number(this.LoggedInUserId),
+      };
+      this._productService.SaveProductSizeColor(obj).subscribe(res => {
+        this.spinner.hide();
+        if (res > 0) {
+          this.images = [];
+          this.LoadProductDetail();
+          //this.ResetProductDetails();
           this._toasterService.success("Record has been saved successfully.");
         }
         else {
@@ -459,11 +557,11 @@ export class ProductDetailComponent implements OnInit {
           //console.log(event.target.result);
           this.PopUpProductImg.push(event.target.result);
           this.PopUpPreviewUrl = event.target.result;
-          // this.ProductDetailForm.updateValueAndValidity();
-          // this.ProductDetailForm.patchValue({
+          // this.EditProductDetailForm.updateValueAndValidity();
+          // this.EditProductDetailForm.patchValue({
           //   productImg: this.images
           // });
-          // this.ProductDetailForm.updateValueAndValidity();
+          // this.EditProductDetailForm.updateValueAndValidity();
         }
         reader.readAsDataURL(event.target.files[i]);
       }
@@ -501,9 +599,9 @@ export class ProductDetailComponent implements OnInit {
           //var ProductLst=this.PopUpProductImg;
           this.PopUpProductImg.splice(index, 1);
           //this.PopUpProductImg=ProductLst;
-          // const productImg = this.ProductDetailForm.value.productImg;
+          // const productImg = this.EditProductDetailForm.value.productImg;
           // productImg.splice(index, 1);
-          // this.ProductDetailForm.updateValueAndValidity();
+          // this.EditProductDetailForm.updateValueAndValidity();
           this._toasterService.success("Image removed successfully.");
         }
       }
@@ -518,8 +616,13 @@ export class ProductDetailComponent implements OnInit {
     this.PopUpPreviewUrl = val;
   }
   Edit(element) {
+    debugger
     //this.images = [];
-    this.ProductDetailForm = this.formBuilder.group({
+    this.lstData.forEach(element => {
+      element.isEdit = false;
+    });
+    element.isEdit = true;
+    this.EditProductDetailForm = this.formBuilder.group({
       productSizeColorId: [element.productSizeColorId],
       productId: [element.productId],
       qty: [element.qty, Validators.required],
@@ -533,15 +636,13 @@ export class ProductDetailComponent implements OnInit {
       discountAvailable: [element.discountAvailable],
       //productImg: [element.productImg, [Validators.required]],
     });
-    //ProductImages
-    // if (element.productImg == null)
-    //   this.previewUrl = null;
-    // else {
-    //   //this.previewUrl = res[0].productImg[0];
-    //   for (let index = 0; index < element.productImg.length; index++) {
-    //     this.images.push(element.productImg[index]);
-    //   }
-    // }
+
+  }
+  Update(element) {
+
+  }
+  Close(element) {
+    element.isEdit = false;
   }
   Delete(element) {
     const initialState = {

@@ -69,6 +69,8 @@ import { ProductDetailComponent } from './Admin/product-detail/product-detail.co
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SupplierComponent } from './Admin/supplier/supplier.component';
 import { FabricComponent } from './Admin/fabric/fabric.component';
+import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
+import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { FabricComponent } from './Admin/fabric/fabric.component';
     ConfirmationComponent,
     SupplierComponent,
     FabricComponent,
+    FabricTypeComponent,
+    TagMasterComponent,
     
   ],
   imports: [

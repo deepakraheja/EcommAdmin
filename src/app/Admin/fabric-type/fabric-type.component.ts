@@ -5,36 +5,36 @@ import { LocalStorageService } from 'src/app/Service/local-storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from 'src/app/Service/category.service';
+import { FabricService } from 'src/app/Service/fabric.service';
 
 @Component({
-  selector: 'app-sub-category',
-  templateUrl: './sub-category.component.html',
-  styleUrls: ['./sub-category.component.css']
+  selector: 'app-fabric-type',
+  templateUrl: './fabric-type.component.html',
+  styleUrls: ['./fabric-type.component.css']
 })
-export class SubCategoryComponent implements OnInit {
-  CategoryForm: FormGroup;
+export class FabricTypeComponent implements OnInit {
+  FabricTypeForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['name', 'description', 'active', 'Edit'];
+  displayedColumns: string[] = ['fabricType', 'description', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
-  lstCategory: any;
+  lstFabric: any;
   title: string = "Add Module";
-  SelectcategoryID = new FormControl('1');
+  SelectfabricId = new FormControl('1');
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private _toasterService: ToastrService,
-    private _CategoryService: CategoryService
+    private _FabricService: FabricService,
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
-    this.CategoryForm = this.formBuilder.group({
-      subCategoryID: [0],
-      categoryID: [0, Validators.required],
-      name: ['', Validators.required],
+    this.FabricTypeForm = this.formBuilder.group({
+      fabricTypeId: [0],
+      fabricId: ['', Validators.required],
+      fabricType: ['', Validators.required],
       description: [''],
       active: [false],
       createdBy: Number(this.LoggedInUserId)
@@ -43,7 +43,7 @@ export class SubCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fnGetCategory();
+    this.fnGetFabric();
   }
 
   applyFilter(event: Event) {
@@ -52,42 +52,42 @@ export class SubCategoryComponent implements OnInit {
   }
 
 
-  fnGetCategory() {
+  fnGetFabric() {
     let obj =
       {}
     this.spinner.show();
-    this._CategoryService.GetAllCategory(obj)
+    this._FabricService.GetAllFabric(obj)
       .subscribe(res => {
 
-        this.lstCategory = res
+        this.lstFabric = res
         this.spinner.hide();
       });
   }
 
   LoadData(event: any) {
     let obj = {
-      categoryID: Number(this.SelectcategoryID.value),
+      fabricId: Number(this.SelectfabricId.value),
       Active: 1
     }
     this.spinner.show();
-    this._CategoryService.GetAllSubCategory(obj).subscribe(res => {
+    this._FabricService.GetAllFabricType(obj).subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
     });
   }
 
   onAddNew(template: TemplateRef<any>, lst) {
-    this.CategoryForm = this.formBuilder.group({
-      subCategoryID: [0],
-      categoryID: [0, Validators.required],
-      name: ['', Validators.required],
+    this.FabricTypeForm = this.formBuilder.group({
+      fabricTypeId: [0],
+      fabricId: ['', Validators.required],
+      fabricType: ['', Validators.required],
       description: [''],
       active: [false],
       createdBy: Number(this.LoggedInUserId)
     });
     const dialogRef = this.dialog.open(template, {
       width: '500px',
-      data: this.CategoryForm
+      data: this.FabricTypeForm
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
@@ -97,17 +97,17 @@ export class SubCategoryComponent implements OnInit {
 
   Edit(template: TemplateRef<any>, lst) {
     debugger
-    this.CategoryForm = this.formBuilder.group({
-      subCategoryID: [lst.subCategoryID],
-      categoryID: [lst.categoryID, Validators.required],
-      name: [lst.name, Validators.required],
+    this.FabricTypeForm = this.formBuilder.group({
+      fabricTypeId: [lst.fabricTypeId],
+      fabricId: [lst.fabricId, Validators.required],
+      fabricType: [lst.fabricType, Validators.required],
       description: [lst.description],
       active: [lst.active],
       createdBy: Number(this.LoggedInUserId)
     });
     const dialogRef = this.dialog.open(template, {
       width: '500px',
-      data: this.CategoryForm
+      data: this.FabricTypeForm
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
@@ -116,8 +116,8 @@ export class SubCategoryComponent implements OnInit {
   }
 
   Save() {
-    if (this.CategoryForm.invalid) {
-      this.CategoryForm.markAllAsTouched();
+    if (this.FabricTypeForm.invalid) {
+      this.FabricTypeForm.markAllAsTouched();
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
@@ -126,7 +126,7 @@ export class SubCategoryComponent implements OnInit {
       // let obj = {
 
       // };
-      this._CategoryService.SaveSubCategory(this.CategoryForm.value).subscribe(res => {
+      this._FabricService.SaveFabricType(this.FabricTypeForm.value).subscribe(res => {
         this.spinner.hide();
         if (res > 0) {
           this._toasterService.success("Record has been saved successfully.");
@@ -134,7 +134,7 @@ export class SubCategoryComponent implements OnInit {
           this.LoadData("");
         }
         else if (res == -1) {
-          this._toasterService.error("Sub-Category name already exists.");
+          this._toasterService.error("Fabric Type fabricType already exists.");
         }
         else {
           this._toasterService.error("Server error, Please try again after some time.");
@@ -143,4 +143,5 @@ export class SubCategoryComponent implements OnInit {
     }
   }
 }
+
 

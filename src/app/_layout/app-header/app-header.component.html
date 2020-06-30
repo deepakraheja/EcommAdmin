@@ -78,17 +78,17 @@
                         <span> Fabric</span>
                     </a>
                 </li>
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/fabricType'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Fabric Type</span>
+                    </a>
+                </li>
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/tagMaster'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Tag Design</span>
+                    </a>
+                </li>
                 <!--<li *ngIf="admin" class="nav-item ">
-                    <a [routerLink]="'/modList'" class="navbar-nav-link" routerLinkActive="active">
-                        <span> Module</span>
-                    </a>
-                </li>
-                <li *ngIf="admin" class="nav-item ">
-                    <a [routerLink]="'/roleList'" class="navbar-nav-link" routerLinkActive="active">
-                        <span> System Role</span>
-                    </a>
-                </li>
-                <li *ngIf="admin" class="nav-item ">
                     <a [routerLink]="'/funcList'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Functions</span>
                     </a>

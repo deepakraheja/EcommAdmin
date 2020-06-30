@@ -13,6 +13,8 @@ import { ProductComponent } from './Admin/product/product.component';
 import { ProductDetailComponent } from './Admin/product-detail/product-detail.component';
 import { SupplierComponent } from './Admin/supplier/supplier.component';
 import { FabricComponent } from './Admin/fabric/fabric.component';
+import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
+import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 
 
 const routes: Routes = [
@@ -30,7 +32,9 @@ const routes: Routes = [
       { path: 'productdetail', component: ProductDetailComponent },
       { path: 'productdetail/:productId', component: ProductDetailComponent },
       { path: 'supplier', component: SupplierComponent },
-      { path: 'fabric', component: FabricComponent }
+      { path: 'fabric', component: FabricComponent },
+      { path: 'fabricType', component: FabricTypeComponent },
+      { path: 'tagMaster', component: TagMasterComponent }
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

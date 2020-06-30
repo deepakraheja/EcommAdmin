@@ -39,4 +39,29 @@ export class FabricService {
       this._url + this._methodName, this._param
     );
   }
+
+  /// LookupFabricType
+  GetFabricType(_obj: any): Observable<any> {
+    this._methodName = "GetFabricType/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  GetAllFabricType(_obj: any): Observable<any> {
+    this._methodName = "GetAllFabricType/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  SaveFabricType(_obj: any): Observable<any> {
+    this._methodName = "SaveFabricType/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
 }

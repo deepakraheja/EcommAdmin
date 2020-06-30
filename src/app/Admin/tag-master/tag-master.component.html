@@ -7,7 +7,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
+                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateTag,'');" class="btn btn-warning btn-lg">Add New
                                 </button></div>
                     </div>
 
@@ -26,9 +26,9 @@
                         <div class="col-md-12" style="height: 400px; overflow: auto;">
                             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
 
-                                <ng-container matColumnDef="categoryName">
-                                    <th mat-header-cell *matHeaderCellDef>Category Name</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+                                <ng-container matColumnDef="tagName">
+                                    <th mat-header-cell *matHeaderCellDef>Tag Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tagName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="description">
                                     <th mat-header-cell *matHeaderCellDef>Description</th>
@@ -43,7 +43,7 @@
                                 <ng-container matColumnDef="Edit">
                                     <th mat-header-cell *matHeaderCellDef> Edit </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a href="javaScript:void(0);" (click)="Edit(templateCategory,element)">
+                                        <a href="javaScript:void(0);" (click)="Edit(templateTag,element)">
                                             <i class="icon-pencil mr-2" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -65,9 +65,9 @@
     </div>
 </div>
 
-<ng-template #templateCategory>
+<ng-template #templateTag>
     <div class="col-md-12 add-info-head modal-text-heading">
-        <h2 mat-dialog-title>Add / Edit Category</h2>
+        <h2 mat-dialog-title>Add / Edit Tag</h2>
 
         <div class="header-elements">
             <div class="list-icons" style="color: red;">
@@ -76,13 +76,13 @@
         </div>
     </div>
     <mat-dialog-content class="mat-typography">
-        <form [formGroup]="CategoryForm" class="w-100">
+        <form [formGroup]="TagForm" class="w-100">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field appearance="outline">
-                            <mat-label>Category Name <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="categoryName" maxlength="50">
+                            <mat-label>Tag Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="tagName" maxlength="50">
                         </mat-form-field>
                     </div>
                     <div class="col-md-2 mt-2">
