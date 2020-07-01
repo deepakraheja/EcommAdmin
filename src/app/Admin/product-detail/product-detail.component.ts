@@ -44,7 +44,7 @@ export class ProductDetailComponent implements OnInit {
   showMask = false;
   NumberMask = null;
   lstData = [];
-  displayedColumns: string[] = ['Upload', 'qty', 'price', 'salePrice', 'availableSize', 'size', 'availableColors', 'color', 'discount', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['Upload', 'color', 'size', 'qty', 'price', 'salePrice', 'availableSize', 'availableColors', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   PopUpProductImg = [];
   public SelectedProductSizeColorId: Number = 0;
@@ -108,8 +108,8 @@ export class ProductDetailComponent implements OnInit {
       productSizeColorId: [0],
       productId: [this.ProductId],
       // qty: [''],
-      // price: [''],
-      // salePrice: [''],
+      price: ['', Validators.required],
+      salePrice: ['', Validators.required],
       // availableSize: [false],
       // availableColors: [false],
       arraySize: ['', Validators.required],
@@ -140,8 +140,8 @@ export class ProductDetailComponent implements OnInit {
       productSizeColorId: [0],
       productId: [this.ProductId],
       // qty: [''],
-      // price: [''],
-      // salePrice: [''],
+      price: ['', Validators.required],
+      salePrice: ['', Validators.required],
       // availableSize: [false],
       // availableColors: [false],
       arraySize: ['', Validators.required],
@@ -415,16 +415,16 @@ export class ProductDetailComponent implements OnInit {
       let obj = {
         productSizeColorId: Number(this.ProductDetailForm.value.productSizeColorId),
         productId: Number(this.ProductId),
-        // qty: Number(this.EditProductDetailForm.value.qty),
-        // price: Number(this.EditProductDetailForm.value.price),
-        // salePrice: Number(this.EditProductDetailForm.value.salePrice),
-        // availableSize: this.EditProductDetailForm.value.availableSize,
-        // availableColors: this.EditProductDetailForm.value.availableColors,
+        // qty: Number(this.ProductDetailForm.value.qty),
+        price: Number(this.ProductDetailForm.value.price),
+        salePrice: Number(this.ProductDetailForm.value.salePrice),
+        // availableSize: this.ProductDetailForm.value.availableSize,
+        // availableColors: this.ProductDetailForm.value.availableColors,
         arraySize: this.ProductDetailForm.value.arraySize,
         arrayColor: this.ProductDetailForm.value.arrayColor,
-        // discount: this.EditProductDetailForm.value.discount == "" ? 0 : Number(this.EditProductDetailForm.value.discount),
-        // discountAvailable: this.EditProductDetailForm.value.discountAvailable,
-        // productImg: this.EditProductDetailForm.value.productImg,
+        // discount: this.ProductDetailForm.value.discount == "" ? 0 : Number(this.ProductDetailForm.value.discount),
+        // discountAvailable: this.ProductDetailForm.value.discountAvailable,
+        // productImg: this.ProductDetailForm.value.productImg,
         CreatedBy: Number(this.LoggedInUserId),
         // CreatedDate:this.ProductForm.value.productName],
         Modifiedby: Number(this.LoggedInUserId),
