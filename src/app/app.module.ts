@@ -71,6 +71,7 @@ import { SupplierComponent } from './Admin/supplier/supplier.component';
 import { FabricComponent } from './Admin/fabric/fabric.component';
 import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
+import { OrderComponent } from './Admin/order/order.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
     FabricComponent,
     FabricTypeComponent,
     TagMasterComponent,
+    OrderComponent,
     
   ],
   imports: [

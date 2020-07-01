@@ -15,6 +15,7 @@ import { SupplierComponent } from './Admin/supplier/supplier.component';
 import { FabricComponent } from './Admin/fabric/fabric.component';
 import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
+import { OrderComponent } from './Admin/order/order.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
       { path: 'supplier', component: SupplierComponent },
       { path: 'fabric', component: FabricComponent },
       { path: 'fabricType', component: FabricTypeComponent },
-      { path: 'tagMaster', component: TagMasterComponent }
+      { path: 'tagMaster', component: TagMasterComponent },
+      { path: 'order', component: OrderComponent }
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

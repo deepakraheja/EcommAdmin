@@ -7,13 +7,13 @@ import { GlobalConstantsService } from 'src/app/Service/global-constants.service
   selector: 'app-header',
   templateUrl: './app-header.component.html',
   styleUrls: ['./app-header.component.css'],
-  providers:[GlobalConstantsService]
+  providers: [GlobalConstantsService]
 })
 export class AppHeaderComponent implements OnInit {
   menuname: string = "";
   public admin: boolean = false;
   public product: boolean = false;
-  public payroll: boolean = false;
+  public order: boolean = false;
   public report: boolean = false;
   menuIconClass: string = "";
 
@@ -39,7 +39,7 @@ export class AppHeaderComponent implements OnInit {
       this.materialsecondary = "material-yellow-secondary space-all";
 
       this.admin = true;
-      // this.payroll = false;
+      this.order = false;
       this.product = false;
       // this.report = false;
 
@@ -52,20 +52,20 @@ export class AppHeaderComponent implements OnInit {
 
       this.product = true;
       this.admin = false;
-      // this.payroll = false;
+      this.order = false;
       // this.report = false;
     }
-    // if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
-    //   this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
-    //   this.materialsecondary = "material-green-secondary space-all";
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
+      this.materialsecondary = "material-green-secondary space-all";
 
-    //   this.payroll = true;
-    //   this.admin = false;
-    //   this.record = false;
-    //   this.report = false;
-    //   this.menuname = "Payroll";
-    //   this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
-    // }
+      this.order = true;
+      this.admin = false;
+      this.product = false;
+      //this.report = false;
+      this.menuname = "Order";
+      this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
+    }
     // if (this._LocalStorage.getValueOnLocalStorage("Selected") == "4") {
     //   this.materialprimary = "navbar navbar-expand-md navbar-dark material-blue-primary";
     //   this.materialsecondary = "material-blue-secondary space-all";
