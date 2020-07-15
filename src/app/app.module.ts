@@ -72,6 +72,7 @@ import { FabricComponent } from './Admin/fabric/fabric.component';
 import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
+import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { OrderComponent } from './Admin/order/order.component';
     FabricTypeComponent,
     TagMasterComponent,
     OrderComponent,
+    MainCategoryComponent,
     
   ],
   imports: [

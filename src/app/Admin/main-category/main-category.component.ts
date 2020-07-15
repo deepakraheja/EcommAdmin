@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from 'src/app/Service/local-storage.service';
@@ -9,19 +9,18 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/Service/category.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-main-category',
+  templateUrl: './main-category.component.html',
+  styleUrls: ['./main-category.component.css']
 })
-export class CategoryComponent implements OnInit {
-  CategoryForm: FormGroup;
+export class MainCategoryComponent implements OnInit {
+  MainCategoryForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['categoryName', 'description', 'active', 'Edit'];
+  displayedColumns: string[] = ['mainCategoryName', 'description', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
-  SelectMainCategoryID = new FormControl('1');
-  lstMainCategory: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -31,19 +30,17 @@ export class CategoryComponent implements OnInit {
     private _CategoryService: CategoryService
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
-    this.CategoryForm = this.formBuilder.group({
-      categoryID: [0],
-      mainCategoryID: [0, Validators.required],
-      categoryName: ['', Validators.required],
+    this.MainCategoryForm = this.formBuilder.group({
+      mainCategoryID: [0],
+      mainCategoryName: ['', Validators.required],
       description: [''],
       active: [false],
       createdBy: Number(this.LoggedInUserId)
     });
-    this.LoadData("");
+    this.LoadData();
   }
 
   ngOnInit(): void {
-    this.fnGetMainCategory();
   }
 
   applyFilter(event: Event) {
@@ -51,42 +48,28 @@ export class CategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  fnGetMainCategory() {
-    let obj =
-      {}
-    this.spinner.show();
-    this._CategoryService.GetAllMainCategory(obj)
-      .subscribe(res => {
-
-        this.lstMainCategory = res
-        this.spinner.hide();
-      });
-  }
-
-  LoadData(event: any) {
+  LoadData() {
     let obj = {
-      mainCategoryID: Number(this.SelectMainCategoryID.value),
       Active: 1
     }
     this.spinner.show();
-    this._CategoryService.GetAllCategory(obj).subscribe(res => {
+    this._CategoryService.GetAllMainCategory(obj).subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
     });
   }
 
   onAddNew(template: TemplateRef<any>, lst) {
-    this.CategoryForm = this.formBuilder.group({
-      categoryID: [0],
-      mainCategoryID: [0, Validators.required],
-      categoryName: ['', Validators.required],
+    this.MainCategoryForm = this.formBuilder.group({
+      mainCategoryID: [0],
+      mainCategoryName: ['', Validators.required],
       description: [''],
       active: [false],
       createdBy: Number(this.LoggedInUserId)
     });
     const dialogRef = this.dialog.open(template, {
       width: '500px',
-      data: this.CategoryForm
+      data: this.MainCategoryForm
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
@@ -96,17 +79,16 @@ export class CategoryComponent implements OnInit {
 
   Edit(template: TemplateRef<any>, lst) {
     debugger
-    this.CategoryForm = this.formBuilder.group({
-      categoryID: [lst.categoryID],
-      mainCategoryID: [lst.mainCategoryID, Validators.required],
-      categoryName: [lst.categoryName, Validators.required],
+    this.MainCategoryForm = this.formBuilder.group({
+      mainCategoryID: [lst.mainCategoryID],
+      mainCategoryName: [lst.mainCategoryName, Validators.required],
       description: [lst.description],
       active: [lst.active],
       createdBy: Number(this.LoggedInUserId)
     });
     const dialogRef = this.dialog.open(template, {
       width: '500px',
-      data: this.CategoryForm
+      data: this.MainCategoryForm
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
@@ -115,8 +97,8 @@ export class CategoryComponent implements OnInit {
   }
 
   Save() {
-    if (this.CategoryForm.invalid) {
-      this.CategoryForm.markAllAsTouched();
+    if (this.MainCategoryForm.invalid) {
+      this.MainCategoryForm.markAllAsTouched();
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
@@ -125,15 +107,15 @@ export class CategoryComponent implements OnInit {
       // let obj = {
 
       // };
-      this._CategoryService.SaveCategory(this.CategoryForm.value).subscribe(res => {
+      this._CategoryService.SaveMainCategory(this.MainCategoryForm.value).subscribe(res => {
         this.spinner.hide();
         if (res > 0) {
           this._toasterService.success("Record has been saved successfully.");
           this.dialog.closeAll();
-          this.LoadData("");
+          this.LoadData();
         }
         else if (res == -1) {
-          this._toasterService.error("Category name already exists.");
+          this._toasterService.error("Main Category name already exists.");
         }
         else {
           this._toasterService.error("Server error, Please try again after some time.");
@@ -142,4 +124,5 @@ export class CategoryComponent implements OnInit {
     }
   }
 }
+
 

@@ -14,6 +14,30 @@ export class CategoryService {
   private _param: {};
   constructor(private _http: HttpClient) { }
 
+  GetMainCategory(_obj: any): Observable<any> {
+    this._methodName = "GetMainCategory/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  GetAllMainCategory(_obj: any): Observable<any> {
+    this._methodName = "GetAllMainCategory/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  SaveMainCategory(_obj: any): Observable<any> {
+    this._methodName = "SaveMainCategory/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   GetCategory(_obj: any): Observable<any> {
     this._methodName = "GetCategory/";
     this._param = _obj;

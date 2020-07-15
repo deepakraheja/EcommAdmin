@@ -21,7 +21,9 @@ export class SubCategoryComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(this.lstData);
   lstCategory: any;
   title: string = "Add Module";
-  SelectcategoryID = new FormControl('1');
+  SelectcategoryID = new FormControl('');
+  SelectMainCategoryID = new FormControl('1');
+  lstMainCategory: any = [];
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -33,7 +35,8 @@ export class SubCategoryComponent implements OnInit {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.CategoryForm = this.formBuilder.group({
       subCategoryID: [0],
-      categoryID: [0, Validators.required],
+      mainCategoryID: ['', Validators.required],
+      categoryID: ['', Validators.required],
       name: ['', Validators.required],
       description: [''],
       active: [false],
@@ -43,7 +46,7 @@ export class SubCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fnGetCategory();
+    this.fnGetMainCategory();
   }
 
   applyFilter(event: Event) {
@@ -51,6 +54,17 @@ export class SubCategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  fnGetMainCategory() {
+    let obj =
+      {}
+    this.spinner.show();
+    this._CategoryService.GetAllMainCategory(obj)
+      .subscribe(res => {
+        this.lstMainCategory = res
+        this.spinner.hide();
+        this.LoadCategoryData("");
+      });
+  }
 
   fnGetCategory() {
     let obj =
@@ -59,14 +73,18 @@ export class SubCategoryComponent implements OnInit {
     this._CategoryService.GetAllCategory(obj)
       .subscribe(res => {
 
-        this.lstCategory = res
+        this.lstCategory = res;
+        if (res.length > 0) {
+          this.SelectcategoryID = new FormControl('1');
+        }
         this.spinner.hide();
       });
   }
 
   LoadData(event: any) {
+    debugger
     let obj = {
-      categoryID: Number(this.SelectcategoryID.value),
+      categoryID: this.SelectcategoryID.value == "" ? 0 : Number(this.SelectcategoryID.value),
       Active: 1
     }
     this.spinner.show();
@@ -76,10 +94,41 @@ export class SubCategoryComponent implements OnInit {
     });
   }
 
+  LoadCategoryData(event: any) {
+    debugger
+    let obj = {
+      mainCategoryID: Number(this.SelectMainCategoryID.value),
+      Active: 1
+    }
+    this.spinner.show();
+    this._CategoryService.GetAllCategory(obj).subscribe(res => {
+      debugger
+      this.spinner.hide();
+      this.lstCategory = res;
+      this.SelectcategoryID = new FormControl('');
+      this.LoadData("");
+    });
+  }
+
+  LoadPopUpCategoryData(event: any) {
+    let obj = {
+      mainCategoryID: Number(this.CategoryForm.value.mainCategoryID),
+      Active: 1
+    }
+    debugger
+    this.spinner.show();
+    this._CategoryService.GetAllCategory(obj).subscribe(res => {
+      this.spinner.hide();
+      this.lstCategory = res;
+    });
+  }
+
+
   onAddNew(template: TemplateRef<any>, lst) {
     this.CategoryForm = this.formBuilder.group({
       subCategoryID: [0],
-      categoryID: [0, Validators.required],
+      mainCategoryID: ['', Validators.required],
+      categoryID: ['', Validators.required],
       name: ['', Validators.required],
       description: [''],
       active: [false],
@@ -99,6 +148,7 @@ export class SubCategoryComponent implements OnInit {
     debugger
     this.CategoryForm = this.formBuilder.group({
       subCategoryID: [lst.subCategoryID],
+      mainCategoryID: [lst.mainCategoryID, Validators.required],
       categoryID: [lst.categoryID, Validators.required],
       name: [lst.name, Validators.required],
       description: [lst.description],
@@ -116,6 +166,7 @@ export class SubCategoryComponent implements OnInit {
   }
 
   Save() {
+    debugger
     if (this.CategoryForm.invalid) {
       this.CategoryForm.markAllAsTouched();
       this._toasterService.error("All the * marked fields are mandatory");

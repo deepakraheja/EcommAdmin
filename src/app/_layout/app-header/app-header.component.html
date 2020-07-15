@@ -35,7 +35,7 @@
                     <div class="dropdown-menu dropdown-menu-left main-navigation dropdown-menu-left">
                         <a href="home" class="dropdown-item" (click)="ChangeName('0')"><i
                         class="fa-tachometer icon-users material-dark-grey-primary"></i>Dashboard</a>
-                        <a href="Category" class="dropdown-item" (click)="ChangeName('1')"><i
+                        <a href="MainCategory" class="dropdown-item" (click)="ChangeName('1')"><i
                         class="icon-users material-yellow-primary"></i>Admin</a>
                         <a href="product" class="dropdown-item" (click)="ChangeName('2')"><i
                         class="icon-stack material-blue-primary"></i>Product</a>
@@ -47,6 +47,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-light-shade d-inline-box">
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/MainCategory'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Main Category</span>
+                    </a>
+                </li>
                 <li *ngIf="admin" class="nav-item ">
                     <a [routerLink]="'/Category'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Category</span>

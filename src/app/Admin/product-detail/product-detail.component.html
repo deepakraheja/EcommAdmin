@@ -52,6 +52,17 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
+                                                        <mat-label>Main Category Name <span class="error">*</span></mat-label>
+                                                        <mat-select formControlName="mainCategoryID" (selectionChange)="LoadCategory($event)">
+                                                            <mat-option value="">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstMainCategory" [value]="row.mainCategoryID">
+                                                                {{row.mainCategoryName}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
                                                         <mat-label>Category Name <span class="error">*</span></mat-label>
                                                         <mat-select formControlName="categoryID" (selectionChange)="LoadSubCategory($event)">
                                                             <mat-option value="">Select</mat-option>
@@ -125,7 +136,21 @@
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-3 mt-2">
+                                                <div class="col-md-4 mt-3">
+                                                    <mat-radio-group aria-label="Select an option" formControlName="setType">
+                                                        <mat-radio-button [value]="1">Without Set</mat-radio-button>&nbsp;
+                                                        <mat-radio-button [value]="2">With Set</mat-radio-button>&nbsp;
+                                                        <mat-radio-button [value]="3">Minimum</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-2" *ngIf="f.setType.value==3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Minimum
+                                                        </mat-label>
+                                                        <input type="text" placeholder="Minimum" matInput formControlName="minimum">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2 mt-3">
                                                     <mat-checkbox formControlName="active">Active</mat-checkbox>
                                                 </div>
 
@@ -218,9 +243,13 @@
                                     <div class="tab-pane fade" id="ProductDetails-tab4">
                                         <form [formGroup]="ProductDetailForm">
                                             <h6 style="font-weight: 700;">Product Details</h6>
+                                            <button mat-mini-fab color="primary" style="float: right;margin-top: -45px;" (click)="IsShow==true?IsShow=false:IsShow=true">
+                                                <mat-icon *ngIf="IsShow==false">add</mat-icon>
+                                                <mat-icon *ngIf="IsShow==true" style="margin-top: -14px;">minimize</mat-icon>
+                                            </button>
                                             <mat-divider></mat-divider>
                                             <br>
-                                            <div class="row">
+                                            <div class="row" *ngIf="IsShow">
                                                 <!-- <div class="col-md-2">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Stock Qty <span class="error">*</span></mat-label>
@@ -311,6 +340,17 @@
                                                         <ng-container matColumnDef="size">
                                                             <th mat-header-cell *matHeaderCellDef>Size</th>
                                                             <td mat-cell *matCellDef="let element"> {{element.size}} </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="setNo">
+                                                            <th mat-header-cell *matHeaderCellDef>{{f.setType.value==2?'SetNo':''}}</th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <span *ngIf="element.isEdit==false">   
+                                                                    {{f.setType.value==2?element.setNo:''}}
+                                                                </span>
+                                                                <mat-form-field appearance="outline" *ngIf="element.isEdit==true && f.setType.value==2" style="width: 60px !important;">
+                                                                    <input type="text" matInput formControlName="setNo" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                                </mat-form-field>
+                                                            </td>
                                                         </ng-container>
                                                         <ng-container matColumnDef="qty">
                                                             <th mat-header-cell *matHeaderCellDef>Qty</th>

@@ -16,6 +16,7 @@ import { FabricComponent } from './Admin/fabric/fabric.component';
 import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
+import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'unauth', component: UnAuthComponent },
+      { path: 'MainCategory', component: MainCategoryComponent },
       { path: 'Category', component: CategoryComponent },
       { path: 'SubCategory', component: SubCategoryComponent },
       { path: 'brand', component: BrandComponent },
