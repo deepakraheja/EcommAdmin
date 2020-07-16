@@ -98,7 +98,6 @@ import { MainCategoryComponent } from './Admin/main-category/main-category.compo
     TagMasterComponent,
     OrderComponent,
     MainCategoryComponent,
-    
   ],
   imports: [
     SafePipeModule,

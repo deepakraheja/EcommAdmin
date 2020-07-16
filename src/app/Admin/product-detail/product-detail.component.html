@@ -10,17 +10,17 @@
                             <div class="d-md-flex mt-0">
                                 <form [formGroup]="ProductForm">
                                     <ul class="nav nav-tabs side-nav nav-tabs-vertical flex-column wmin-md-200 mb-md-0 border-bottom-0 left-side-div">
-                                        <li class="nav-item"><a href="#ProductInfo-tab1" class="nav-link active" data-toggle="tab"><i class="icon-info22"></i> &nbsp; Product
+                                        <li class="nav-item"><a href="#ProductInfo-tab1" id="tab1" class="nav-link active" data-toggle="tab"><i class="icon-info22"></i> &nbsp; Product
                                         Information</a></li>
-                                        <li class="nav-item"><a href="#ProductFeatures-tab3" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Features </a>
+                                        <li class="nav-item"><a href="#ProductFeatures-tab3" id="tab3" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Features </a>
                                         </li>
 
-                                        <li class="nav-item" *ngIf="f.productID.value>0"><a href="#ProductDetails-tab4" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Details</a>
+                                        <li class="nav-item" *ngIf="f.productID.value>0"><a href="#ProductDetails-tab4" id="tab4" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Details</a>
                                         </li>
 
-                                        <li class="nav-item"><a href="#ProductImages-tab5" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Images </a>
+                                        <li class="nav-item"><a href="#ProductImages-tab5" id="tab5" class="nav-link" data-toggle="tab"><i class="icon-user-tie"></i>&nbsp; Product Images </a>
                                         </li>
-                                        <li class="nav-item"><a href="#ProductNotes-tab2" class="nav-link" data-toggle="tab"><i class="icon-address-book3"></i>&nbsp; Product Notes</a></li>
+                                        <li class="nav-item"><a href="#ProductNotes-tab2" id="tab2" class="nav-link" data-toggle="tab"><i class="icon-address-book3"></i>&nbsp; Product Notes</a></li>
 
 
                                     </ul>
@@ -36,13 +36,13 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Product Name <span class="error">*</span></mat-label>
-                                                        <input type="text" matInput formControlName="productName">
+                                                        <input type="text" matInput formControlName="productName" id="productName">
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Brand Name <span class="error">*</span></mat-label>
-                                                        <mat-select formControlName="brandId">
+                                                        <mat-select formControlName="brandId" id="brandId">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstBrand" [value]="row.brandId">
                                                                 {{row.name}}
@@ -53,7 +53,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Main Category Name <span class="error">*</span></mat-label>
-                                                        <mat-select formControlName="mainCategoryID" (selectionChange)="LoadCategory($event)">
+                                                        <mat-select formControlName="mainCategoryID" id="mainCategoryID" (selectionChange)="LoadCategory($event)">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstMainCategory" [value]="row.mainCategoryID">
                                                                 {{row.mainCategoryName}}
@@ -64,7 +64,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Category Name <span class="error">*</span></mat-label>
-                                                        <mat-select formControlName="categoryID" (selectionChange)="LoadSubCategory($event)">
+                                                        <mat-select formControlName="categoryID" id="categoryID" (selectionChange)="LoadSubCategory($event)">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstCategory" [value]="row.categoryID">
                                                                 {{row.categoryName}}
@@ -75,7 +75,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Sub-Category Name <span class="error">*</span></mat-label>
-                                                        <mat-select formControlName="subCategoryID">
+                                                        <mat-select formControlName="subCategoryID" id="subCategoryID">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstSubCategory" [value]="row.subCategoryID">
                                                                 {{row.name}}
@@ -86,7 +86,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Supplier Name <span class="error">*</span></mat-label>
-                                                        <mat-select formControlName="supplierID">
+                                                        <mat-select formControlName="supplierID" id="supplierID">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstSupplier" [value]="row.supplierID">
                                                                 {{row.fname}} {{row.lName}}
@@ -194,13 +194,13 @@
                                                 <div class="col-md-6">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Short Details <span class="error">*</span></mat-label>
-                                                        <textarea type="text" matInput formControlName="shortDetails" style="height: 125px;"></textarea>
+                                                        <textarea type="text" id="shortDetails" matInput formControlName="shortDetails" style="height: 125px;"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Description <span class="error">*</span></mat-label>
-                                                        <textarea type="text" matInput formControlName="description" style="height: 125px;"></textarea>
+                                                        <textarea type="text" matInput formControlName="description" id="description" style="height: 125px;"></textarea>
                                                     </mat-form-field>
                                                 </div>
                                             </div>

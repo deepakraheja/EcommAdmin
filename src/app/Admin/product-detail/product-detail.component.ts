@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LookupService } from 'src/app/Service/lookup.service';
 import { FabricService } from 'src/app/Service/Fabric.service';
 import { TagService } from 'src/app/Service/tag.service';
+declare var $;
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -106,7 +107,7 @@ export class ProductDetailComponent implements OnInit {
       articalNo: [''],
       fabricId: ['0'],
       fabricTypeId: ['0'],
-      setType: ['1'],
+      setType: [1],
       minimum: ['']
     });
 
@@ -381,6 +382,23 @@ export class ProductDetailComponent implements OnInit {
       this.ProductForm.value.smallImg.length == 0) {
       this.ProductForm.markAllAsTouched();
       this._toasterService.error("All the * marked fields are mandatory");
+      //$('#productName').focus();
+      if (this.ProductForm.value.productName == '' ||
+        this.ProductForm.value.brandId == '' ||
+        this.ProductForm.value.mainCategoryID == '' ||
+        this.ProductForm.value.categoryID == '' ||
+        this.ProductForm.value.subCategoryID == '' ||
+        this.ProductForm.value.supplierID == '') {
+        $('#tab1').click();
+      }
+      else if (this.ProductForm.value.smallImg.length == 0) {
+        $('#tab5').click();
+      }
+      else if (this.ProductForm.value.shortDetails == '' ||
+        this.ProductForm.value.description == '') {
+        $('#tab2').click();
+        //$('#shortDetails').focus();
+      }
       return;
     }
     else {
