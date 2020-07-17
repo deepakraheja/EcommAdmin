@@ -101,7 +101,7 @@ export class ProductDetailComponent implements OnInit {
       onSale: [false],
       topSelling: [false],
       hotOffer: [false],
-      active: [false],
+      active: [true],
       bannerImg: [''],
       smallImg: ['', [Validators.required]],
       title: [''],
@@ -120,8 +120,8 @@ export class ProductDetailComponent implements OnInit {
       // qty: [''],
       price: ['', Validators.required],
       salePrice: ['', Validators.required],
-      // availableSize: [false],
-      // availableColors: [false],
+      availableSize: [true],
+      availableColors: [true],
       arraySize: ['', Validators.required],
       arrayColor: ['', Validators.required],
       // discount: [''],
@@ -153,8 +153,8 @@ export class ProductDetailComponent implements OnInit {
       // qty: [''],
       price: ['', Validators.required],
       salePrice: ['', Validators.required],
-      // availableSize: [false],
-      // availableColors: [false],
+      availableSize: [true],
+      availableColors: [true],
       arraySize: ['', Validators.required],
       arrayColor: ['', Validators.required],
       // discount: [''],
@@ -475,8 +475,8 @@ export class ProductDetailComponent implements OnInit {
         // qty: Number(this.ProductDetailForm.value.qty),
         price: Number(this.ProductDetailForm.value.price),
         salePrice: Number(this.ProductDetailForm.value.salePrice),
-        // availableSize: this.ProductDetailForm.value.availableSize,
-        // availableColors: this.ProductDetailForm.value.availableColors,
+        availableSize: this.ProductDetailForm.value.availableSize,
+        availableColors: this.ProductDetailForm.value.availableColors,
         arraySize: this.ProductDetailForm.value.arraySize,
         arrayColor: this.ProductDetailForm.value.arrayColor,
         // discount: this.ProductDetailForm.value.discount == "" ? 0 : Number(this.ProductDetailForm.value.discount),
@@ -490,6 +490,7 @@ export class ProductDetailComponent implements OnInit {
       this._productService.SaveProductSizeColor(obj).subscribe(res => {
         this.spinner.hide();
         if (res > 0) {
+          this.IsShow = false;
           this.images = [];
           this.LoadProductDetail();
           this.ResetProductDetails();
