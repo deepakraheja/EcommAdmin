@@ -46,7 +46,10 @@ export class ProductDetailComponent implements OnInit {
   showMask = false;
   NumberMask = null;
   lstData = [];
-  displayedColumns: string[] = ['Upload', 'color', 'size', 'setNo', 'qty', 'price', 'salePrice', 'availableSize', 'availableColors', 'discount', 'Edit', 'Delete'];
+  displayedImagesColumns: string[] = ['Upload', 'color', 'View'];
+  ImagesdataSource = new MatTableDataSource<any>(this.lstData);
+
+  displayedColumns: string[] = ['color', 'size', 'setNo', 'qty', 'price', 'salePrice', 'availableSize', 'availableColors', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   PopUpProductImg = [];
   public SelectedProductSizeColorId: Number = 0;
@@ -192,6 +195,17 @@ export class ProductDetailComponent implements OnInit {
       this.spinner.hide();
       this.lstData = res;
       this.dataSource = new MatTableDataSource<any>(res);
+
+      var resArr = [];
+      res.forEach(function (item) {
+        var i = resArr.findIndex(x => x.color == item.color);
+        if (i <= -1) {
+          resArr.push({ productSizeColorId: item.productSizeColorId, color: item.color, productImg: item.productImg });
+        }
+      });
+      //console.log(resArr);
+
+      this.ImagesdataSource = new MatTableDataSource<any>(resArr);
     });
   }
 
@@ -719,7 +733,7 @@ export class ProductDetailComponent implements OnInit {
   OpenImagePopUp(template: TemplateRef<any>, lst) {
     debugger
     this.SelectedProductSizeColorId = lst.productSizeColorId;
-    this.SelectedProductSizeId = lst.productSizeId;
+    //this.SelectedProductSizeId = lst.productSizeId;
     this.PopUpProductImg = lst.productImg;
     this.PopUpPreviewUrl = lst.productImg[0];
     const dialogRef = this.dialog.open(template, {
@@ -730,7 +744,7 @@ export class ProductDetailComponent implements OnInit {
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
       this.SelectedProductSizeColorId = 0;
-      this.SelectedProductSizeId = 0;
+      //this.SelectedProductSizeId = 0;
       this.LoadProductDetail();
     });
   }
