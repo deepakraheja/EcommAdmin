@@ -51,11 +51,17 @@ export class ProductDetailComponent implements OnInit {
 
   displayedColumns: string[] = ['color', 'size', 'setNo', 'qty', 'price', 'salePrice', 'availableSize', 'availableColors', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
+
+  displayedSetImagesColumns: string[] = ['Upload', 'setNo', 'View'];
+  SetImagesdataSource = new MatTableDataSource<any>(this.lstData);
+
   PopUpProductImg = [];
   public SelectedProductSizeColorId: Number = 0;
   public SelectedProductSizeId: Number = 0;
   public PopUpPreviewUrl: any;
   public IsShow: boolean = false;
+  public IsDisabled: boolean = false;
+  SelectedSetNo: Number = 0;
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -80,6 +86,7 @@ export class ProductDetailComponent implements OnInit {
       if (this.ProductId > 0)
         this.LoadProduct();
     });
+
     this.ProductForm = this.formBuilder.group({
       productID: [0],
       productName: ['', Validators.required],
@@ -117,7 +124,7 @@ export class ProductDetailComponent implements OnInit {
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
       productId: [this.ProductId],
-      // qty: [''],
+      qty: ['', Validators.required],
       price: ['', Validators.required],
       salePrice: ['', Validators.required],
       availableSize: [true],
@@ -132,25 +139,30 @@ export class ProductDetailComponent implements OnInit {
     this.EditProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
       productId: [this.ProductId],
-      qty: [''],
-      price: [''],
-      salePrice: [''],
+      qty: ['', Validators.required],
+      price: ['', Validators.required],
+      salePrice: ['', Validators.required],
       availableSize: [false],
       availableColors: [false],
       size: ['', Validators.required],
-      setNo: [''],
+      setNo: this.ProductForm.value.setType != 2 ? [''] : ['', Validators.required],
       lookupColorId: ['', Validators.required],
       discount: [''],
       discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
-
+    this.fnGetMainCategory();
+    this.LoadBrand();
+    this.LoadCategory("");
+    this.LoadSupplier();
+    this.LoadTag();
+    this.LoadFabric();
   }
   ResetProductDetails() {
     this.ProductDetailForm = this.formBuilder.group({
       productSizeColorId: [0],
       productId: [this.ProductId],
-      // qty: [''],
+      qty: ['', Validators.required],
       price: ['', Validators.required],
       salePrice: ['', Validators.required],
       availableSize: [true],
@@ -163,14 +175,7 @@ export class ProductDetailComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.fnGetMainCategory();
-    this.LoadBrand();
-    this.LoadCategory("");
-    this.LoadSupplier();
     this.LoadProductDetail();
-    this.LoadTag();
-    this.LoadFabric();
-
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -195,17 +200,35 @@ export class ProductDetailComponent implements OnInit {
       this.spinner.hide();
       this.lstData = res;
       this.dataSource = new MatTableDataSource<any>(res);
-
+      if (res.length > 0) {
+        this.IsDisabled = true;
+      }
+      else {
+        this.IsDisabled = false;
+      }
       var resArr = [];
-      res.forEach(function (item) {
-        var i = resArr.findIndex(x => x.color == item.color);
-        if (i <= -1) {
-          resArr.push({ productSizeColorId: item.productSizeColorId, color: item.color, productImg: item.productImg });
-        }
-      });
-      //console.log(resArr);
-
-      this.ImagesdataSource = new MatTableDataSource<any>(resArr);
+      debugger
+      if (this.ProductForm.value.setType != 2) {
+        // Color Images Grid
+        res.forEach(function (item) {
+          var i = resArr.findIndex(x => x.color == item.color);
+          if (i <= -1) {
+            resArr.push({ productSizeColorId: item.productSizeColorId, color: item.color, productImg: item.productImg });
+          }
+        });
+        this.ImagesdataSource = new MatTableDataSource<any>(resArr);
+      }
+      // Set Images Grid
+      if (this.ProductForm.value.setType == 2) {
+        res.forEach(function (item) {
+          var i = resArr.findIndex(x => x.setNo == item.setNo);
+          if (i <= -1) {
+            if (item.setNo > 0)
+              resArr.push({ productSizeColorId: item.productSizeColorId, setNo: item.setNo, productImg: item.productImg });
+          }
+        });
+        this.SetImagesdataSource = new MatTableDataSource<any>(resArr);
+      }
     });
   }
 
@@ -273,6 +296,7 @@ export class ProductDetailComponent implements OnInit {
     this.spinner.show();
     this._FabricService.GetFabric(obj).subscribe(res => {
       this.lstFabric = res;
+      this.LoadFabricType("");
     });
   }
 
@@ -384,7 +408,7 @@ export class ProductDetailComponent implements OnInit {
       //     this.images.push(res[0].productImg[index]);
       //   }
       // }
-      this.LoadSubCategory("");
+      //this.LoadSubCategory("");
       this.LoadFabricType("");
     });
   }
@@ -450,6 +474,11 @@ export class ProductDetailComponent implements OnInit {
         if (res > 0) {
           this.ProductId = res;
           this.LoadProduct();
+          this.route.paramMap.subscribe((params: ParamMap) => {
+            debugger
+            if (params.get('productId') == null || params.get('productId') == undefined)
+              $('#tab4').click();
+          });
           this._toasterService.success("Record has been saved successfully.");
         }
         else {
@@ -472,7 +501,7 @@ export class ProductDetailComponent implements OnInit {
       let obj = {
         productSizeColorId: Number(this.ProductDetailForm.value.productSizeColorId),
         productId: Number(this.ProductId),
-        // qty: Number(this.ProductDetailForm.value.qty),
+        qty: Number(this.ProductDetailForm.value.qty),
         price: Number(this.ProductDetailForm.value.price),
         salePrice: Number(this.ProductDetailForm.value.salePrice),
         availableSize: this.ProductDetailForm.value.availableSize,
@@ -550,7 +579,8 @@ export class ProductDetailComponent implements OnInit {
       ProductId: Number(this.ProductId),
       ProductSizeColorId: this.SelectedProductSizeColorId,
       ProductSizeId: this.SelectedProductSizeId,
-      productImg: this.PopUpProductImg
+      productImg: this.PopUpProductImg,
+      SetNo: this.SelectedSetNo
     };
     this.spinner.show();
     this._productService.SaveProductSizeColorImages(obj).subscribe(res => {
@@ -693,7 +723,7 @@ export class ProductDetailComponent implements OnInit {
       availableSize: [element.availableSize],
       availableColors: [element.availableColors],
       size: [element.size, Validators.required],
-      setNo: [element.setNo],
+      setNo: this.ProductForm.value.setType != 2 ? [element.setNo] : [element.setNo, Validators.required],
       lookupColorId: [element.lookupColorId, Validators.required],
       discount: [element.discount],
       discountAvailable: [element.discountAvailable],
@@ -706,6 +736,7 @@ export class ProductDetailComponent implements OnInit {
     element.isEdit = false;
   }
   Delete(element) {
+    debugger
     const initialState = {
       title: "Confirmation",
       message: "Do you want to delete this record?",
@@ -718,7 +749,8 @@ export class ProductDetailComponent implements OnInit {
         let obj = {
           ProductSizeColorId: element.productSizeColorId,
           ProductSizeId: element.productSizeId,
-          ProductId: Number(this.ProductId)
+          ProductId: Number(this.ProductId),
+          SetNo: Number(element.setNo)
         };
         this.spinner.show();
         this._productService.DeleteProductSizeColor(obj).subscribe(res => {
@@ -737,6 +769,7 @@ export class ProductDetailComponent implements OnInit {
     //this.SelectedProductSizeId = lst.productSizeId;
     this.PopUpProductImg = lst.productImg;
     this.PopUpPreviewUrl = lst.productImg[0];
+    this.SelectedSetNo = lst.setNo;
     const dialogRef = this.dialog.open(template, {
       width: '60vw',
       height: '80vh',
@@ -745,6 +778,7 @@ export class ProductDetailComponent implements OnInit {
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
       this.SelectedProductSizeColorId = 0;
+      this.SelectedSetNo = 0;
       //this.SelectedProductSizeId = 0;
       this.LoadProductDetail();
     });
