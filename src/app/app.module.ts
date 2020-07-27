@@ -73,6 +73,7 @@ import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
+import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { MainCategoryComponent } from './Admin/main-category/main-category.compo
     TagMasterComponent,
     OrderComponent,
     MainCategoryComponent,
+    MngUserComponent,
   ],
   imports: [
     SafePipeModule,

@@ -36,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
   lstFabricType: any = [];
   ProductId: any = 0;
   lstColor: any = [];
+  lstSize: any = [];
   images = [];
   BannerImage = [];
   SmallImage = [];
@@ -118,7 +119,8 @@ export class ProductDetailComponent implements OnInit {
       fabricId: ['0'],
       fabricTypeId: ['0'],
       setType: [1],
-      minimum: ['']
+      minimum: [''],
+      videoURL: ['']
     });
 
     this.ProductDetailForm = this.formBuilder.group({
@@ -178,6 +180,9 @@ export class ProductDetailComponent implements OnInit {
     this.LoadProductDetail();
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
+    });
+    this._lookupService.GetActiveSize().subscribe(res => {
+      this.lstSize = res;
     });
 
   }
@@ -380,6 +385,7 @@ export class ProductDetailComponent implements OnInit {
         fabricTypeId: [res[0].fabricTypeId],
         setType: [res[0].setType],
         minimum: [res[0].minimum],
+        videoURL: [res[0].videoURL]
       });
       //bannerImg
       if (res[0].bannerImg == null)
@@ -468,6 +474,7 @@ export class ProductDetailComponent implements OnInit {
         fabricTypeId: Number(this.ProductForm.value.fabricTypeId),
         setType: Number(this.ProductForm.value.setType),
         minimum: this.ProductForm.value.setType == "3" ? Number(this.ProductForm.value.minimum) : 0,
+        videoURL: this.ProductForm.value.videoURL
       };
       this._productService.SaveProduct(obj).subscribe(res => {
         this.spinner.hide();

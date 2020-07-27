@@ -22,5 +22,13 @@ export class LookupService {
       this._url + this._methodName, this._param
     );
   }
+
+  GetActiveSize(): Observable<any> {
+    this._methodName = "GetActiveSize/";
+    this._param = {};
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
   
 }

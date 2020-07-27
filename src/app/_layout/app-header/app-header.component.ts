@@ -13,6 +13,7 @@ export class AppHeaderComponent implements OnInit {
   menuname: string = "";
   public admin: boolean = false;
   public product: boolean = false;
+  public user: boolean = false;
   public order: boolean = false;
   public report: boolean = false;
   menuIconClass: string = "";
@@ -41,6 +42,7 @@ export class AppHeaderComponent implements OnInit {
       this.admin = true;
       this.order = false;
       this.product = false;
+      this.user = false;
       // this.report = false;
 
     }
@@ -53,30 +55,33 @@ export class AppHeaderComponent implements OnInit {
       this.product = true;
       this.admin = false;
       this.order = false;
+      this.user = false;
       // this.report = false;
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
       this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
       this.materialsecondary = "material-green-secondary space-all";
 
+      this.order = false;
+      this.admin = false;
+      this.product = false;
+      this.user = true;
+      //this.report = false;
+      this.menuname = "User";
+      this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
+    }
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "4") {
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-orange-primary";
+      this.materialsecondary = "material-orange-secondary space-all";
+
       this.order = true;
       this.admin = false;
       this.product = false;
+      this.user = false;
       //this.report = false;
       this.menuname = "Order";
-      this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
+      this.menuIconClass = "icon-cash material-orange-primary bg-white-icon bg-orange-icon";
     }
-    // if (this._LocalStorage.getValueOnLocalStorage("Selected") == "4") {
-    //   this.materialprimary = "navbar navbar-expand-md navbar-dark material-blue-primary";
-    //   this.materialsecondary = "material-blue-secondary space-all";
-
-    //   this.payroll = false;
-    //   this.admin = false;
-    //   this.record = false;
-    //   this.report = true;
-    //   this.menuname = "Reports";
-    //   this.menuIconClass = "icon-cash material-blue-primary bg-white-icon bg-blue-icon";
-    // }
   }
 
 
