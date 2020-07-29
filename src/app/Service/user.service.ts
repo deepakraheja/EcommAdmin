@@ -31,4 +31,12 @@ export class UserService {
     );
   }
 
+  UpdateUser(_Obj: any): Observable<any> {
+    this._methodName = "UpdateUser";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
 }

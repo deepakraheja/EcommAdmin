@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mng-user',
@@ -14,23 +15,34 @@ import { UserService } from 'src/app/Service/user.service';
   styleUrls: ['./mng-user.component.css']
 })
 export class MngUserComponent implements OnInit {
-  MainCategoryForm: FormGroup;
+  UserForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
   displayedColumns: string[] = ['name', 'email', 'mobileNo', 'isActive', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
-
+  showMask = false;
+  PhoneMask = null;
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private _toasterService: ToastrService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _datePipe: DatePipe
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
-
+    this.UserForm = this.formBuilder.group({
+      userID: 0,
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      mobileNo: ['', Validators.required],
+      isActive: false,
+      isApproval: [0, Validators.required],
+      approvedBy: Number(this.LoggedInUserId),
+      approvedDate:this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+    });
     this.LoadData();
   }
 
@@ -42,12 +54,64 @@ export class MngUserComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  addMask(obj: Object) {
+    this.PhoneMask = "0000000000";
+    this.showMask = false;
+  }
+
   LoadData() {
     this.spinner.show();
     this._userService.GetAllUsers().subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
     });
+  }
+
+  Edit(template: TemplateRef<any>, lst) {
+    debugger
+    this.UserForm = this.formBuilder.group({
+      userID: [lst.userID],
+      name: [lst.name, Validators.required],
+      email: [lst.email, Validators.required],
+      mobileNo: [lst.mobileNo, Validators.required],
+      isActive: [lst.isActive],
+      isApproval: [lst.isApproval, Validators.required],
+      approvedBy: Number(this.LoggedInUserId),
+      approvedDate:this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+    });
+    const dialogRef = this.dialog.open(template, {
+      width: '700px',
+      data: this.UserForm
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  Save() {
+    if (this.UserForm.invalid) {
+      this.UserForm.markAllAsTouched();
+      this._toasterService.error("All the * marked fields are mandatory");
+      return;
+    }
+    else {
+      this.spinner.show();
+      this._userService.UpdateUser(this.UserForm.value).subscribe(res => {
+        this.spinner.hide();
+        if (res > 0) {
+          this._toasterService.success("Record has been saved successfully.");
+          this.dialog.closeAll();
+          this.LoadData();
+        }
+        else if (res == -1) {
+          this._toasterService.error("Email already exists.");
+        }
+        else {
+          this._toasterService.error("Server error, Please try again after some time.");
+        }
+      });
+    }
   }
 
 }

@@ -70,7 +70,7 @@
                                 <ng-container matColumnDef="Edit">
                                     <th mat-header-cell *matHeaderCellDef> Edit </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a href="javaScript:void(0);">
+                                        <a href="javaScript:void(0);" (click)="Edit(templateUser,element)">
                                             <i class="icon-pencil mr-2" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -87,3 +87,63 @@
         </div>
     </div>
 </div>
+
+<ng-template #templateUser>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Edit User</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="UserForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="name" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="email" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>MobileNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="mobileNo" maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>IsApproval </mat-label>
+                            <mat-select formControlName="isApproval">
+                                <mat-option [value]="0">Pending</mat-option>
+                                <mat-option [value]="1">Approved</mat-option>
+                                <mat-option [value]="2">Denied</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
