@@ -1,1 +1,622 @@
-<p>order works!</p>
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <form [formGroup]="OrderForm">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput [matDatepicker]="dpFromDate" readonly formControlName="startDate" (click)="dpFromDate.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="dpFromDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #dpFromDate disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>End Date</mat-label>
+                                    <input matInput [matDatepicker]="dpToDate" readonly formControlName="endDate" (click)="dpToDate.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="dpToDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #dpToDate disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Status <span class="error">*</span></mat-label>
+                                    <mat-select formControlName="statusId" (selectionChange)="Search($event)">
+                                        <mat-option [value]="0">All</mat-option>
+                                        <mat-option [value]="1">New Order</mat-option>
+                                        <mat-option [value]="2">Shipped</mat-option>
+                                        <mat-option [value]="3">Delivered</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-md-9 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
+                                </button></div> -->
+                            <div class="col-md-2 mt-2">
+                                <button mat-raised-button class="btn btn-warning btn-lg" style="line-height: 36px !important; background-color: #2c4982; color: #fff;" (click)="Search($event);">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="new-section">
+                        <div class="dashboard">
+
+                            <div class="box-account box-info">
+                                <div>
+                                    <div class="box">
+                                        <div class="a-box-group a-spacing-base order" *ngFor="let lst of lstOrder">
+                                            <div class="a-box a-color-offset-background order-info">
+                                                <div class="a-box-inner">
+                                                    <div class="a-fixed-right-grid">
+                                                        <div class="a-fixed-right-grid-inner">
+                                                            <div class="a-fixed-right-grid-col a-col-left">
+                                                                <div class="a-row">
+                                                                    <div class="a-column a-span2">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Order #
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary value">
+                                                                                {{lst.orderNumber}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="a-column a-span2">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Order Placed
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary value">
+                                                                                {{lst.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="a-column a-span1">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Total
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary value">
+                                                                                {{lst.totalAmount | currency:Currency.currency:'symbol'}}
+                                                                               
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="a-column a-span2">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Ship to
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary value">
+                                                                                {{lst.fName}} {{lst.lName}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="a-column a-span3">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Shipping Address
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary">
+                                                                               {{lst.address}} {{lst.city}}, {{lst.state}}, {{lst.zipCode}}, {{lst.country}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="a-column a-span1">
+                                                                        <div class="a-row a-size-mini">
+                                                                            <span class="a-color-secondary label" style="font-weight: 700;">
+                                                                                Mobile No
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="a-row a-size-base">
+                                                                            <span class="a-color-secondary value">
+                                                                                {{lst.phone}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="a-box shipment" *ngFor="let lstPro of OrderTrackingListByOrderId(lst.orderId,lst)">
+                                                <div class="a-box-inner">
+                                                    <div class="a-row shipment-top-row js-shipment-info-container">
+                                                        <div style="margin-right:230px; padding-right:20px">
+
+                                                            <div class="a-row">
+                                                                <span class="a-color-success">
+                                                                    Not yet dispatched
+                                                                </span>
+
+                                                                <span data-isstatuswithwarning="0" data-yodeliveryestimate="Arriving Monday" data-yoshortstatuscode="" data-yostatusstring="Not yet dispatched" class="js-shipment-info aok-hidden">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="a-fixed-right-grid a-spacing-top-medium">
+                                                        <div class="a-fixed-right-grid-inner a-grid-vertical-align a-grid-top">
+                                                            <div class="a-fixed-right-grid-col a-col-left" style="padding-right:3.2%;float:left;">
+                                                                <div class="a-row">
+                                                                    <div class="a-fixed-left-grid a-spacing-none">
+                                                                        <div class="a-fixed-left-grid-inner" style="padding-left:100px">
+                                                                            <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:100px;margin-left:-100px;float:left;">
+                                                                                <div class="item-view-left-col-inner">
+                                                                                    <a class="a-link-normal">
+                                                                                        <!-- <img src="assets/ProductImages/{{lstPro.ImagePath}}" width="150px" height="100px" alt=""> -->
+                                                                                        <!-- <img [src]="ProductImage+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt=""> -->
+                                                                                        <img *ngIf="lstPro?.setNo>0" [src]="ProductImage+'/'+lstPro?.productId+'/productSetImage/'+lstPro?.setNo+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
+                                                                                        <img *ngIf="lstPro?.setNo==0" [src]="ProductImage+'/'+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
+
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="a-fixed-left-grid-col a-col-right" style="padding-left:1.5%;float:left;">
+                                                                                <div class="a-row">
+                                                                                    <a class="a-link-normal">
+                                                                                        {{lstPro.productName}}
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="a-row">
+                                                                                    <span class="a-size-small a-color-secondary">
+                                                                                        Quantity : {{lstPro.quantity}}
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="a-row">
+                                                                                    <span class="a-size-small">
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="a-row">
+                                                                                    <span class="a-size-small a-color-price">
+                                                                                        <span
+                                                                                            style="text-decoration: inherit; white-space: nowrap;">
+                                                                                            {{lstPro.price | currency:Currency.currency:'symbol'}}
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="a-row">
+                                                                                    <span class="a-color-secondary a-text-bold">
+                                                                                    </span>
+                                                                                    <span class="a-color-secondary">
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="a-fixed-right-grid-col a-col-right" style="width:230px;margin-right:-230px;float:left;">
+                                                                <div class="a-row">
+                                                                    <div class="a-button-stack">
+                                                                        <mat-form-field appearance="outline">
+                                                                            <mat-label>Change Status </mat-label>
+                                                                            <mat-select>
+                                                                                <mat-option [value]="0">All</mat-option>
+                                                                                <mat-option [value]="1">New Order</mat-option>
+                                                                                <mat-option [value]="2">Shipped</mat-option>
+                                                                                <mat-option [value]="3">Delivered</mat-option>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                        <!-- <span class="a-button a-button-primary track-package-button" id="a-autoid-3"><span class="a-button-inner"><a
+                                                                                    class="a-button-text" role="button"
+                                                                                    id="a-autoid-3-announce">
+                                                                                    Track package
+                                                                                </a></span></span>
+                                                                        <span class="a-button a-button-normal a-spacing-mini a-button-base" id="a-autoid-4"><span class="a-button-inner"><a id="Cancel-items_1"
+                                                                                    class="a-button-text" role="button">
+                                                                                    Cancel items
+                                                                                </a></span></span> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="lstOrder.length === 0">No records found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* ******** */
+    
+    .a-button {
+        background: #e7e9ec;
+        border-radius: 3px;
+        border-color: #ADB1B8 #A2A6AC #8D9096;
+        border-style: solid;
+        border-width: 1px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        text-decoration: none!important;
+        vertical-align: middle
+    }
+    
+    .a-button .a-button-inner {
+        background: #eff1f3;
+        background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
+        background: linear-gradient(to bottom, #f7f8fa, #e7e9ec)
+    }
+    
+    .a-button:hover .a-button-inner {
+        background: #e0e3e8;
+        background: -webkit-linear-gradient(top, #e7eaf0, #d9dce1);
+        background: linear-gradient(to bottom, #e7eaf0, #d9dce1)
+    }
+    
+    .a-button:active .a-button-inner {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset;
+        background-color: #e7e9ec;
+        background-image: none
+    }
+    
+    .a-button:active .a-button-inner {
+        background-color: #dcdfe3
+    }
+    
+    .a-button:active,
+    .a-button:active:hover {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button:hover {
+        border-color: #a2a6ac #979aa1 #82858a
+    }
+    
+    .a-button.a-button-focus,
+    .a-button:focus {
+        outline: 0;
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5)
+    }
+    
+    .a-button.a-button-pressed,
+    .a-button.a-button-pressed:hover {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button.a-button-pressed .a-button-inner,
+    .a-button.a-button-pressed:hover .a-button-inner {
+        background-color: #dcdfe3;
+        background-image: none;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5)
+    }
+    
+    .a-button.a-button-error {
+        border-color: #d00
+    }
+    
+    .a-button .a-button-text {
+        color: #111
+    }
+    
+    .a-button-text {
+        background-color: transparent;
+        border: 0;
+        display: block;
+        font-size: 13px;
+        line-height: 29px;
+        margin: 0;
+        outline: 0;
+        padding: 0 10px 0 11px;
+        text-align: center;
+        white-space: nowrap
+    }
+    
+    .a-button-text:focus {
+        outline: 0
+    }
+    
+    a.a-button-text,
+    button.a-button-text {
+        width: 100%;
+        height: 100%
+    }
+    
+    .a-button-inner {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        height: 29px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset;
+        border-radius: 2px
+    }
+    
+    .a-button-input {
+        position: absolute;
+        background-color: transparent;
+        color: transparent;
+        border: 0;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: .01;
+        outline: 0;
+        overflow: visible;
+        z-index: 20
+    }
+    
+    .a-button a,
+    .a-button:hover a {
+        color: #111;
+        text-decoration: none!important
+    }
+    
+    .a-button+.a-button {
+        margin-left: .385em
+    }
+    
+    @-moz-document url-prefix() {
+        .a-button .a-button-text {
+            line-height: 29px
+        }
+        .a-button-small .a-button-text {
+            line-height: 21px
+        }
+    }
+    
+    .a-button.a-button-small {
+        height: 22px
+    }
+    
+    .a-button.a-button-small .a-button-text {
+        font-size: 11px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 6px 0 7px
+    }
+    
+    .a-button.a-button-small .a-button-inner,
+    .a-button.a-button-small.a-button-disabled .a-button-inner,
+    .a-button.a-button-small.a-button-disabled.a-button-focus .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:active .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:focus .a-button-inner,
+    .a-button.a-button-small.a-button-disabled:hover .a-button-inner,
+    .a-button.a-button-small.a-button-focus .a-button-inner,
+    .a-button.a-button-small.a-button-focus:active .a-button-inner,
+    .a-button.a-button-small:active .a-button-inner,
+    .a-button.a-button-small:focus .a-button-inner,
+    .a-button.a-button-small:focus:active .a-button-inner,
+    .a-button.a-button-small:hover .a-button-inner {
+        height: 20px!important
+    }
+    
+    .a-button-dropdown .a-button-text {
+        padding-right: 26px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        z-index: 10
+    }
+    
+    .a-button-dropdown.a-button-small .a-button-text {
+        padding-right: 20px
+    }
+    
+    .a-button-group .a-button-dropdown,
+    .a-button-group .a-button-splitdropdown {
+        width: 26px!important;
+        min-width: 26px!important
+    }
+    
+    .a-button .a-icon-dropdown {
+        position: absolute;
+        top: 10px;
+        right: 8px
+    }
+    
+    .a-button.a-button-small .a-icon-dropdown {
+        top: 6px
+    }
+    
+    .a-button.a-button-small.a-button-dropdown .a-icon-dropdown {
+        right: 5px
+    }
+    
+    .a-button-primary {
+        background: #f0c14b;
+        border-color: #a88734 #9c7e31 #846a29;
+        color: #111
+    }
+    
+    .a-button-primary .a-button-inner {
+        background: #f4d078;
+        background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
+        background: linear-gradient(to bottom, #f7dfa5, #f0c14b)
+    }
+    
+    .a-button-primary:hover .a-button-inner {
+        background: #f1c861;
+        background: -webkit-linear-gradient(top, #f5d78e, #eeb933);
+        background: linear-gradient(to bottom, #f5d78e, #eeb933)
+    }
+    
+    .a-button-primary:active .a-button-inner {
+        background-color: #f0c14b;
+        background-image: none
+    }
+    
+    .a-button-primary.a-button-focus,
+    .a-button-primary:focus,
+    .a-button-primary:hover,
+    .a-button-primary:hover:active {
+        border-color: #a88734 #9c7e31 #846a29
+    }
+    
+    .a-button-primary:active {
+        border-color: #a88734 #9c7e31 #9c7e31
+    }
+    
+    .a-button-primary.a-button-focus,
+    .a-button-primary:focus {
+        border-color: #e77600
+    }
+    
+    .a-button-primary.a-button-disabled {
+        background-color: #f9f3e5!important;
+        border-color: #e8e0cd!important
+    }
+    
+    .a-button-primary.a-button-disabled .a-button-inner {
+        background-color: #f9f3e5!important
+    }
+    
+    .a-button-primary.a-button-disabled .a-button-text {
+        color: a_nullable_with_important()
+    }
+    
+    .a-button-primary.a-button-pressed,
+    .a-button-primary.a-button-pressed:hover {
+        border-color: #a88734 #9c7e31 #9c7e31
+    }
+    
+    .a-button-primary.a-button-pressed .a-button-inner,
+    .a-button-primary.a-button-pressed:hover .a-button-inner {
+        background-image: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset;
+        background-color: #f0c14b
+    }
+    
+    .a-button-primary .a-button-inner {
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .4) inset
+    }
+    
+    .a-button-primary .a-button-text {
+        color: #111
+    }
+    
+    .a-button-disabled>.a-button-primary .a-button-inner {
+        background-color: #f9f3e5!important
+    }
+    
+    .a-button-group {
+        display: table;
+        font-size: 0;
+        line-height: 0;
+        outline: 0;
+        position: relative;
+        white-space: nowrap
+    }
+    
+    .a-button-group .a-button {
+        border-radius: 0;
+        border: 1px solid;
+        border-color: #adb1b8 #a2a6ac #8d9096;
+        border-left-width: 0;
+        vertical-align: top;
+        display: table-cell;
+        width: auto
+    }
+    
+    .a-button-group .a-button:after {
+        border-radius: 0
+    }
+    
+    .a-button-group .a-button:active {
+        border-color: #adb1b8 #a2a6ac #a2a6ac
+    }
+    
+    .a-button-group .a-button.a-button-focus,
+    .a-button-group .a-button:focus {
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5);
+        outline: 0;
+        z-index: 1;
+        border-color: #e77600
+    }
+    
+    .a-button-group .a-button .a-button-group-last .a-button-inner,
+    .a-button-group .a-button:last-child .a-button-inner {
+        border-radius: 0 3px 3px 0
+    }
+    
+    .a-button-group .a-button:only-child {
+        border-radius: 3px
+    }
+    
+    .a-button-group .a-button:only-child .a-button-inner {
+        border-radius: 3px
+    }
+    
+    .a-button-group .a-button-selected {
+        border-color: #adb2bb #bababa #bababa;
+        position: relative;
+        overflow: visible
+    }
+    
+    .a-button-group .a-button-selected .a-button-inner {
+        background-image: none;
+        background-color: #767676;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2) inset
+    }
+    
+    .a-button-group .a-button-selected .a-button-inner .a-button-text {
+        color: #fff
+    }
+    
+    .a-text-center .a-button-group {
+        margin-left: auto;
+        margin-right: auto
+    }
+    
+    .a-button-stack .a-button {
+        margin-bottom: 10px;
+        display: block
+    }
+    
+    .a-button-stack .a-button:last-child {
+        margin-bottom: 0
+    }
+    
+    .a-button-stack .a-button-list .a-button {
+        display: inline-block
+    }
+    
+    .a-button-stack .a-button-group {
+        width: 100%
+    }
+    
+    .a-button-close:focus {
+        background-color: transparent;
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5);
+        outline: 0;
+        padding: 8px
+    }
+    
+    .a-button-close:hover {
+        cursor: pointer
+    }
+    
+    .a-button-close:hover .a-icon-close {
+        opacity: .8
+    }
+</style>

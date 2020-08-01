@@ -7,7 +7,7 @@ export const environment = {
   isContentLoading: false,
   // ReportPath: 'http://localhost:62692/TempImages/',
   BASE_API_URL: 'http://localhost:5205/api/',
-
+  //BASE_API_URL: 'http://ecomapi.uccnoida.com/api/',
   // BASE_API_URL: 'http://wish.protatechindia.com/WishService3/api/',
   Domain: 'http://localhost:4200/',
   DocPath: 'P://',
