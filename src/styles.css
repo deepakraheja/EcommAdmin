@@ -127,6 +127,15 @@ th.mat-sort-header-sorted {
     color: #fff;
 }
 
+.material-navyblue-primary {
+    background: #37445d !important;
+}
+
+.material-navyblue-secondary {
+    background: #2c4982;
+    color: #fff;
+}
+
 
 /* .material-red-primary {
 background: #F57C00 !important;
@@ -175,6 +184,10 @@ background: #F57C00 !important;
 
 .bg-blue-icon:before {
     color: #3F51B5 !important;
+}
+
+.bg-navyblue-icon:before {
+    color: #37445d !important;
 }
 
 .bg-white-icon:before {

@@ -71,8 +71,8 @@ export class AppHeaderComponent implements OnInit {
       this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "4") {
-      this.materialprimary = "navbar navbar-expand-md navbar-dark material-orange-primary";
-      this.materialsecondary = "material-orange-secondary space-all";
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-navyblue-primary";
+      this.materialsecondary = "material-navyblue-secondary space-all";
 
       this.order = true;
       this.admin = false;
@@ -80,7 +80,7 @@ export class AppHeaderComponent implements OnInit {
       this.user = false;
       //this.report = false;
       this.menuname = "Order";
-      this.menuIconClass = "icon-cash material-orange-primary bg-white-icon bg-orange-icon";
+      this.menuIconClass = "icon-cash material-navyblue-primary bg-white-icon bg-navyblue-icon";
     }
   }
 
