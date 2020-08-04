@@ -25,13 +25,20 @@
 
                         <div class="col-md-12" style="height: 400px; overflow: auto;">
                             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
-
+                                <ng-container matColumnDef="companyName">
+                                    <th mat-header-cell *matHeaderCellDef>Company Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+                                </ng-container>
                                 <ng-container matColumnDef="name">
-                                    <th mat-header-cell *matHeaderCellDef>Supplier Name</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.fname}} {{element.mName}} {{element.lName}} </td>
+                                    <th mat-header-cell *matHeaderCellDef>Authorised Person Name</th>
+                                    <td mat-cell *matCellDef="let element">{{element.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="designation">
+                                    <th mat-header-cell *matHeaderCellDef>Designation</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="address1">
-                                    <th mat-header-cell *matHeaderCellDef>Address</th>
+                                    <th mat-header-cell *matHeaderCellDef>Company Registered Address</th>
                                     <!-- <td mat-cell *matCellDef="let element"> {{element.address1}} </td> -->
                                     <td mat-cell *matCellDef="let element">
                                         {{element.address1}}, City - {{element.city}}, State - {{element.state}}, ({{element.country}}) - {{element.postalCode}}
@@ -55,17 +62,17 @@
                                     <td mat-cell *matCellDef="let element"> {{element.postalCode}} </td>
                                 </ng-container> -->
                                 <ng-container matColumnDef="phone">
-                                    <th mat-header-cell *matHeaderCellDef>Phone</th>
+                                    <th mat-header-cell *matHeaderCellDef>Mobile No</th>
                                     <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="email">
                                     <th mat-header-cell *matHeaderCellDef>Email</th>
                                     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="paymentMethod">
+                                <!-- <ng-container matColumnDef="paymentMethod">
                                     <th mat-header-cell *matHeaderCellDef>Payment Method</th>
                                     <td mat-cell *matCellDef="let element"> {{element.paymentMethod}} </td>
-                                </ng-container>
+                                </ng-container> -->
                                 <!-- <ng-container matColumnDef="notes">
                                     <th mat-header-cell *matHeaderCellDef>Notes</th>
                                     <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
@@ -115,25 +122,25 @@
                 <div class="row">
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>First Name <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="fname" maxlength="50">
+                            <mat-label>Company Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="companyName" maxlength="50">
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>Middle Name </mat-label>
-                            <input type="text" matInput formControlName="mName" maxlength="50">
+                            <mat-label>Authorised Person Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="name" maxlength="50">
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>Last Name <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="lName" maxlength="50">
+                            <mat-label>Designation <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="designation" maxlength="50">
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>Address <span class="error">*</span></mat-label>
+                            <mat-label>Company Registered Address <span class="error">*</span></mat-label>
                             <input type="text" matInput formControlName="address1" maxlength="100">
                         </mat-form-field>
                     </div>
@@ -157,13 +164,13 @@
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>PostalCode <span class="error">*</span></mat-label>
+                            <mat-label>Pin Code <span class="error">*</span></mat-label>
                             <input type="text" matInput formControlName="postalCode" minlength="6" [mask]="zipMask" [dropSpecialCharacters]="true" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline">
-                            <mat-label>Phone <span class="error">*</span></mat-label>
+                            <mat-label>Mobile No <span class="error">*</span></mat-label>
                             <input type="text" matInput formControlName="phone" minlength="10" [mask]="phoneMask" [dropSpecialCharacters]="true" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>

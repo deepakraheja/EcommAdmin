@@ -85,7 +85,7 @@
                                                         <mat-select formControlName="supplierID" id="supplierID">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstSupplier" [value]="row.supplierID">
-                                                                {{row.fname}} {{row.lName}}
+                                                                {{row.companyName}}
                                                             </mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
@@ -187,20 +187,32 @@
                                     <div class="tab-pane fade" id="ProductNotes-tab2">
                                         <form [formGroup]="ProductForm">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <mat-form-field appearance="outline">
+                                                <div class="col-md-12">
+                                                    <h6>Short Details <span class="error">*</span>
+                                                        <span style="float: right;" *ngIf="submitted && (f.shortDetails.errors || f.shortDetails.value=='')">
+                                                        <span *ngIf="(f.shortDetails.errors.required || f.shortDetails.value=='')" style="color: red;">Short Details is required.</span>
+                                                        </span>
+                                                    </h6>
+                                                    <!-- <mat-form-field appearance="outline">
                                                         <mat-label>Short Details <span class="error">*</span></mat-label>
                                                         <textarea type="text" id="shortDetails" matInput formControlName="shortDetails" style="height: 125px;"></textarea>
-                                                    </mat-form-field>
+                                                    </mat-form-field> -->
+                                                    <angular-editor [config]="config" name="shortDetails" formControlName="shortDetails" required></angular-editor>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <mat-form-field appearance="outline">
+                                                <div class="col-md-12 mt-2">
+                                                    <h6>Description <span class="error">*</span>
+                                                        <span style="float: right;" *ngIf="submitted && (f.description.errors || f.description.value=='')">
+                                                            <span *ngIf="(f.description.errors.required || f.description.value=='')" style="color: red;">Description is required.</span>
+                                                        </span>
+                                                    </h6>
+                                                    <!-- <mat-form-field appearance="outline">
                                                         <mat-label>Description <span class="error">*</span></mat-label>
                                                         <textarea type="text" matInput formControlName="description" id="description" style="height: 125px;"></textarea>
-                                                    </mat-form-field>
+                                                    </mat-form-field> -->
+                                                    <angular-editor [config]="config" name="description" formControlName="description" required></angular-editor>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 text-center">
+                                            <div class="col-md-12 text-center mt-3">
                                                 <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
                                                 <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
                                             </div>
