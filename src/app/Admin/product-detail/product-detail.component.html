@@ -52,7 +52,7 @@
                                                         <mat-select formControlName="mainCategoryID" id="mainCategoryID" (selectionChange)="LoadCategory($event)">
                                                             <mat-option value="">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstMainCategory" [value]="row.mainCategoryID">
-                                                                {{row.title}}
+                                                                {{row.mainCategoryName}}
                                                             </mat-option>
                                                         </mat-select>
                                                     </mat-form-field>
