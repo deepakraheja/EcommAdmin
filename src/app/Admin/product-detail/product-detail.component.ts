@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LookupService } from 'src/app/Service/lookup.service';
 import { FabricService } from 'src/app/Service/Fabric.service';
 import { TagService } from 'src/app/Service/tag.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 declare var $;
 @Component({
   selector: 'app-product-detail',
@@ -63,6 +64,7 @@ export class ProductDetailComponent implements OnInit {
   public IsShow: boolean = false;
   public IsDisabled: boolean = false;
   SelectedSetNo: Number = 0;
+  public Currency = { name: 'Rupees', currency: 'INR', price: 1 } // Default Currency
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -80,6 +82,14 @@ export class ProductDetailComponent implements OnInit {
     private _FabricService: FabricService,
     private _TagService: TagService
   ) {
+
+    this.fnGetMainCategory();
+    this.LoadBrand();
+    //this.LoadCategory("");
+    this.LoadSupplier();
+    this.LoadTag();
+    this.LoadFabric();
+
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.route.paramMap.subscribe((params: ParamMap) => {
       debugger
@@ -155,7 +165,7 @@ export class ProductDetailComponent implements OnInit {
     });
     this.fnGetMainCategory();
     this.LoadBrand();
-    this.LoadCategory("");
+    //this.LoadCategory("");
     this.LoadSupplier();
     this.LoadTag();
     this.LoadFabric();
@@ -176,6 +186,33 @@ export class ProductDetailComponent implements OnInit {
       //productImg: ['', [Validators.required]],
     });
   }
+
+  
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '15rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  }
+
+
   ngOnInit(): void {
     this.LoadProductDetail();
     this._lookupService.GetActiveColor().subscribe(res => {
@@ -249,10 +286,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   fnGetMainCategory() {
-    let obj =
-      {}
+    let obj = { Active: 1 };
     this.spinner.show();
-    this._CategoryService.GetAllMainCategory(obj)
+    this._CategoryService.GetMainCategory(obj)
       .subscribe(res => {
         this.lstMainCategory = res
         this.spinner.hide();
@@ -261,16 +297,22 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadCategory(event: any) {
-    let obj = {
-      MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
-      Active: 1
+    if (this.ProductForm.value.mainCategoryID != "") {
+      let obj = {
+        MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
+        Active: 1
+      }
+      this.spinner.show();
+      this._CategoryService.GetAllCategory(obj).subscribe(res => {
+        //this.spinner.hide();
+        this.lstCategory = res;
+        this.LoadSubCategory("");
+      });
     }
-    this.spinner.show();
-    this._CategoryService.GetAllCategory(obj).subscribe(res => {
-      //this.spinner.hide();
-      this.lstCategory = res;
-      this.LoadSubCategory("");
-    });
+    else {
+      this.lstCategory = [];
+      this.spinner.hide();
+    }
   }
 
   LoadSupplier() {

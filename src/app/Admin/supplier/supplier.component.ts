@@ -19,7 +19,7 @@ export class SupplierComponent implements OnInit {
   LoggedInUserType: string;
 
   // displayedColumns: string[] = ['name', 'address1', 'city', 'state', 'country', 'postalCode', 'phone', 'email', 'paymentMethod', 'notes', 'active', 'Edit'];
-  displayedColumns: string[] = ['name', 'address1', 'phone', 'email', 'paymentMethod', 'active', 'Edit'];
+  displayedColumns: string[] = ['companyName','name','designation', 'address1', 'phone', 'email', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   phoneMask = null;
   zipMask = null;
@@ -35,9 +35,9 @@ export class SupplierComponent implements OnInit {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.SupplierForm = this.formBuilder.group({
       supplierID: [0],
-      fname: ['', Validators.required],
-      mName: [''],
-      lName: ['', Validators.required],
+      companyName: ['', Validators.required],
+      name: [''],
+      designation: ['', Validators.required],
       address1: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
@@ -78,9 +78,9 @@ export class SupplierComponent implements OnInit {
   onAddNew(template: TemplateRef<any>, lst) {
     this.SupplierForm = this.formBuilder.group({
       supplierID: [0],
-      fname: ['', Validators.required],
-      mName: [''],
-      lName: ['', Validators.required],
+      companyName: ['', Validators.required],
+      name: ['', Validators.required],
+      designation: ['', Validators.required],
       address1: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
@@ -107,9 +107,9 @@ export class SupplierComponent implements OnInit {
     debugger
     this.SupplierForm = this.formBuilder.group({
       supplierID: [lst.supplierID],
-      fname: [lst.fname, Validators.required],
-      mName: [lst.mName],
-      lName: [lst.lName, Validators.required],
+      companyName: [lst.companyName, Validators.required],
+      name: [lst.name, Validators.required],
+      designation: [lst.designation, Validators.required],
       address1: [lst.address1, Validators.required],
       city: [lst.city, Validators.required],
       state: [lst.state, Validators.required],

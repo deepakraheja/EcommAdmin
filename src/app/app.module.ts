@@ -17,7 +17,7 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { NgxMaskModule } from 'ngx-mask'
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { ToastrModule } from 'ngx-toastr';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { SafePipeModule } from 'safe-pipe';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AppFooterComponent } from './_layout/app-footer/app-footer.component';
@@ -74,6 +74,7 @@ import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -145,9 +146,10 @@ import { MngUserComponent } from './Admin/mng-user/mng-user.component';
     MatCardModule,
     MatSortModule,
     MatSidenavModule,
-    MatChipsModule
+    MatChipsModule,
+    AngularEditorModule,
   ],
-  providers: [DatePipe,
+  providers: [DatePipe, CurrencyPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
