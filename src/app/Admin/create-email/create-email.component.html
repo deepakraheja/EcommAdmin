@@ -14,19 +14,10 @@
                                         #ddlTemplateType="ngModel" (change)="fnGetTemplate(TemplateType)"
                                         [(ngModel)]="TemplateType" value="TemplateType" required>
                                         <option value="0">Select</option>
-                                        <option value="8">Registration</option>
-                                        <option value="21">PasswordReset</option>
-                                        <option value="Block">Block Interview</option>
-                                        <option value="Group">Group Interview</option>
-                                        <option value="Individual">Individual Interview</option>
-                                        <option value="24">Schedule for Orientation</option>
-                                        <option value="9">Re-Schedule for Orientation</option>
-                                        <option value="6">Reject</option>
-                                        <option value="17">Rescind</option>
-                                        <option value="5">Hired</option>
-                                        <option value="11">Phase1 Task</option>
-                                        <option value="23">Phase2 Task</option>
-                                        <option value="25">FAQAnswer</option>
+                                        <option value="1">Registration</option>
+                                        <option value="2">PasswordReset</option>
+                                        <option value="3">OrderCompletion</option>
+                                                            
                                     </select>
                                     <div *ngIf="f.submitted && TemplateType == '0'" class="custom-error">
                                         <div *ngIf="TemplateType == '0'">Template For field required.</div>
