@@ -16,6 +16,7 @@ export class AppHeaderComponent implements OnInit {
   public user: boolean = false;
   public order: boolean = false;
   public report: boolean = false;
+  public Category: boolean = false;
   menuIconClass: string = "";
 
   public materialprimary: string;
@@ -44,6 +45,7 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = false;
       // this.report = false;
+      this.Category=false;
 
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "2") {
@@ -57,6 +59,7 @@ export class AppHeaderComponent implements OnInit {
       this.order = false;
       this.user = false;
       // this.report = false;
+      this.Category=false;
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
       this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
@@ -67,6 +70,7 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = true;
       //this.report = false;
+      this.Category=false;
       this.menuname = "User";
       this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
     }
@@ -79,8 +83,22 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = false;
       //this.report = false;
+      this.Category=false;
       this.menuname = "Order";
       this.menuIconClass = "icon-cash material-navyblue-primary bg-white-icon bg-navyblue-icon";
+    }
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "5") {
+      this.menuname = "Category";
+      this.menuIconClass = "icon-stack material-DarkGreen-primary bg-white-icon bg-DarkGreen-icon";
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-DarkGreen-primary";
+      this.materialsecondary = "material-DarkGreen-secondary space-all";
+      
+      this.Category=true;
+      this.product = false;
+      this.admin = false;
+      this.order = false;
+      this.user = false;
+      // this.report = false;
     }
   }
 

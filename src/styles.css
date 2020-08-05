@@ -136,6 +136,15 @@ th.mat-sort-header-sorted {
     color: #fff;
 }
 
+.material-DarkGreen-primary {
+    background: #00b30d !important;
+}
+
+.material-DarkGreen-secondary {
+    background: #60ce68;
+    color: #fff;
+}
+
 
 /* .material-red-primary {
 background: #F57C00 !important;
@@ -180,6 +189,10 @@ background: #F57C00 !important;
 
 .bg-green-icon:before {
     color: #689F38 !important;
+}
+
+.bg-DarkGreen-icon:before {
+    color: #00b30d !important;
 }
 
 .bg-blue-icon:before {

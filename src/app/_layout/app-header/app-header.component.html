@@ -35,8 +35,10 @@
                     <div class="dropdown-menu dropdown-menu-left main-navigation dropdown-menu-left">
                         <a href="home" class="dropdown-item" (click)="ChangeName('0')"><i
                         class="fa-tachometer icon-users material-dark-grey-primary"></i>Dashboard</a>
-                        <a href="MainCategory" class="dropdown-item" (click)="ChangeName('1')"><i
+                        <a href="brand" class="dropdown-item" (click)="ChangeName('1')"><i
                         class="icon-users material-yellow-primary"></i>Admin</a>
+                        <a href="MainCategory" class="dropdown-item" (click)="ChangeName('5')"><i
+                            class="icon-stack material-DarkGreen-primary"></i>Category</a>
                         <a href="product" class="dropdown-item" (click)="ChangeName('2')"><i
                         class="icon-stack material-blue-primary"></i>Product</a>
                         <a href="user" class="dropdown-item" (click)="ChangeName('3')"><i
@@ -49,17 +51,17 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-light-shade d-inline-box">
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="Category" class="nav-item ">
                     <a [routerLink]="'/MainCategory'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Main Category</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="Category" class="nav-item ">
                     <a [routerLink]="'/Category'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Category</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="Category" class="nav-item ">
                     <a [routerLink]="'/SubCategory'" class="navbar-nav-link" routerLinkActive="active">
                         <span> SubCategory</span>
                     </a>
@@ -106,12 +108,12 @@
                         <span> User</span>
                     </a>
                 </li>
-                <!--<li *ngIf="record" class="nav-item ">
-                    <a [routerLink]="'/mngClient'" class="navbar-nav-link" routerLinkActive="active">
-                        <span> Client</span>
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/CreateEmail'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Email Template</span>
                     </a>
                 </li>
-                <li *ngIf="record" class="nav-item ">
+                <!--<li *ngIf="record" class="nav-item ">
                     <a [routerLink]="'/mngVenue'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Venue</span>
                     </a>

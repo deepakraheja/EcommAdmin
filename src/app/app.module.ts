@@ -75,6 +75,7 @@ import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { CreateEmailComponent } from './Admin/create-email/create-email.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     OrderComponent,
     MainCategoryComponent,
     MngUserComponent,
+    CreateEmailComponent,
   ],
   imports: [
     SafePipeModule,
