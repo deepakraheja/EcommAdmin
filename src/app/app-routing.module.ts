@@ -18,6 +18,7 @@ import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
+import { CreateEmailComponent } from './Admin/create-email/create-email.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
       { path: 'fabricType', component: FabricTypeComponent },
       { path: 'tagMaster', component: TagMasterComponent },
       { path: 'order', component: OrderComponent },
-      { path: 'user', component: MngUserComponent }
+      { path: 'user', component: MngUserComponent },
+      { path: 'CreateEmail', component: CreateEmailComponent }
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

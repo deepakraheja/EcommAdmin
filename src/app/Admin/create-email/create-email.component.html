@@ -1,0 +1,48 @@
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Template For <span class="error">*</span></mat-label>
+                                    <mat-select id="emailtm" name="ddlTemplateType" #ddlTemplateType="ngModel" (selectionChange)="fnGetTemplate(TemplateType)" [(ngModel)]="TemplateType" value="TemplateType">
+                                        <mat-option value="0">Select</mat-option>
+                                        <mat-option value="1">Registration</mat-option>
+                                        <mat-option value="2">PasswordReset</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="f.submitted && TemplateType == '0'" class="custom-error">
+                                    <div *ngIf="TemplateType == '0'">Template For field required.</div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>PlaceHolder </mat-label>
+                                    <mat-select id="pholder" name="ddlPlaceHolder" #ddlPlaceHolder="ngModel" (selectionChange)="fnSetPlaceHolder(PlaceHolder)" [(ngModel)]="PlaceHolder" value="PlaceHolder">
+                                        <mat-option value="0">Select</mat-option>
+                                        <mat-option value="[Name]">Name</mat-option>
+                                        <mat-option value="[Address]">Address</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> -->
+                            <div class="col-md-6 mt-2"><button mat-raised-button class="btn btn-warning btn-lg">Save
+                                </button></div>
+                        </div>
+
+                        <div class="new-section">
+                            <div *ngIf="f.submitted && template.invalid" class="custom-error">
+                                <div *ngIf="template.errors.required">Email template required</div>
+                            </div>
+                            <angular-editor [config]="config" name="template" [(ngModel)]="Template" #template="ngModel" [ngClass]="{ 'is-invalid': f.submitted && template.invalid }" required></angular-editor>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
