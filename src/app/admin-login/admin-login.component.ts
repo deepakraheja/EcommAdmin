@@ -42,12 +42,12 @@ export class AdminLoginComponent implements OnInit {
       this.User = _user;
       if (_user != null) {
         if (this.User.length > 0) {
-          console.log(this.User)
+          //console.log(this.User)
 
           this._LocalStorage.storeOnLocalStorage("LoggedInUserId", this.User[0].userID.toString());
           this._LocalStorage.storeOnLocalStorage("LoggedInUserType", this.User[0].userType.toString());
           this._LocalStorage.storeOnLocalStorage("Name", this.User[0].name.toString());
-          //this._LocalStorage.storeOnLocalStorage("Token", this.User[0].token);
+          this._LocalStorage.storeOnLocalStorage("Token", this.User[0].token);
           this._LocalStorage.storeOnLocalStorage("Selected", "0");
           //this._LocalStorage.storeOnLocalStorage("LoggedInUserType","2");
           // if (this.User[0].branchId.toString() != "" || this.User[0].branchId != null) {

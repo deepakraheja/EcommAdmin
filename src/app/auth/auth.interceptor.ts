@@ -14,6 +14,8 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // 
         // add authorization header with jwt token if available      
+
+        debugger;
         let Token = this._LocalStorage.getValueOnLocalStorage('Token');
 
         if (this._LocalStorage.getValueOnLocalStorage('Token') != null) {
@@ -29,8 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
                     succ => { },
                     err => {
                         if (err.status == 401) {
-                            //this._LocalStorage.removeAllLocalStorage();
-                            //this._router.navigateByUrl('/adminlogin');
+                            this._LocalStorage.removeAllLocalStorage();
+                            this._router.navigateByUrl('/adminlogin');
                         }
                     }
                 )
@@ -38,8 +40,8 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         else
         {
-            //this._LocalStorage.removeAllLocalStorage();
-            //this._router.navigateByUrl('/adminlogin');
+            this._LocalStorage.removeAllLocalStorage();
+            this._router.navigateByUrl('/adminlogin');
             return next.handle(req.clone());
             
         }
