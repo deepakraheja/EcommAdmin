@@ -6,10 +6,68 @@
                 <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
                     <div class="card-body">
                         <div class="row">
+
                             <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="emailtm" class="bmd-label-floating">Template For:</label>
+                                    <select class="form-control" id="emailtm" name="ddlTemplateType"
+                                        #ddlTemplateType="ngModel" (change)="fnGetTemplate(TemplateType)"
+                                        [(ngModel)]="TemplateType" value="TemplateType" required>
+                                        <option value="0">Select</option>
+                                        <option value="8">Registration</option>
+                                        <option value="21">PasswordReset</option>
+                                        <option value="Block">Block Interview</option>
+                                        <option value="Group">Group Interview</option>
+                                        <option value="Individual">Individual Interview</option>
+                                        <option value="24">Schedule for Orientation</option>
+                                        <option value="9">Re-Schedule for Orientation</option>
+                                        <option value="6">Reject</option>
+                                        <option value="17">Rescind</option>
+                                        <option value="5">Hired</option>
+                                        <option value="11">Phase1 Task</option>
+                                        <option value="23">Phase2 Task</option>
+                                        <option value="25">FAQAnswer</option>
+                                    </select>
+                                    <div *ngIf="f.submitted && TemplateType == '0'" class="custom-error">
+                                        <div *ngIf="TemplateType == '0'">Template For field required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="pholder" class="bmd-label-floating">PlaceHolder</label>
+                                    <select class="form-control" id="pholder" name="ddlPlaceHolder"
+                                        #ddlPlaceHolder="ngModel" (change)="fnSetPlaceHolder(PlaceHolder)"
+                                        [(ngModel)]="PlaceHolder" value="PlaceHolder">
+                                        <option value="">Select</option>
+                                        <option value="[Name]">Name</option>
+                                        <option value="[Branch]">Branch</option>
+                                        <option value="[VenueName]">VenueName</option>
+                                        <option value="[InterviewDate]">InterviewDate</option>
+                                        <option value="[InterviewTime]">InterviewTime</option>
+                                        <option value="[VenueAddress]">VenueAddress</option>
+                                        <option value="[RoomNo]">RoomNo</option>
+                                        <option value="[StartTime]">StartTime</option>
+                                        <option value="[EndTime]">EndTime</option>
+                                        <option value="[ParkingInstructions]">ParkingInstructions</option>
+                                        <option
+                                            value="<img  width='100' height='100' src='[ApplicationNumber]'' alt='bar' />">
+                                            BarCode</option>
+                                        <option value="[verificationCode]">verificationCode</option>
+                                        <option value="[Address]">Address</option>
+                                        <option value="[Email]">Email</option>
+                                        <option value="[Password]">Password</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="col-md-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Template For <span class="error">*</span></mat-label>
-                                    <mat-select id="emailtm" name="ddlTemplateType" #ddlTemplateType="ngModel" (selectionChange)="fnGetTemplate(TemplateType)" [(ngModel)]="TemplateType" value="TemplateType">
+                                    <mat-select id="emailtm" name="ddlTemplateType" #ddlTemplateType="ngModel"
+                                        (selectionChange)="fnGetTemplate(TemplateType)" [(ngModel)]="TemplateType"
+                                        value="TemplateType">
                                         <mat-option value="0">Select</mat-option>
                                         <mat-option value="1">Registration</mat-option>
                                         <mat-option value="2">PasswordReset</mat-option>
@@ -18,7 +76,7 @@
                                 <div *ngIf="f.submitted && TemplateType == '0'" class="custom-error">
                                     <div *ngIf="TemplateType == '0'">Template For field required.</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="col-md-3">
                                 <mat-form-field appearance="outline">
                                     <mat-label>PlaceHolder </mat-label>
@@ -29,7 +87,8 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div> -->
-                            <div class="col-md-6 mt-2"><button mat-raised-button class="btn btn-warning btn-lg">Save
+                            
+                            <div class="col-md-6 mt-4"><button mat-raised-button class="btn btn-warning btn-lg">Save
                                 </button></div>
                         </div>
 
@@ -37,7 +96,8 @@
                             <div *ngIf="f.submitted && template.invalid" class="custom-error">
                                 <div *ngIf="template.errors.required">Email template required</div>
                             </div>
-                            <angular-editor [config]="config" name="template" [(ngModel)]="Template" #template="ngModel" [ngClass]="{ 'is-invalid': f.submitted && template.invalid }" required></angular-editor>
+                            <angular-editor [config]="config" name="template" [(ngModel)]="Template" #template="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && template.invalid }" required></angular-editor>
 
                         </div>
                     </div>
