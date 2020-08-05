@@ -157,6 +157,7 @@ export class ProductDetailComponent implements OnInit {
       availableSize: [false],
       availableColors: [false],
       size: ['', Validators.required],
+      sizeId: ['', Validators.required],
       setNo: this.ProductForm.value.setType != 2 ? [''] : ['', Validators.required],
       lookupColorId: ['', Validators.required],
       discount: [''],
@@ -187,7 +188,7 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -601,10 +602,11 @@ export class ProductDetailComponent implements OnInit {
         availableSize: this.EditProductDetailForm.value.availableSize,
         availableColors: this.EditProductDetailForm.value.availableColors,
         size: this.EditProductDetailForm.value.size,
+        sizeId: this.EditProductDetailForm.value.sizeId,
         setNo: this.EditProductDetailForm.value.setNo,
         lookupColorId: Number(this.EditProductDetailForm.value.lookupColorId),
         discount: this.EditProductDetailForm.value.discount == "" ? 0 : Number(this.EditProductDetailForm.value.discount),
-        discountAvailable: this.EditProductDetailForm.value.discountAvailable,
+        discountAvailable: this.EditProductDetailForm.value.discount == "" ? false : true,//this.EditProductDetailForm.value.discountAvailable,
         CreatedBy: Number(this.LoggedInUserId),
         Modifiedby: Number(this.LoggedInUserId),
       };
@@ -772,6 +774,7 @@ export class ProductDetailComponent implements OnInit {
       availableSize: [element.availableSize],
       availableColors: [element.availableColors],
       size: [element.size, Validators.required],
+      sizeId: [element.sizeId, Validators.required],
       setNo: this.ProductForm.value.setType != 2 ? [element.setNo] : [element.setNo, Validators.required],
       lookupColorId: [element.lookupColorId, Validators.required],
       discount: [element.discount],
