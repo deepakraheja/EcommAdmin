@@ -546,7 +546,10 @@
                                                         <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'small');"></label>
                                                     </div>
                                                 </div>
-
+                                                <div class="col-md-12 mt-3 text-center">
+                                                    <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
+                                                    <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
+                                                </div>
 
 
                                             </div>
@@ -555,16 +558,13 @@
                                                     <div class="col-md-12">
                                                         <mat-card class="example-card">
 
-                                                            <img mat-card-image [src]="previewUrl" style="min-height: 370px;max-height: 370px;">
+                                                            <img mat-card-image [src]="previewUrl" style="height: auto;max-width: 100%;">
                                                         </mat-card>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3 text-center">
-                                            <button type="button" (click)="onBack()" class="btn btn-secondary btn-lg">Back</button> &nbsp;
-                                            <button type="button" class="btn btn-primary btn-lg" (click)="Save()">Save</button> &nbsp;
-                                        </div>
+
                                     </div>
 
 
