@@ -133,9 +133,21 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
-                        <mat-form-field appearance="outline">
+                        <!-- <mat-form-field appearance="outline">
                             <mat-label>Designation <span class="error">*</span></mat-label>
                             <input type="text" matInput formControlName="designation" maxlength="50">
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Designation <span class="error">*</span></mat-label>
+                            <mat-select formControlName="designation">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option value="Owner">Owner</mat-option>
+                                <mat-option value="Director">Director</mat-option>
+                                <mat-option value="Sale Manager">Sale Manager</mat-option>
+                                <mat-option value="Partner">Partner</mat-option>
+                                <mat-option value="General Manager">General Manager</mat-option>
+                                <mat-option value="Managing director">Managing director</mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
@@ -180,12 +192,12 @@
                             <input type="text" matInput formControlName="email" maxlength="50">
                         </mat-form-field>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <mat-form-field appearance="outline">
                             <mat-label>Payment Method <span class="error">*</span></mat-label>
                             <input type="text" matInput formControlName="paymentMethod" maxlength="50">
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="col-md-2 mt-2">
                         <mat-checkbox formControlName="active">Active</mat-checkbox>
                     </div>

@@ -57,7 +57,7 @@ export class SupplierComponent implements OnInit {
   }
 
   addMask(obj: Object) {
-    this.phoneMask = "000-000-0000";
+    this.phoneMask = "0000000000";
     this.zipMask = "000000";
     this.showMask = false;
   }
