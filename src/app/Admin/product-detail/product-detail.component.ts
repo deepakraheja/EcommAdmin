@@ -143,7 +143,7 @@ export class ProductDetailComponent implements OnInit {
       availableColors: [true],
       arraySize: ['', Validators.required],
       arrayColor: ['', Validators.required],
-      // discount: [''],
+      discount: ['', Validators.required],
       // discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
@@ -160,7 +160,7 @@ export class ProductDetailComponent implements OnInit {
       sizeId: ['', Validators.required],
       setNo: this.ProductForm.value.setType != 2 ? [''] : ['', Validators.required],
       lookupColorId: ['', Validators.required],
-      discount: [''],
+      discount: ['', Validators.required],
       discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
@@ -182,7 +182,7 @@ export class ProductDetailComponent implements OnInit {
       availableColors: [true],
       arraySize: ['', Validators.required],
       arrayColor: ['', Validators.required],
-      // discount: [''],
+      discount: ['', Validators.required],
       // discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
@@ -546,6 +546,11 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
+    else if (Number(this.ProductDetailForm.value.salePrice)>=Number(this.ProductDetailForm.value.price)) {
+      this.ProductDetailForm.markAllAsTouched();
+      this._toasterService.error("Product sale price should be greater than or equal to the price.");
+      return;
+    }
     else {
       this.spinner.show();
       let obj = {
@@ -558,8 +563,8 @@ export class ProductDetailComponent implements OnInit {
         availableColors: this.ProductDetailForm.value.availableColors,
         arraySize: this.ProductDetailForm.value.arraySize,
         arrayColor: this.ProductDetailForm.value.arrayColor,
-        // discount: this.ProductDetailForm.value.discount == "" ? 0 : Number(this.ProductDetailForm.value.discount),
-        // discountAvailable: this.ProductDetailForm.value.discountAvailable,
+        discount: Number(this.ProductDetailForm.value.discount),
+        discountAvailable: Number(this.ProductDetailForm.value.discount) > 0 ? true : false,
         // productImg: this.ProductDetailForm.value.productImg,
         CreatedBy: Number(this.LoggedInUserId),
         // CreatedDate:this.ProductForm.value.productName],
@@ -590,6 +595,11 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
+    else if (Number(this.EditProductDetailForm.value.salePrice)>=Number(this.EditProductDetailForm.value.price)) {
+      this.EditProductDetailForm.markAllAsTouched();
+      this._toasterService.error("Product sale price should be greater than or equal to the price.");
+      return;
+    }
     else {
       this.spinner.show();
       let obj = {
@@ -605,8 +615,8 @@ export class ProductDetailComponent implements OnInit {
         sizeId: this.EditProductDetailForm.value.sizeId,
         setNo: this.EditProductDetailForm.value.setNo,
         lookupColorId: Number(this.EditProductDetailForm.value.lookupColorId),
-        discount: this.EditProductDetailForm.value.discount == "" ? 0 : Number(this.EditProductDetailForm.value.discount),
-        discountAvailable: this.EditProductDetailForm.value.discount == "" ? false : true,//this.EditProductDetailForm.value.discountAvailable,
+        discount: Number(this.EditProductDetailForm.value.discount),
+        discountAvailable: Number(this.EditProductDetailForm.value.discount) > 0 ? true : false,//this.EditProductDetailForm.value.discountAvailable,
         CreatedBy: Number(this.LoggedInUserId),
         Modifiedby: Number(this.LoggedInUserId),
       };
@@ -777,7 +787,7 @@ export class ProductDetailComponent implements OnInit {
       sizeId: [element.sizeId, Validators.required],
       setNo: this.ProductForm.value.setType != 2 ? [element.setNo] : [element.setNo, Validators.required],
       lookupColorId: [element.lookupColorId, Validators.required],
-      discount: [element.discount],
+      discount: [element.discount, Validators.required],
       discountAvailable: [element.discountAvailable],
       //productImg: [element.productImg, [Validators.required]],
     });

@@ -269,7 +269,7 @@
                                                 <!-- <div class="col-md-2 mt-2">
                                                     <mat-checkbox formControlName="availableSize">Available Size</mat-checkbox>
                                                 </div> -->
-                                                <div class="col-md-4">
+                                                <div class="col-md-2">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Color <span class="error">*</span></mat-label>
                                                         <mat-select formControlName="arrayColor" multiple>
@@ -314,16 +314,16 @@
                                                         <input type="text" matInput formControlName="salePrice" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                                                     </mat-form-field>
                                                 </div>
-
+                                                <div class="col-md-2">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Discount <span class="error">*</span></mat-label>
+                                                        <input type="text" matInput formControlName="discount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                                                    </mat-form-field>
+                                                </div>
                                                 <!-- <div class="col-md-2 mt-2">
                                                     <mat-checkbox formControlName="availableColors">Available Colors</mat-checkbox>
                                                 </div> -->
-                                                <!-- <div class="col-md-2">
-                                                    <mat-form-field appearance="outline">
-                                                        <mat-label>Discount</mat-label>
-                                                        <input type="text" matInput formControlName="discount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
-                                                    </mat-form-field>
-                                                </div> -->
+
                                                 <div class="col-md-12 text-center">
                                                     <button type="button" class="btn btn-primary btn-lg" (click)="SaveProductDetails()">Save</button> &nbsp;
                                                     <button type="button" class="btn btn-secondary btn-lg" (click)="ResetProductDetails()">Reset</button> &nbsp;
@@ -522,7 +522,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
 
-                                                <div class="form-group row" style="margin-left: 1px;">
+                                                <div class="form-group row" style="margin-left: 1px; display: none;">
                                                     Banner Image :
                                                     <label for="BannerImg" class="mi-file-upload mi-2x" style="color: blue;"> </label> &nbsp;
                                                     <input id="BannerImg" type="file" style="display: none;" (change)="UploadBannerImg($event)" />
