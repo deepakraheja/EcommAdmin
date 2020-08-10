@@ -59,14 +59,14 @@
                                     <th mat-header-cell *matHeaderCellDef>Supplier</th>
                                     <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="title">
-                                    <th mat-header-cell *matHeaderCellDef>Title</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                <ng-container matColumnDef="setType">
+                                    <th mat-header-cell *matHeaderCellDef>setType</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.setType==1?'Without Set':(element.setType==2?'With Set':'Minimum')}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="subTitle">
+                                <!-- <ng-container matColumnDef="subTitle">
                                     <th mat-header-cell *matHeaderCellDef>SubTitle</th>
                                     <td mat-cell *matCellDef="let element"> {{element.subTitle}} </td>
-                                </ng-container>
+                                </ng-container> -->
                                 <ng-container matColumnDef="active">
                                     <th mat-header-cell *matHeaderCellDef>Active</th>
                                     <td mat-cell *matCellDef="let element"> {{element.active?'Active':'In-Active'}} </td>

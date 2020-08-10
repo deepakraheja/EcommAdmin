@@ -164,7 +164,7 @@ export class ProductDetailComponent implements OnInit {
         this.LoadProduct();
     });
 
-    
+
   }
   ResetProductDetails() {
     this.ProductDetailForm = this.formBuilder.group({
@@ -544,7 +544,7 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
-    else if (Number(this.ProductDetailForm.value.salePrice) >= Number(this.ProductDetailForm.value.price)) {
+    else if (Number(this.ProductDetailForm.value.salePrice) > Number(this.ProductDetailForm.value.price)) {
       this.ProductDetailForm.markAllAsTouched();
       this._toasterService.error("Product sale price should be greater than or equal to the price.");
       return;
@@ -568,6 +568,7 @@ export class ProductDetailComponent implements OnInit {
         // CreatedDate:this.ProductForm.value.productName],
         Modifiedby: Number(this.LoggedInUserId),
         // ModifiedDate:this.ProductForm.value.productName],
+        SetNo: Number(this.ProductForm.value.setType) == 2 ? (this.dataSource.filteredData.length == 0 ? 1 : 0) : 0
       };
       this._productService.SaveProductSizeColor(obj).subscribe(res => {
         this.spinner.hide();
@@ -593,7 +594,7 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
-    else if (Number(this.EditProductDetailForm.value.salePrice) >= Number(this.EditProductDetailForm.value.price)) {
+    else if (Number(this.EditProductDetailForm.value.salePrice) > Number(this.EditProductDetailForm.value.price)) {
       this.EditProductDetailForm.markAllAsTouched();
       this._toasterService.error("Product sale price should be greater than or equal to the price.");
       return;

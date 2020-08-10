@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit {
   LoggedInUserType: string;
   lstSupplier: any = [];
   // displayedColumns: string[] = ['productName', 'brandName', 'subcategoryName', 'stockQty', 'price', 'salePrice', 'active', 'Edit'];
-  displayedColumns: string[] = ['frontImage', 'productName', 'brandName', 'subcategoryName', 'supplierName', 'title', 'subTitle', 'active', 'Edit'];
+  displayedColumns: string[] = ['frontImage', 'productName', 'brandName', 'subcategoryName', 'supplierName', 'setType', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   SelectsupplierID = new FormControl('');
   constructor(
