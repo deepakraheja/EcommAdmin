@@ -83,21 +83,6 @@ export class ProductDetailComponent implements OnInit {
     private _TagService: TagService
   ) {
 
-    this.fnGetMainCategory();
-    this.LoadBrand();
-    //this.LoadCategory("");
-    this.LoadSupplier();
-    this.LoadTag();
-    this.LoadFabric();
-
-    this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      debugger
-      this.ProductId = Number(params.get('productId'));
-      if (this.ProductId > 0)
-        this.LoadProduct();
-    });
-
     this.ProductForm = this.formBuilder.group({
       productID: [0],
       productName: ['', Validators.required],
@@ -170,6 +155,16 @@ export class ProductDetailComponent implements OnInit {
     this.LoadSupplier();
     this.LoadTag();
     this.LoadFabric();
+
+    this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      debugger
+      this.ProductId = Number(params.get('productId'));
+      if (this.ProductId > 0)
+        this.LoadProduct();
+    });
+
+    
   }
   ResetProductDetails() {
     this.ProductDetailForm = this.formBuilder.group({
@@ -292,8 +287,11 @@ export class ProductDetailComponent implements OnInit {
     this._CategoryService.GetMainCategory(obj)
       .subscribe(res => {
         this.lstMainCategory = res
-        this.spinner.hide();
-        this.LoadCategory("");
+        //this.spinner.hide();
+        setTimeout(() => {
+          this.LoadCategory("");
+        }, 2000);
+
       });
   }
 
@@ -546,7 +544,7 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
-    else if (Number(this.ProductDetailForm.value.salePrice)>=Number(this.ProductDetailForm.value.price)) {
+    else if (Number(this.ProductDetailForm.value.salePrice) >= Number(this.ProductDetailForm.value.price)) {
       this.ProductDetailForm.markAllAsTouched();
       this._toasterService.error("Product sale price should be greater than or equal to the price.");
       return;
@@ -595,7 +593,7 @@ export class ProductDetailComponent implements OnInit {
       this._toasterService.error("All the * marked fields are mandatory");
       return;
     }
-    else if (Number(this.EditProductDetailForm.value.salePrice)>=Number(this.EditProductDetailForm.value.price)) {
+    else if (Number(this.EditProductDetailForm.value.salePrice) >= Number(this.EditProductDetailForm.value.price)) {
       this.EditProductDetailForm.markAllAsTouched();
       this._toasterService.error("Product sale price should be greater than or equal to the price.");
       return;

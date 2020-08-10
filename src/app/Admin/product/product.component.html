@@ -13,7 +13,7 @@
                                 <mat-select [formControl]="SelectsupplierID" (selectionChange)="LoadData($event)">
                                     <mat-option value="">All</mat-option>
                                     <mat-option *ngFor="let row of lstSupplier" value="{{row.supplierID}}">
-                                        {{row.fname}} {{row.lName}}
+                                        {{row.companyName}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
