@@ -62,7 +62,7 @@ export class ProductComponent implements OnInit {
   }
   LoadData(event: any) {
     let obj = {
-      SupplierID: this.SelectsupplierID.value == "" ? Number(this.SelectsupplierID.value) : 0
+      SupplierID: this.SelectsupplierID.value == "" ? 0 : Number(this.SelectsupplierID.value)
     }
     this.spinner.show();
     this._ProductService.GetAllProductBySupplierId(obj).subscribe(res => {
