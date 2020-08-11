@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocalStorageService } from 'src/app/Service/local-storage.service';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { SupplierService } from 'src/app/Service/supplier.service';
 import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
 import { environment } from 'src/environments/environment';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product',
@@ -26,6 +27,7 @@ export class ProductComponent implements OnInit {
   // displayedColumns: string[] = ['productName', 'brandName', 'subcategoryName', 'stockQty', 'price', 'salePrice', 'active', 'Edit'];
   displayedColumns: string[] = ['frontImage', 'productName', 'brandName', 'subcategoryName', 'supplierName', 'setType', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   SelectsupplierID = new FormControl('');
   constructor(
     private formBuilder: FormBuilder,
@@ -68,6 +70,7 @@ export class ProductComponent implements OnInit {
     this._ProductService.GetAllProductBySupplierId(obj).subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
