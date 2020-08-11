@@ -5,6 +5,9 @@
             <div class="card">
 
                 <div class="card-body">
+
+
+
                     <form [formGroup]="OrderForm">
                         <div class="row">
                             <div class="col-md-2">
@@ -41,8 +44,57 @@
                             </div>
                         </div>
                     </form>
+
                     <div class="new-section">
-                        <div class="dashboard">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
+                                <mat-form-field class="example-chip-list example-full-width">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)" class="btn-search" style=" padding-bottom: 15px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
+                                <ng-container matColumnDef="orderNumber">
+                                    <th mat-header-cell *matHeaderCellDef>Order #</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="View">
+                                    <th mat-header-cell *matHeaderCellDef>View</th>
+                                    <td mat-cell *matCellDef="let element" (click)="OrderTrackingListByOrderId(templateOrderDetails,element)">
+                                        <mat-icon>visibility</mat-icon>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="orderDate">
+                                    <th mat-header-cell *matHeaderCellDef>Order Date</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.orderDate | date :'MM/dd/yyyy HH:mm:ss'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fName">
+                                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fName}} {{element.lName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="phone">
+                                    <th mat-header-cell *matHeaderCellDef>Mobile No</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="statusId">
+                                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.statusId==1?'New Order':(element.statusId==2?'Shipped':(element.statusId==3?'Delivered':'No Status'))}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="totalAmount">
+                                    <th mat-header-cell *matHeaderCellDef>Total Amount</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.totalAmount | currency:Currency.currency:'symbol'}} </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+
+                            <!-- <div *ngIf="dataSource?.filteredData?.length == 0">No records found</div> -->
+                            <mat-paginator [pageSizeOptions]="[10,20,30,50,100]" showFirstLastButtons></mat-paginator>
+                        </div>
+                        <!-- <div class="dashboard">
 
                             <div class="box-account box-info">
                                 <div>
@@ -159,8 +211,6 @@
                                                                             <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:100px;margin-left:-100px;float:left;">
                                                                                 <div class="item-view-left-col-inner">
                                                                                     <a class="a-link-normal">
-                                                                                        <!-- <img src="assets/ProductImages/{{lstPro.ImagePath}}" width="150px" height="100px" alt=""> -->
-                                                                                        <!-- <img [src]="ProductImage+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt=""> -->
                                                                                         <img *ngIf="lstPro?.setNo>0" [src]="ProductImage+'/'+lstPro?.productId+'/productSetImage/'+lstPro?.setNo+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
                                                                                         <img *ngIf="lstPro?.setNo==0" [src]="ProductImage+'/'+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
 
@@ -213,7 +263,7 @@
                                                                                 <mat-option [value]="3">Delivered</mat-option>
                                                                             </mat-select>
                                                                         </mat-form-field>
-                                                                        <!-- <span class="a-button a-button-primary track-package-button" id="a-autoid-3"><span class="a-button-inner"><a
+                                                                        <span class="a-button a-button-primary track-package-button" id="a-autoid-3"><span class="a-button-inner"><a
                                                                                     class="a-button-text" role="button"
                                                                                     id="a-autoid-3-announce">
                                                                                     Track package
@@ -221,7 +271,7 @@
                                                                         <span class="a-button a-button-normal a-spacing-mini a-button-base" id="a-autoid-4"><span class="a-button-inner"><a id="Cancel-items_1"
                                                                                     class="a-button-text" role="button">
                                                                                     Cancel items
-                                                                                </a></span></span> -->
+                                                                                </a></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -234,13 +284,175 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #templateOrderDetails>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <div class="row">
+            <div class="col-md-11">
+                <h2 mat-dialog-title>Order #{{lstOrderDetails.orderNumber}}</h2>
+                <!-- <span>
+    Payment via Direct back transfer.
+</span> -->
+            </div>
+            <div class="col-md-1">
+                <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 style="margin-bottom: 3px !important;"><u><b>Order Detail</b></u></h3>
+                    <b>Order Date : </b> {{lstOrderDetails.orderDate | date :'MM/dd/yyyy HH:mm:ss'}}
+                    <br>
+                    <b>Total Amount: </b> {{lstOrderDetails.totalAmount | currency:Currency.currency:'symbol'}}
+                    <br>
+                    <b>Payment Mode: </b> {{lstOrderDetails.paymentTypeId==1?'Cash on Delivery (COD)':'Online Payment'}}
+                    <br>
+                    <b>Order Status: </b> {{lstOrderDetails.statusId==1?'New Order':(lstOrderDetails.statusId==2?'Shipped':(lstOrderDetails.statusId==3?'Delivered':'No Status'))}}
+                    <br>
+                    <b>Notes: </b> {{lstOrderDetails.notes}}
+                    <br>
+                </div>
+                <div class="col-md-6">
+                    <h3 style="margin-bottom: 3px !important;"><u><b>
+                        Shipping Address</b></u>
+                    </h3>
+                    <b>Name : </b> {{lstOrderDetails.fName}} {{lstOrderDetails.lName}}
+                    <br>
+                    <b>Company Name : </b> {{lstOrderDetails.companyName}}
+                    <br>
+                    <b>Address : </b> {{lstOrderDetails.address}}, {{lstOrderDetails.city}}
+                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {{lstOrderDetails.state}}, {{lstOrderDetails.zipCode}}, {{lstOrderDetails.country}}
+                    <br>
+                    <b>EmailId : </b> {{lstOrderDetails.emailId}}
+                    <br>
+                    <b>Mobile No :</b> {{lstOrderDetails.phone}}
+                    <br>
+                </div>
+            </div>
+            <hr style="margin-bottom: 2px; margin-top: 7px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 style="margin-bottom: 3px !important;"><u><b>
+                        Product Details</b></u>
+                    </h3>
+                </div>
+                <div class="a-box shipment" *ngFor="let lstPro of lstOrderDetails.orderDetails">
+                    <div class="a-box-inner">
+                        <div class="a-row shipment-top-row js-shipment-info-container">
+                            <div style="margin-right:230px; padding-right:20px">
+
+                                <div class="a-row">
+                                    <span class="a-color-success">
+                                        Not yet dispatched
+                                    </span>
+                                    <span data-isstatuswithwarning="0" data-yodeliveryestimate="Arriving Monday" data-yoshortstatuscode="" data-yostatusstring="Not yet dispatched" class="js-shipment-info aok-hidden">
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="a-fixed-right-grid a-spacing-top-medium">
+                            <div class="a-fixed-right-grid-inner a-grid-vertical-align a-grid-top">
+                                <div class="a-fixed-right-grid-col a-col-left" style="padding-right:3.2%;float:left;">
+                                    <div class="a-row">
+                                        <div class="a-fixed-left-grid a-spacing-none">
+                                            <div class="a-fixed-left-grid-inner" style="padding-left:100px">
+                                                <div class="a-text-center a-fixed-left-grid-col a-col-left" style="width:100px;margin-left:-100px;float:left;">
+                                                    <div class="item-view-left-col-inner">
+                                                        <a class="a-link-normal">
+                                                            <img *ngIf="lstPro?.setNo>0" [src]="ProductImage+'/'+lstPro?.productId+'/productSetImage/'+lstPro?.setNo+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
+                                                            <img *ngIf="lstPro?.setNo==0" [src]="ProductImage+'/'+lstPro?.productId+'/productColorImage/'+lstPro?.productSizeColorId+'/'+lstPro?.productImg[0]" width="150px" height="100px" alt="">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="a-fixed-left-grid-col a-col-right" style="padding-left:1.5%;float:left;">
+                                                    <div class="a-row">
+                                                        <a class="a-link-normal">
+                                                            {{lstPro.productName}}
+                                                        </a>
+                                                    </div>
+                                                    <!-- <div class="a-row">
+                                                        <span class="a-size-small a-color-secondary">
+                                                            Quantity : {{lstPro.quantity}}
+                                                        </span>
+                                                    </div> -->
+                                                    <!-- <div class="a-row">
+                                                        <span class="a-size-small">
+                                                        </span>
+                                                    </div> -->
+                                                    <div class="a-row">
+                                                        <!-- <span class="a-size-small a-color-price"> -->
+                                                        <span class="a-size-small a-color-secondary">
+                                                            <span
+                                                                style="text-decoration: inherit; white-space: nowrap;">
+                                                               Total Amount : {{lstPro.quantity}} x {{lstPro.price | currency:Currency.currency:'symbol'}} = {{GetTotalAmount(lstPro) | currency:Currency.currency:'symbol'}}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="a-row">
+                                                        <!-- <span class="a-color-secondary a-text-bold">
+                                                        </span>
+                                                        <span class="a-color-secondary">
+                                                        </span> -->
+                                                        <mat-form-field appearance="outline" style="width: 200px;">
+                                                            <mat-label>Change Status </mat-label>
+                                                            <mat-select>
+                                                                <mat-option [value]="0">All</mat-option>
+                                                                <mat-option [value]="1">New Order</mat-option>
+                                                                <mat-option [value]="2">Shipped</mat-option>
+                                                                <mat-option [value]="3">Delivered</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="a-fixed-right-grid-col a-col-right" style="width:230px;margin-right:-230px;float:left;">
+                                    <div class="a-row">
+                                        <div class="a-button-stack">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Change Status </mat-label>
+                                                <mat-select>
+                                                    <mat-option [value]="0">All</mat-option>
+                                                    <mat-option [value]="1">New Order</mat-option>
+                                                    <mat-option [value]="2">Shipped</mat-option>
+                                                    <mat-option [value]="3">Delivered</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </mat-dialog-content>
+    <!-- <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+           
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions> -->
+</ng-template>
+
 <style>
     /* ******** */
     

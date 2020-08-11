@@ -34,7 +34,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" style="height: 400px; overflow: auto;">
+                        <div class="col-md-12">
                             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
 
                                 <ng-container matColumnDef="frontImage">
@@ -83,7 +83,9 @@
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                             </table>
-                            <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+
+                            <!-- <div *ngIf="dataSource.filteredData.length === 0">No records found</div> -->
+                            <mat-paginator [pageSizeOptions]="[10,20,30,50,100]" showFirstLastButtons></mat-paginator>
                         </div>
 
 

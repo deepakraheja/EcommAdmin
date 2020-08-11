@@ -45,7 +45,7 @@ export class SupplierComponent implements OnInit {
       postalCode: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      paymentMethod: ['', Validators.required],
+      paymentMethod: [''],
       notes: [''],
       active: [true],
       createdBy: Number(this.LoggedInUserId)
@@ -88,7 +88,7 @@ export class SupplierComponent implements OnInit {
       postalCode: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      paymentMethod: ['', Validators.required],
+      paymentMethod: [''],
       notes: [''],
       active: [true],
       createdBy: Number(this.LoggedInUserId)
@@ -117,7 +117,7 @@ export class SupplierComponent implements OnInit {
       postalCode: [lst.postalCode, Validators.required],
       phone: [lst.phone, Validators.required],
       email: [lst.email, [Validators.required, Validators.email]],
-      paymentMethod: [lst.paymentMethod, Validators.required],
+      paymentMethod: [lst.paymentMethod],
       notes: [lst.notes],
       active: [lst.active],
       createdBy: Number(this.LoggedInUserId)
