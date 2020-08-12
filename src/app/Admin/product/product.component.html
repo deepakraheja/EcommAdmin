@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <mat-form-field appearance="outline">
-                                <mat-label>Supplier Name</mat-label>
+                                <mat-label>Supplier</mat-label>
                                 <mat-select [formControl]="SelectsupplierID" (selectionChange)="LoadData($event)">
                                     <mat-option value="">All</mat-option>
                                     <mat-option *ngFor="let row of lstSupplier" value="{{row.supplierID}}">
@@ -60,7 +60,7 @@
                                     <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="setType">
-                                    <th mat-header-cell *matHeaderCellDef>setType</th>
+                                    <th mat-header-cell *matHeaderCellDef>Set Type</th>
                                     <td mat-cell *matCellDef="let element"> {{element.setType==1?'Without Set':(element.setType==2?'With Set':'Minimum')}} </td>
                                 </ng-container>
                                 <!-- <ng-container matColumnDef="subTitle">
