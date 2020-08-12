@@ -35,7 +35,7 @@ export class AppHeaderComponent implements OnInit {
       this.materialsecondary = "material-grey-secondary space-all";
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "1") {
-      this.menuname = "Admin";
+      this.menuname = "Setting";
       this.menuIconClass = "icon-users material-yellow-primary bg-white-icon bg-yellow-icon";
       this.materialprimary = "navbar navbar-expand-md navbar-dark material-yellow-primary";
       this.materialsecondary = "material-yellow-secondary space-all";
