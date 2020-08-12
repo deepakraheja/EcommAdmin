@@ -13,8 +13,8 @@ export const environment = {
   DocPath: 'P://',
   ReportPath: 'http://wish.protatechindia.com/WishService3/TempImages/',
 
-  //ImagePath:'http://localhost:5205/ProductImage'
-  ImagePath: 'http://ecomapi.uccnoida.com/ProductImage/'
+  ImagePath: 'http://localhost:5205/ProductImage'
+  //ImagePath:'http://ecomapi.uccnoida.com/ProductImage/',
   //BASE_API_URL: 'http://34.67.65.213/ecommapi/api/',
   //ImagePath: 'http://34.67.65.213/ecommapi/ProductImage/',
 };
