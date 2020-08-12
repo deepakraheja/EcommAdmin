@@ -438,8 +438,8 @@ export class ProductDetailComponent implements OnInit {
         }
       }
       //smallImage
-      if (res[0].bannerImg == null)
-        this.previewUrl = null;
+      if (res[0].SmallImage == null)
+        this.SmallImage = null;
       else {
         //this.previewUrl = res[0].smallImg[0];
         for (let index = 0; index < res[0].smallImg.length; index++) {
@@ -457,6 +457,14 @@ export class ProductDetailComponent implements OnInit {
       // }
       //this.LoadSubCategory("");
       this.LoadFabricType("");
+      setTimeout(() => {
+        this.route.paramMap.subscribe((params: ParamMap) => {
+          debugger
+          if (params.get('productId') == null || params.get('productId') == undefined)
+            $('#tab4').click();
+        });
+      }, 1500);
+
     });
   }
 
@@ -522,11 +530,12 @@ export class ProductDetailComponent implements OnInit {
         if (res > 0) {
           this.ProductId = res;
           this.LoadProduct();
-          this.route.paramMap.subscribe((params: ParamMap) => {
-            debugger
-            if (params.get('productId') == null || params.get('productId') == undefined)
-              $('#tab4').click();
-          });
+          debugger
+          // this.route.paramMap.subscribe((params: ParamMap) => {
+          //   debugger
+          //   if (params.get('productId') == null || params.get('productId') == undefined)
+          //     $('#tab4').click();
+          // });
           this._toasterService.success("Record has been saved successfully.");
         }
         else {
