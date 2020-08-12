@@ -645,6 +645,7 @@ export class ProductDetailComponent implements OnInit {
     this.spinner.show();
     this._productService.SaveProductSizeColorImages(obj).subscribe(res => {
       this.spinner.hide();
+      this.dialog.closeAll();
       this._toasterService.success("Images has been uploaded successfully.");
     });
   }
@@ -736,14 +737,14 @@ export class ProductDetailComponent implements OnInit {
           const bannerImg = this.ProductForm.value.bannerImg;
           bannerImg.splice(index, 1);
           this.ProductForm.updateValueAndValidity();
-          this._toasterService.success("Image removed successfully.");
+          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
         }
         if (type == 'small') {
           this.SmallImage.splice(index, 1);
           const smallImg = this.ProductForm.value.smallImg;
           smallImg.splice(index, 1);
           this.ProductForm.updateValueAndValidity();
-          this._toasterService.success("Image removed successfully.");
+          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
         }
         if (type == 'product') {
           debugger
@@ -753,7 +754,7 @@ export class ProductDetailComponent implements OnInit {
           // const productImg = this.EditProductDetailForm.value.productImg;
           // productImg.splice(index, 1);
           // this.EditProductDetailForm.updateValueAndValidity();
-          this._toasterService.success("Image removed successfully.");
+          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
         }
       }
     });
@@ -843,5 +844,43 @@ export class ProductDetailComponent implements OnInit {
       //this.SelectedProductSizeId = 0;
       this.LoadProductDetail();
     });
+  }
+
+  CalculateDiscount(event: any) {
+    debugger
+    if (this.ProductDetailForm.value.salePrice != "" && this.ProductDetailForm.value.price != "") {
+      if (Number(this.ProductDetailForm.value.salePrice) > Number(this.ProductDetailForm.value.price)) {
+        const discount = this.ProductDetailForm.get('discount');
+        discount.setValue(0);
+        discount.updateValueAndValidity();
+        this.ProductDetailForm.markAllAsTouched();
+        this._toasterService.error("Product sale price should be greater than or equal to the price.");
+      }
+      else {
+        const discount = this.ProductDetailForm.get('discount');
+        var Decrease = (Number(this.ProductDetailForm.value.price) - Number(this.ProductDetailForm.value.salePrice));
+        discount.setValue(Number(Decrease) / Number(this.ProductDetailForm.value.price) * 100);
+        discount.updateValueAndValidity();
+      }
+    }
+  }
+
+  UpdateDiscount(event: any) {
+    debugger
+    if (this.EditProductDetailForm.value.salePrice != "" && this.EditProductDetailForm.value.price != "") {
+      if (Number(this.EditProductDetailForm.value.salePrice) > Number(this.EditProductDetailForm.value.price)) {
+        const discount = this.EditProductDetailForm.get('discount');
+        discount.setValue(0);
+        discount.updateValueAndValidity();
+        this.EditProductDetailForm.markAllAsTouched();
+        this._toasterService.error("Product sale price should be greater than or equal to the price.");
+      }
+      else {
+        const discount = this.EditProductDetailForm.get('discount');
+        var Decrease = (Number(this.EditProductDetailForm.value.price) - Number(this.EditProductDetailForm.value.salePrice));
+        discount.setValue(Number(Decrease) / Number(this.EditProductDetailForm.value.price) * 100);
+        discount.updateValueAndValidity();
+      }
+    }
   }
 }
