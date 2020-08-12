@@ -7,16 +7,16 @@ export const environment = {
   isContentLoading: false,
   // ReportPath: 'http://localhost:62692/TempImages/',
   BASE_API_URL: 'http://localhost:5205/api/',
-  //BASE_API_URL: 'http://ecomapi.uccnoida.com/api/',
+  // BASE_API_URL: 'http://ecomapi.uccnoida.com/api/',
   // BASE_API_URL: 'http://wish.protatechindia.com/WishService3/api/',
   Domain: 'http://localhost:4200/',
   DocPath: 'P://',
   ReportPath: 'http://wish.protatechindia.com/WishService3/TempImages/',
 
   //ImagePath:'http://localhost:5205/ProductImage'
-  //ImagePath:'http://ecomapi.uccnoida
+  ImagePath: 'http://ecomapi.uccnoida.com/ProductImage/'
   //BASE_API_URL: 'http://34.67.65.213/ecommapi/api/',
-  ImagePath: 'http://34.67.65.213/ecommapi/ProductImage/',
+  //ImagePath: 'http://34.67.65.213/ecommapi/ProductImage/',
 };
 
 /*
