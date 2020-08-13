@@ -16,6 +16,7 @@ import { LookupService } from 'src/app/Service/lookup.service';
 import { FabricService } from 'src/app/Service/Fabric.service';
 import { TagService } from 'src/app/Service/tag.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { forkJoin } from 'rxjs';
 declare var $;
 @Component({
   selector: 'app-product-detail',
@@ -29,6 +30,9 @@ export class ProductDetailComponent implements OnInit {
   LoggedInUserId: string;
   lstBrand: any = [];
   lstMainCategory: any = [];
+
+  product: any = [];
+
   lstCategory: any = [];
   lstSubCategory: any = [];
   lstSupplier: any = [];
@@ -149,6 +153,7 @@ export class ProductDetailComponent implements OnInit {
       discountAvailable: [false],
       //productImg: ['', [Validators.required]],
     });
+
     this.fnGetMainCategory();
     this.LoadBrand();
     //this.LoadCategory("");
@@ -288,9 +293,9 @@ export class ProductDetailComponent implements OnInit {
       .subscribe(res => {
         this.lstMainCategory = res
         //this.spinner.hide();
-        setTimeout(() => {
-          this.LoadCategory("");
-        }, 2000);
+        // setTimeout(() => {
+        //   this.LoadCategory("");
+        // }, 2000);
 
       });
   }
@@ -301,10 +306,16 @@ export class ProductDetailComponent implements OnInit {
         MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
         Active: 1
       }
+      debugger;
       this.spinner.show();
+
       this._CategoryService.GetAllCategory(obj).subscribe(res => {
         //this.spinner.hide();
-        this.lstCategory = res;
+        setTimeout(() => {
+          this.lstCategory = res;
+        }, 500);
+
+        debugger;
         this.LoadSubCategory("");
       });
     }
@@ -385,6 +396,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadProduct() {
+    let objmain = { Active: 1 };
+
+
     this.images = [];
     this.BannerImage = [];
     this.SmallImage = [];
@@ -393,41 +407,53 @@ export class ProductDetailComponent implements OnInit {
       ProductID: this.ProductId
     };
     debugger
-    this._productService.GetProductById(obj).subscribe(res => {
 
-      this.ProductForm = this.formBuilder.group({
-        productID: [res[0].productID],
-        productName: [res[0].productName, [Validators.required]],
-        shortDetails: [res[0].shortDetails, Validators.required],
-        description: [res[0].description, Validators.required],
-        supplierID: [res[0].supplierID, Validators.required],
-        mainCategoryID: [res[0].mainCategoryID, Validators.required],
-        categoryID: [res[0].categoryID, Validators.required],
-        subCategoryID: [res[0].subCategoryID, Validators.required],
-        brandId: [res[0].brandId, Validators.required],
-        productAvailable: [res[0].productAvailable],
-        CreatedBy: Number(this.LoggedInUserId),
-        // CreatedDate:[res[0].productName],
-        Modifiedby: Number(this.LoggedInUserId),
-        // ModifiedDate:[res[0].productName],
-        featured: [res[0].featured],
-        latest: [res[0].latest],
-        onSale: [res[0].onSale],
-        topSelling: [res[0].topSelling],
-        hotOffer: [res[0].hotOffer],
-        active: [res[0].active],
-        bannerImg: [res[0].bannerImg],
-        smallImg: [res[0].smallImg, [Validators.required]],
-        title: [res[0].title],
-        subTitle: [res[0].subTitle],
-        tagId: [res[0].tagId],
-        articalNo: [res[0].articalNo],
-        fabricId: [res[0].fabricId],
-        fabricTypeId: [res[0].fabricTypeId],
-        setType: [res[0].setType],
-        minimum: [res[0].minimum],
-        videoURL: [res[0].videoURL]
-      });
+    let maincategory = this._CategoryService.GetMainCategory(objmain);
+    let product = this._productService.GetProductById(obj);
+
+    forkJoin([product, maincategory]).subscribe(res => {
+      debugger
+      // this._productService.GetProductById(obj).subscribe(res => {
+      this.lstMainCategory = res[1];
+      this.product = res[0][0];
+      setTimeout(() => {
+        this.ProductForm = this.formBuilder.group({
+          productID: [this.product.productID],
+          productName: [this.product.productName, [Validators.required]],
+          shortDetails: [this.product.shortDetails, Validators.required],
+          description: [this.product.description, Validators.required],
+          supplierID: [this.product.supplierID, Validators.required],
+          mainCategoryID: [this.product.mainCategoryID, Validators.required],
+          categoryID: [this.product.categoryID, Validators.required],
+          subCategoryID: [this.product.subCategoryID, Validators.required],
+          brandId: [this.product.brandId, Validators.required],
+          productAvailable: [this.product.productAvailable],
+          CreatedBy: Number(this.LoggedInUserId),
+          // CreatedDate:[res[0].productName],
+          Modifiedby: Number(this.LoggedInUserId),
+          // ModifiedDate:[res[0].productName],
+          featured: [this.product.featured],
+          latest: [this.product.latest],
+          onSale: [this.product.onSale],
+          topSelling: [this.product.topSelling],
+          hotOffer: [this.product.hotOffer],
+          active: [this.product.active],
+          bannerImg: [this.product.bannerImg],
+          smallImg: [this.product.smallImg, [Validators.required]],
+          title: [this.product.title],
+          subTitle: [this.product.subTitle],
+          tagId: [this.product.tagId],
+          articalNo: [this.product.articalNo],
+          fabricId: [this.product.fabricId],
+          fabricTypeId: [this.product.fabricTypeId],
+          setType: [this.product.setType],
+          minimum: [this.product.minimum],
+          videoURL: [this.product.videoURL]
+
+        });
+      }, 500);
+
+
       //bannerImg
       if (res[0].bannerImg == null)
         this.previewUrl = null;
@@ -456,6 +482,10 @@ export class ProductDetailComponent implements OnInit {
       //   }
       // }
       //this.LoadSubCategory("");
+      setTimeout(() => {
+        this.LoadCategory("");
+      }, 1000);
+
       this.LoadFabricType("");
       setTimeout(() => {
         this.route.paramMap.subscribe((params: ParamMap) => {
