@@ -215,7 +215,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.LoadProductDetail();
+    //this.LoadProductDetail();
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -240,7 +240,7 @@ export class ProductDetailComponent implements OnInit {
       ProductId: this.ProductId
     };
     this._productService.GetProductSizeColorById(obj).subscribe(res => {
-      this.spinner.hide();
+      //this.spinner.hide();
       this.lstData = res;
       this.dataSource = new MatTableDataSource<any>(res);
       if (res.length > 0) {
@@ -272,6 +272,7 @@ export class ProductDetailComponent implements OnInit {
         });
         this.SetImagesdataSource = new MatTableDataSource<any>(resArr);
       }
+      this.spinner.hide();
     });
   }
 
@@ -359,7 +360,7 @@ export class ProductDetailComponent implements OnInit {
 
   LoadFabricType(event: any) {
     debugger
-    if (this.ProductForm.value.fabricId != "") {
+    if (this.ProductForm.value.fabricId != "" && this.ProductForm.value.fabricId != "0") {
       let obj = {
         FabricId: Number(this.ProductForm.value.fabricId),
         Active: 1
@@ -372,6 +373,9 @@ export class ProductDetailComponent implements OnInit {
     }
     else {
       this.lstFabricType = [];
+      const fabricTypeId = this.ProductForm.get('fabricTypeId');
+      fabricTypeId.setValue(0);
+      fabricTypeId.updateValueAndValidity();
       this.spinner.hide();
     }
   }
@@ -391,6 +395,9 @@ export class ProductDetailComponent implements OnInit {
     }
     else {
       this.lstSubCategory = [];
+      const subCategoryID = this.ProductForm.get('subCategoryID');
+      subCategoryID.setValue('');
+      subCategoryID.updateValueAndValidity();
       this.spinner.hide();
     }
   }
@@ -455,19 +462,19 @@ export class ProductDetailComponent implements OnInit {
 
 
       //bannerImg
-      if (res[0].bannerImg == null)
-        this.previewUrl = null;
-      else {
-        this.previewUrl = res[0].bannerImg[0];
-        for (let index = 0; index < res[0].bannerImg.length; index++) {
-          this.BannerImage.push(res[0].bannerImg[index]);
-        }
-      }
+      // if (res[0].bannerImg == null)
+      //   this.previewUrl = null;
+      // else {
+      //   this.previewUrl = res[0].bannerImg[0];
+      //   for (let index = 0; index < res[0].bannerImg.length; index++) {
+      //     this.BannerImage.push(res[0].bannerImg[index]);
+      //   }
+      // }
       //smallImage
       if (res[0].SmallImage == null)
         this.SmallImage = null;
       else {
-        //this.previewUrl = res[0].smallImg[0];
+        this.previewUrl = res[0].smallImg[0];
         for (let index = 0; index < res[0].smallImg.length; index++) {
           this.SmallImage.push(res[0].smallImg[index]);
         }
@@ -659,7 +666,7 @@ export class ProductDetailComponent implements OnInit {
         Modifiedby: Number(this.LoggedInUserId),
       };
       this._productService.SaveProductSizeColor(obj).subscribe(res => {
-        this.spinner.hide();
+        //this.spinner.hide();
         if (res > 0) {
           this.images = [];
           this.LoadProductDetail();

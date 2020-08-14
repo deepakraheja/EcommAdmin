@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-mng-user',
@@ -19,10 +20,12 @@ export class MngUserComponent implements OnInit {
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'isActive', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'isActive', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
   PhoneMask = null;
+  DecimalMask = null;
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -41,7 +44,8 @@ export class MngUserComponent implements OnInit {
       isActive: false,
       isApproval: [0, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
-      approvedDate:this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      additionalDiscount: ['', Validators.required]
     });
     this.LoadData();
   }
@@ -56,6 +60,7 @@ export class MngUserComponent implements OnInit {
 
   addMask(obj: Object) {
     this.PhoneMask = "0000000000";
+    this.DecimalMask = "0*.00";
     this.showMask = false;
   }
 
@@ -64,6 +69,7 @@ export class MngUserComponent implements OnInit {
     this._userService.GetAllUsers().subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -77,7 +83,8 @@ export class MngUserComponent implements OnInit {
       isActive: [lst.isActive],
       isApproval: [lst.isApproval, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
-      approvedDate:this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+      additionalDiscount: [lst.additionalDiscount, Validators.required]
     });
     const dialogRef = this.dialog.open(template, {
       width: '700px',
