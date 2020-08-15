@@ -322,6 +322,9 @@ export class ProductDetailComponent implements OnInit {
     }
     else {
       this.lstCategory = [];
+      const categoryID = this.ProductForm.get('categoryID');
+      categoryID.setValue('');
+      categoryID.updateValueAndValidity();
       this.spinner.hide();
     }
   }
@@ -471,12 +474,13 @@ export class ProductDetailComponent implements OnInit {
       //   }
       // }
       //smallImage
-      if (res[0].SmallImage == null)
+      debugger
+      if (this.product.smallImg == null)
         this.SmallImage = null;
       else {
-        this.previewUrl = res[0].smallImg[0];
-        for (let index = 0; index < res[0].smallImg.length; index++) {
-          this.SmallImage.push(res[0].smallImg[index]);
+        this.previewUrl = this.product.smallImg[0];
+        for (let index = 0; index < this.product.smallImg.length; index++) {
+          this.SmallImage.push(this.product.smallImg[index]);
         }
       }
       // //ProductImages
