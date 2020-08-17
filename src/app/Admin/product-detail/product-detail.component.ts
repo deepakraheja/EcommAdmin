@@ -17,6 +17,8 @@ import { FabricService } from 'src/app/Service/Fabric.service';
 import { TagService } from 'src/app/Service/tag.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { forkJoin } from 'rxjs';
+import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
+import { environment } from 'src/environments/environment';
 declare var $;
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +26,8 @@ declare var $;
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  ImagePath = environment.ImagePath;
+  APIURL = environment.APIURL;
   ProductForm: FormGroup;
   ProductDetailForm: FormGroup;
   EditProductDetailForm: FormGroup;
@@ -68,6 +72,7 @@ export class ProductDetailComponent implements OnInit {
   public IsShow: boolean = false;
   public IsDisabled: boolean = false;
   SelectedSetNo: Number = 0;
+  public SelectedProductImages = [];
   public Currency = { name: 'Rupees', currency: 'INR', price: 1 } // Default Currency
   constructor(
     private formBuilder: FormBuilder,
@@ -215,7 +220,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.LoadProductDetail();
+    this.LoadProductDetail();
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -449,7 +454,7 @@ export class ProductDetailComponent implements OnInit {
           hotOffer: [this.product.hotOffer],
           active: [this.product.active],
           bannerImg: [this.product.bannerImg],
-          smallImg: [this.product.smallImg, [Validators.required]],
+          smallImg: [this.product.frontImage, [Validators.required]],
           title: [this.product.title],
           subTitle: [this.product.subTitle],
           tagId: [this.product.tagId],
@@ -461,6 +466,29 @@ export class ProductDetailComponent implements OnInit {
           videoURL: [this.product.videoURL]
 
         });
+
+        debugger
+        if (this.product.frontImage == null || this.product.frontImage == "")
+          this.SmallImage = [];
+        else {
+          //for (let index = 0; index < this.product.frontImage.length; index++) {
+          this.SmallImage.push(this.ImagePath + '/' + this.ProductForm.value.productID + '/frontImage/' + this.product.frontImage);
+          this.previewUrl = this.SmallImage[0];
+          //}
+        }
+
+        setTimeout(() => {
+          this.LoadCategory("");
+        }, 1000);
+
+        this.LoadFabricType("");
+        setTimeout(() => {
+          this.route.paramMap.subscribe((params: ParamMap) => {
+            debugger
+            if (params.get('productId') == null || params.get('productId') == undefined)
+              $('#tab4').click();
+          });
+        }, 1500);
       }, 500);
 
 
@@ -474,15 +502,7 @@ export class ProductDetailComponent implements OnInit {
       //   }
       // }
       //smallImage
-      debugger
-      if (this.product.smallImg == null)
-        this.SmallImage = null;
-      else {
-        this.previewUrl = this.product.smallImg[0];
-        for (let index = 0; index < this.product.smallImg.length; index++) {
-          this.SmallImage.push(this.product.smallImg[index]);
-        }
-      }
+
       // //ProductImages
       // if (res[0].bannerImg == null)
       //   this.previewUrl = null;
@@ -493,18 +513,7 @@ export class ProductDetailComponent implements OnInit {
       //   }
       // }
       //this.LoadSubCategory("");
-      setTimeout(() => {
-        this.LoadCategory("");
-      }, 1000);
 
-      this.LoadFabricType("");
-      setTimeout(() => {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-          debugger
-          if (params.get('productId') == null || params.get('productId') == undefined)
-            $('#tab4').click();
-        });
-      }, 1500);
 
     });
   }
@@ -782,29 +791,49 @@ export class ProductDetailComponent implements OnInit {
       if (result) {
         debugger
 
-        if (type == 'banner') {
-          this.BannerImage.splice(index, 1);
-          const bannerImg = this.ProductForm.value.bannerImg;
-          bannerImg.splice(index, 1);
-          this.ProductForm.updateValueAndValidity();
-          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
-        }
+        // if (type == 'banner') {
+        //   this.BannerImage.splice(index, 1);
+        //   const bannerImg = this.ProductForm.value.bannerImg;
+        //   bannerImg.splice(index, 1);
+        //   this.ProductForm.updateValueAndValidity();
+        //   this._toasterService.success("Image has bee deleted successfully.");
+        // }
         if (type == 'small') {
-          this.SmallImage.splice(index, 1);
-          const smallImg = this.ProductForm.value.smallImg;
-          smallImg.splice(index, 1);
-          this.ProductForm.updateValueAndValidity();
-          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
+
+          let obj = {
+            ProductID: Number(this.ProductForm.value.productID),
+            ImagePath: (this.SmallImage[index]).split(this.APIURL)[1]
+          };
+          this._productService.DeleteProductImage(obj).subscribe(a => {
+            debugger
+            this.SmallImage.splice(index, 1);
+            const smallImg = this.ProductForm.get('smallImg');
+            smallImg.setValue([]);
+            smallImg.updateValueAndValidity();
+            this.previewUrl="";
+            this._toasterService.success("Image has bee deleted successfully.");
+          });
+
+
+          //this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
         }
         if (type == 'product') {
           debugger
           //var ProductLst=this.PopUpProductImg;
-          this.PopUpProductImg.splice(index, 1);
+
           //this.PopUpProductImg=ProductLst;
           // const productImg = this.EditProductDetailForm.value.productImg;
           // productImg.splice(index, 1);
           // this.EditProductDetailForm.updateValueAndValidity();
-          this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
+          let obj = {
+            ProductID: 0,
+            ImagePath: (this.PopUpProductImg[index]).split(this.APIURL)[1]
+          };
+          this._productService.DeleteProductImage(obj).subscribe(a => {
+            this.PopUpProductImg.splice(index, 1);
+            this._toasterService.success("Image has bee deleted successfully.");
+          });
+          //this._toasterService.warning("Please, click on the Save button for permanent remove image from server.");
         }
       }
     });
@@ -877,11 +906,37 @@ export class ProductDetailComponent implements OnInit {
 
   OpenImagePopUp(template: TemplateRef<any>, lst) {
     debugger
+    this.PopUpProductImg = [];
     this.SelectedProductSizeColorId = lst.productSizeColorId;
     //this.SelectedProductSizeId = lst.productSizeId;
-    this.PopUpProductImg = lst.productImg;
-    this.PopUpPreviewUrl = lst.productImg[0];
+    //this.PopUpProductImg = lst.productImg;
     this.SelectedSetNo = lst.setNo;
+    //ImagePath+'/'+f.productID.value+'/productColorImage/'+SelectedProductSizeColorId+'/'+url
+    //ImagePath+'/'+f.productID.value+'/productSetImage/'+SelectedSetNo+'/'+url
+
+    lst.productImg.forEach(element => {
+      if (lst.setNo == 0) {
+        //this.PopUpPreviewUrl = this.ImagePath + '/' + this.ProductForm.value.productID + '/productColorImage/' + this.SelectedProductSizeColorId + '/' + lst.productImg[0];
+        this.PopUpProductImg.push(this.ImagePath + '/' + this.ProductForm.value.productID + '/productColorImage/' + this.SelectedProductSizeColorId + '/' + element);
+      }
+      else {
+        //this.PopUpPreviewUrl = this.ImagePath + '/' + this.ProductForm.value.productID + '/productSetImage/' + this.SelectedSetNo + '/' + lst.productImg[0];
+        this.PopUpProductImg.push(this.ImagePath + '/' + this.ProductForm.value.productID + '/productSetImage/' + this.SelectedSetNo + '/' + element);
+      }
+    });
+
+
+    // if (lst.setNo == 0) {
+    //   this.PopUpPreviewUrl = this.ImagePath + '/' + this.ProductForm.value.productID + '/productColorImage/' + this.SelectedProductSizeColorId + '/' + lst.productImg[0];
+    // }
+    // else {
+    //   this.PopUpPreviewUrl = this.ImagePath + '/' + this.ProductForm.value.productID + '/productSetImage/' + this.SelectedSetNo + '/' + lst.productImg[0];
+    // }
+
+
+    //SelectedProductImages
+    this.PopUpPreviewUrl = this.PopUpProductImg[0];
+
     const dialogRef = this.dialog.open(template, {
       width: '60vw',
       height: '80vh',

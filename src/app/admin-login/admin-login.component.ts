@@ -19,7 +19,7 @@ export class AdminLoginComponent implements OnInit {
     private _LocalStorage: LocalStorageService,
     private _ToastrService: ToastrService,
     private router: Router,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {

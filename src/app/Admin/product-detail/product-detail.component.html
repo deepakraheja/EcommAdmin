@@ -21,7 +21,7 @@
                                         </li>
                                         <li class="nav-item"><a href="#ProductNotes-tab2" id="tab2" class="nav-link" data-toggle="tab"><i class="icon-address-book3"></i>&nbsp; Product
                                                 Notes</a></li>
-                                        <li class="nav-item" *ngIf="f.productID.value>0" (click)="LoadProductDetail()"><a href="#ProductDetails-tab4" id="tab4" class="nav-link" data-toggle="tab"><i
+                                        <li class="nav-item" *ngIf="f.productID.value>0"><a href="#ProductDetails-tab4" id="tab4" class="nav-link" data-toggle="tab"><i
                                                     class="icon-user-tie"></i>&nbsp; Product Details</a>
                                         </li>
                                     </ul>
@@ -367,7 +367,7 @@
                                                         <ng-container matColumnDef="View">
                                                             <th mat-header-cell *matHeaderCellDef>View</th>
                                                             <td mat-cell *matCellDef="let element">
-                                                                <img class="example-header-image" style="height: 45px; width: 45px; margin-right: 5px;" *ngFor='let url of element.productImg;' [src]="url">
+                                                                <img class="example-header-image" style="height: 45px; width: 45px; margin-right: 5px;" *ngFor='let url of element.productImg;' [src]="ImagePath+'/'+f.productID.value+'/productColorImage/'+element.productSizeColorId+'/'+url">
                                                             </td>
                                                         </ng-container>
 
@@ -534,7 +534,7 @@
                                                         <ng-container matColumnDef="View">
                                                             <th mat-header-cell *matHeaderCellDef>View</th>
                                                             <td mat-cell *matCellDef="let element">
-                                                                <img class="example-header-image" style="height: 45px; width: 45px; margin-right: 5px;" *ngFor='let url of element.productImg;' [src]="url">
+                                                                <img class="example-header-image" style="height: 45px; width: 45px; margin-right: 5px;" *ngFor='let url of element.productImg;' [src]="ImagePath+'/'+f.productID.value+'/productSetImage/'+element.setNo+'/'+url">
                                                             </td>
                                                         </ng-container>
 
