@@ -307,6 +307,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadCategory(event: any) {
+  
     if (this.ProductForm.value.mainCategoryID != "") {
       let obj = {
         MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
@@ -318,7 +319,13 @@ export class ProductDetailComponent implements OnInit {
       this._CategoryService.GetAllCategory(obj).subscribe(res => {
         //this.spinner.hide();
         setTimeout(() => {
+          debugger
           this.lstCategory = res;
+          if (event != "") {
+            const categoryID = this.ProductForm.get('categoryID');
+            categoryID.setValue('');
+            categoryID.updateValueAndValidity();
+          }
         }, 500);
 
         debugger;
@@ -389,6 +396,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadSubCategory(event: any) {
+   
     debugger
     if (this.ProductForm.value.categoryID != "") {
       let obj = {
@@ -399,6 +407,11 @@ export class ProductDetailComponent implements OnInit {
       this._CategoryService.GetAllSubCategory(obj).subscribe(res => {
         this.spinner.hide();
         this.lstSubCategory = res;
+        if (event != "") {
+          const subCategoryID = this.ProductForm.get('subCategoryID');
+          subCategoryID.setValue('');
+          subCategoryID.updateValueAndValidity();
+        }
       });
     }
     else {
@@ -454,7 +467,7 @@ export class ProductDetailComponent implements OnInit {
           hotOffer: [this.product.hotOffer],
           active: [this.product.active],
           bannerImg: [this.product.bannerImg],
-          smallImg: [this.product.frontImage, [Validators.required]],
+          smallImg: [[this.product.frontImage], [Validators.required]],
           title: [this.product.title],
           subTitle: [this.product.subTitle],
           tagId: [this.product.tagId],
