@@ -220,7 +220,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.LoadProductDetail();
+    //this.LoadProductDetail();
     this._lookupService.GetActiveColor().subscribe(res => {
       this.lstColor = res;
     });
@@ -476,7 +476,7 @@ export class ProductDetailComponent implements OnInit {
           this.previewUrl = this.SmallImage[0];
           //}
         }
-
+        this.LoadProductDetail();
         setTimeout(() => {
           this.LoadCategory("");
         }, 1000);
@@ -810,7 +810,7 @@ export class ProductDetailComponent implements OnInit {
             const smallImg = this.ProductForm.get('smallImg');
             smallImg.setValue([]);
             smallImg.updateValueAndValidity();
-            this.previewUrl="";
+            this.previewUrl = "";
             this._toasterService.success("Image has bee deleted successfully.");
           });
 
@@ -915,7 +915,7 @@ export class ProductDetailComponent implements OnInit {
     //ImagePath+'/'+f.productID.value+'/productSetImage/'+SelectedSetNo+'/'+url
 
     lst.productImg.forEach(element => {
-      if (lst.setNo == 0) {
+      if (lst.setNo == 0 || lst.setNo == undefined) {
         //this.PopUpPreviewUrl = this.ImagePath + '/' + this.ProductForm.value.productID + '/productColorImage/' + this.SelectedProductSizeColorId + '/' + lst.productImg[0];
         this.PopUpProductImg.push(this.ImagePath + '/' + this.ProductForm.value.productID + '/productColorImage/' + this.SelectedProductSizeColorId + '/' + element);
       }
