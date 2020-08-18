@@ -22,4 +22,11 @@ export class OrderService {
       this._url + this._methodName, this._param
     );
   }
+  UpdateOrderDetailStatus(_Obj: any): Observable<any> {
+    this._methodName = "UpdateOrderDetailStatus";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
 }

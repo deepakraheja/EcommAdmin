@@ -7,6 +7,11 @@ import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
+import { LookupService } from 'src/app/Service/lookup.service';
+import { LocalStorageService } from 'src/app/Service/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ConfirmBoxComponent } from 'src/app/confirm-box/confirm-box.component';
 
 @Component({
   selector: 'app-order',
@@ -17,18 +22,27 @@ export class OrderComponent implements OnInit {
   public Currency = { name: 'Rupees', currency: 'INR', price: 1 } // Default Currency
   public lstOrder: any = [];
   public lstOrderDetails: any = [];
+  public lstOrderStatus: any = [];
   public ProductImage = environment.ImagePath;
   OrderForm: FormGroup;
   displayedColumns: string[] = ['orderNumber', 'View', 'orderDate', 'fName', 'phone', 'statusId', 'totalAmount'];
   dataSource = new MatTableDataSource<any>(this.lstOrder);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  LoggedInUserId: string;
+  bsModalRef: BsModalRef;
   constructor(
     private _OrderService: OrderService,
     private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private _datePipe: DatePipe,
     public dialog: MatDialog,
+    public _lookupService: LookupService,
+    public _LocalStorage: LocalStorageService,
+    public _toastrService: ToastrService,
+    private modalService: BsModalService,
   ) {
+    this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
+    this.LoadOrderStatus();
     this.OrderForm = this.formBuilder.group({
       startDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
       endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
@@ -43,6 +57,13 @@ export class OrderComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  LoadOrderStatus() {
+    this._lookupService.GetOrderStatus().subscribe(res => {
+      this.lstOrderStatus = res;
+    });
   }
 
   Search(event: any) {
@@ -83,5 +104,38 @@ export class OrderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
     });
+  }
+
+  UpdateStatus(event: Event, lst) {
+    debugger
+    const initialState = {
+      title: "Confirmation",
+      message: "Do you want to change status?",
+    };
+    this.bsModalRef = this.modalService.show(ConfirmBoxComponent, { ignoreBackdropClick: true, keyboard: true, class: 'modal-sm', initialState });
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.onClose.subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      if (result) {
+        debugger
+        let obj = {
+          OrderStatusHistoryId: 0,
+          OrderDetailsID: Number(lst.orderDetailsID),
+          OrderStatusId: Number(lst.statusId),
+          CreatedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+          CreatedBy: Number(this.LoggedInUserId),
+          OrderId: Number(lst.orderId),
+          SetNo: Number(lst.setNo),
+          ProductId: Number(lst.productId)
+        };
+        this.spinner.show();
+        this._OrderService.UpdateOrderDetailStatus(obj).subscribe(res => {
+          this.spinner.hide();
+          this.Search("");
+          this._toastrService.success('Status has been updated successfully.');
+        });
+      }
+    });
+    
   }
 }

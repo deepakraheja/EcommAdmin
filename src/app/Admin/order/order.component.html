@@ -31,9 +31,9 @@
                                     <mat-label>Status <span class="error">*</span></mat-label>
                                     <mat-select formControlName="statusId" (selectionChange)="Search($event)">
                                         <mat-option [value]="0">All</mat-option>
-                                        <mat-option [value]="1">New Order</mat-option>
-                                        <mat-option [value]="2">Shipped</mat-option>
-                                        <mat-option [value]="3">Delivered</mat-option>
+                                        <mat-option *ngFor="let row of lstOrderStatus" [value]="row.orderStatusId">
+                                            {{row.status}}
+                                        </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -302,7 +302,7 @@
 </span> -->
             </div>
             <div class="col-md-1">
-                <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Close</button>
+                <button mat-button mat-dialog-close class="btn btn-secondary btn-lg" style="color: white !important;">Close</button>
             </div>
         </div>
     </div>
@@ -350,7 +350,46 @@
                 <div class="a-box shipment" *ngFor="let lstPro of lstOrderDetails.orderDetails">
                     <div class="a-box-inner">
                         <div class="a-row shipment-top-row js-shipment-info-container">
-                            <div style="margin-right:230px; padding-right:20px">
+                            <div class="row">
+                                <!-- <mat-option *ngFor="let row of lstOrderStatus" [value]="row.orderStatusId">
+                                    {{row.status}}
+                                </mat-option> -->
+
+                                <ul class="col-md-12 steps">
+                                    <li class="{{lstPro.statusId==1?'active':''}}"><span>New Order</span></li>
+                                    <li class="{{lstPro.statusId==2?'active':''}}"><span>Processing</span></li>
+                                    <li class="{{lstPro.statusId==3?'active':''}}"><span>Dispatched</span></li>
+                                    <li class="{{lstPro.statusId==4?'active':''}}"><span>Delivered</span></li>
+                                    <li *ngIf="lstPro.statusId==5" class="{{lstPro.statusId==5?'active':''}}"><span>Returned</span></li>
+                                </ul>
+
+                                <!-- <div class="col-md-2" *ngFor="let row of lstOrderStatus">
+                                    <span [ngClass]="{'a-color-success' : lstPro.statusId>=row.orderStatusId, 'a-color-error' : lstPro.statusId<row.orderStatusId}">
+                                        {{row.status}}
+                                    </span>
+                                </div> -->
+                                <!-- <div class="col-md-2">
+                                    <span class="a-color-success">
+                                        Not yet dispatched
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="a-color-success">
+                                        Not yet dispatched
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="a-color-success">
+                                        Not yet dispatched
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="a-color-success">
+                                        Not yet dispatched
+                                    </span>
+                                </div> -->
+                            </div>
+                            <!-- <div style="margin-right:230px; padding-right:20px">
 
                                 <div class="a-row">
                                     <span class="a-color-success">
@@ -359,7 +398,7 @@
                                     <span data-isstatuswithwarning="0" data-yodeliveryestimate="Arriving Monday" data-yoshortstatuscode="" data-yostatusstring="Not yet dispatched" class="js-shipment-info aok-hidden">
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="a-fixed-right-grid a-spacing-top-medium">
@@ -407,11 +446,10 @@
                                                         </span> -->
                                                         <mat-form-field appearance="outline" style="width: 200px;">
                                                             <mat-label>Change Status </mat-label>
-                                                            <mat-select>
-                                                                <mat-option [value]="0">All</mat-option>
-                                                                <mat-option [value]="1">New Order</mat-option>
-                                                                <mat-option [value]="2">Shipped</mat-option>
-                                                                <mat-option [value]="3">Delivered</mat-option>
+                                                            <mat-select [(ngModel)]="lstPro.statusId" [ngModelOptions]="{standalone: true}" (selectionChange)="UpdateStatus($event,lstPro)">
+                                                                <mat-option *ngFor="let row of lstOrderStatus" [value]="row.orderStatusId">
+                                                                    {{row.status}}
+                                                                </mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
                                                     </div>
