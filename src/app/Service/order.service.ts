@@ -29,4 +29,11 @@ export class OrderService {
       this._url + this._methodName, this._param
     );
   }
+  GetDashboardSummary(): Observable<any> {
+    this._methodName = "GetDashboardSummary";
+    this._param = {};
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
 }
