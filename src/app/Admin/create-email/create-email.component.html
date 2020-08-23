@@ -15,9 +15,14 @@
                                         [(ngModel)]="TemplateType" value="TemplateType" required>
                                         <option value="0">Select</option>
                                         <option value="1">Registration</option>
-                                        <option value="2">PasswordReset</option>
-                                        <option value="3">OrderCompletion</option>
-                                                            
+                                        <option value="2">Password Reset</option>
+                                        <option value="3">New Order Completion</option>
+                                        <option value="4">Registration Approval</option>
+                                        <option value="5">Password Reset confirmation</option>
+                                        <option value="6">Dispatched Confirmation</option>
+                                        <option value="7">Delivered Confirmation</option>
+                                      
+
                                     </select>
                                     <div *ngIf="f.submitted && TemplateType == '0'" class="custom-error">
                                         <div *ngIf="TemplateType == '0'">Template For field required.</div>
@@ -36,6 +41,12 @@
                                         <option value="[Address]">Address</option>
                                         <option value="[Email]">Email</option>
                                         <option value="[Password]">Password</option>
+                                        <option value="[OrderID]">OrderID</option>
+                                        <option value="[OrderDate]">OrderDate </option>
+                                        <option value="[DeliveryAddress]">DeliveryAddress</option>
+                                        <option value="[Mobile]">Mobile</option>
+                                        <option value="[OrderDetails]">OrderDetails</option>
+                                        <option value="[LoginURL]">LoginURL</option>
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +77,7 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div> -->
-                            
+
                             <div class="col-md-6 mt-4"><button mat-raised-button class="btn btn-warning btn-lg">Save
                                 </button></div>
                         </div>
