@@ -10,15 +10,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="emailtm" class="bmd-label-floating">Template For:</label>
-                                    <select class="form-control" id="emailtm" name="ddlTemplateType"
-                                        #ddlTemplateType="ngModel" (change)="fnGetTemplate(TemplateType)"
-                                        [(ngModel)]="TemplateType" value="TemplateType" required>
+                                    <select class="form-control" id="emailtm" name="ddlTemplateType" #ddlTemplateType="ngModel" (change)="fnGetTemplate(TemplateType)" [(ngModel)]="TemplateType" value="TemplateType" required>
                                         <option value="0">Select</option>
                                         <option value="1">Registration</option>
                                         <option value="2">Password Reset</option>
                                         <option value="3">New Order Completion</option>
                                         <option value="4">Registration Approval</option>
-                                        <option value="5">Password Reset confirmation</option>
+                                        <option value="5">Password Reset Confirmation</option>
                                         <option value="6">Dispatched Confirmation</option>
                                         <option value="7">Delivered Confirmation</option>
                                       
@@ -32,9 +30,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="pholder" class="bmd-label-floating">PlaceHolder</label>
-                                    <select class="form-control" id="pholder" name="ddlPlaceHolder"
-                                        #ddlPlaceHolder="ngModel" (change)="fnSetPlaceHolder(PlaceHolder)"
-                                        [(ngModel)]="PlaceHolder" value="PlaceHolder">
+                                    <select class="form-control" id="pholder" name="ddlPlaceHolder" #ddlPlaceHolder="ngModel" (change)="fnSetPlaceHolder(PlaceHolder)" [(ngModel)]="PlaceHolder" value="PlaceHolder">
                                         <option value="">Select</option>
                                         <option value="[Name]">Name</option>
                                         <option value="[verificationCode]">verificationCode</option>
@@ -86,8 +82,7 @@
                             <div *ngIf="f.submitted && template.invalid" class="custom-error">
                                 <div *ngIf="template.errors.required">Email template required</div>
                             </div>
-                            <angular-editor [config]="config" name="template" [(ngModel)]="Template" #template="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && template.invalid }" required></angular-editor>
+                            <angular-editor [config]="config" name="template" [(ngModel)]="Template" #template="ngModel" [ngClass]="{ 'is-invalid': f.submitted && template.invalid }" required></angular-editor>
 
                         </div>
                     </div>
