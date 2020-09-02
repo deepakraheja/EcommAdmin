@@ -49,6 +49,6 @@ export class LoginComponent implements OnInit {
     this.loginStart = true;
 
       this.router.navigate(['service/dashboard']);
-  }
+  } 
 
 }
