@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row justify-content-center login-box">
+        <div class="col-md-5 center">
+            <div class="">
+                <div class="card p-4 boxshadow">
+                    <div class="card-body">
+                        <h3>Sign In</h3>
+                        <p class="text-muted">&nbsp;</p>
+                        <form [formGroup]="loginForm" (ngSubmit)="login()">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user">
+
+                                        </i>
+                                    </span>
+                                </div>
+                                <input class="form-control" noSpaces
+                                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" type="text"
+                                    placeholder="Email" formControlName="username">
+                                <div *ngIf="f.username.errors" class="invalid-feedback">
+                                    <div *ngIf="f.username.errors.required">{{'Username required'}}</div>
+                                    <div *ngIf="f.username.errors.email">{{'Invalid username'}}</div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-lock">
+
+                                        </i>
+                                    </span>
+                                </div>
+                                <!-- <input class="form-control" type="password" placeholder="Password" appBlockCopyPaste [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                    formControlName="password"> -->
+                                <input class="form-control" type="password" placeholder="Password"
+                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                    formControlName="password">
+                                <div *ngIf="f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required">{{'Password is required' }}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-primary px-4" [disabled]="loginStart"
+                                        [ngClass]="{'btn-loading': loginStart}">{{'Login' }}</button>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button class="btn btn-link text-secondary px-0" type="button"
+                                        [disabled]="loginStart"
+                                        routerLink="../forgotpwd">{{'Forgot password' }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

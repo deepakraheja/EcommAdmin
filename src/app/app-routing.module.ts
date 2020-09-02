@@ -22,6 +22,15 @@ import { CreateEmailComponent } from './Admin/create-email/create-email.componen
 
 
 const routes: Routes = [
+
+  {
+    path: 'service',
+    loadChildren: () => import('./modules/agent/agent.module').then(m => m.AgentModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./modules/agent/agent.module').then(m => m.AgentModule)
+  },
   { path: '', component: AdminLoginComponent },
   {
     path: '',
