@@ -38,12 +38,16 @@
 
                         <a href="MainCategory" class="dropdown-item" (click)="ChangeName('5')"><i
                             class="icon-stack material-DarkGreen-primary"></i>Category</a>
+                        <a href="fabric" class="dropdown-item" (click)="ChangeName('6')"><i
+                                class="icon-users material-yellow-primary"></i>Fabric</a>
                         <a href="product" class="dropdown-item" (click)="ChangeName('2')"><i
                         class="icon-stack material-blue-primary"></i>Product</a>
                         <a href="user" class="dropdown-item" (click)="ChangeName('3')"><i
                             class="icon-users material-green-primary"></i>User</a>
                         <a href="order" class="dropdown-item" (click)="ChangeName('4')"><i
                         class="icon-cash material-navyblue-primary"></i>Order</a>
+                        <a href="agent" class="dropdown-item" (click)="ChangeName('7')"><i
+                            class="icon-stack material-DarkGreen-primary"></i>Agent</a>
                         <a href="brand" class="dropdown-item" (click)="ChangeName('1')"><i
                             class="icon-users material-yellow-primary"></i>Setting</a>
                         <!-- <a href="EmpSignInSignOut" class="dropdown-item" (click)="ChangeName('4')"><i
@@ -78,17 +82,17 @@
                         <span> Supplier</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="fabric" class="nav-item ">
                     <a [routerLink]="'/fabric'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Fabric</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="fabric" class="nav-item ">
                     <a [routerLink]="'/fabricType'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Fabric Type</span>
                     </a>
                 </li>
-                <li *ngIf="admin" class="nav-item ">
+                <li *ngIf="fabric" class="nav-item ">
                     <a [routerLink]="'/tagMaster'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Tag Design</span>
                     </a>
@@ -112,6 +116,11 @@
                 <li *ngIf="admin" class="nav-item ">
                     <a [routerLink]="'/CreateEmail'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Email Template</span>
+                    </a>
+                </li>
+                <li *ngIf="agent" class="nav-item ">
+                    <a [routerLink]="'/agent'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Agent</span>
                     </a>
                 </li>
                 <!--<li *ngIf="record" class="nav-item ">

@@ -116,13 +116,13 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Email Address <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="email" maxlength="50">
+                            <input type="text" matInput formControlName="email" maxlength="50" readonly>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>MobileNo <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="mobileNo" maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                            <input type="text" matInput formControlName="mobileNo" readonly maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 mt-2">

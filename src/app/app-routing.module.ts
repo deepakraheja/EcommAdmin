@@ -19,6 +19,7 @@ import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 import { CreateEmailComponent } from './Admin/create-email/create-email.component';
+import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
       { path: 'tagMaster', component: TagMasterComponent },
       { path: 'order', component: OrderComponent },
       { path: 'user', component: MngUserComponent },
-      { path: 'CreateEmail', component: CreateEmailComponent }
+      { path: 'CreateEmail', component: CreateEmailComponent },
+      { path: 'agent', component: MngAgentComponent }
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

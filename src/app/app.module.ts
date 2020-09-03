@@ -76,6 +76,7 @@ import { MainCategoryComponent } from './Admin/main-category/main-category.compo
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CreateEmailComponent } from './Admin/create-email/create-email.component';
+import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { CreateEmailComponent } from './Admin/create-email/create-email.componen
     MainCategoryComponent,
     MngUserComponent,
     CreateEmailComponent,
+    MngAgentComponent,
   ],
   imports: [
     SafePipeModule,

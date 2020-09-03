@@ -17,6 +17,8 @@ export class AppHeaderComponent implements OnInit {
   public order: boolean = false;
   public report: boolean = false;
   public Category: boolean = false;
+  public fabric: boolean = false;
+  public agent: boolean = false;
   menuIconClass: string = "";
 
   public materialprimary: string;
@@ -45,8 +47,9 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = false;
       // this.report = false;
-      this.Category=false;
-
+      this.Category = false;
+      this.fabric = false;
+      this.agent = false;
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "2") {
       this.menuname = "Product";
@@ -59,7 +62,9 @@ export class AppHeaderComponent implements OnInit {
       this.order = false;
       this.user = false;
       // this.report = false;
-      this.Category=false;
+      this.Category = false;
+      this.fabric = false;
+      this.agent = false;
     }
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "3") {
       this.materialprimary = "navbar navbar-expand-md navbar-dark material-green-primary";
@@ -70,7 +75,9 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = true;
       //this.report = false;
-      this.Category=false;
+      this.Category = false;
+      this.fabric = false;
+      this.agent = false;
       this.menuname = "User";
       this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
     }
@@ -83,7 +90,9 @@ export class AppHeaderComponent implements OnInit {
       this.product = false;
       this.user = false;
       //this.report = false;
-      this.Category=false;
+      this.Category = false;
+      this.fabric = false;
+      this.agent = false;
       this.menuname = "Order";
       this.menuIconClass = "icon-cash material-navyblue-primary bg-white-icon bg-navyblue-icon";
     }
@@ -92,12 +101,44 @@ export class AppHeaderComponent implements OnInit {
       this.menuIconClass = "icon-stack material-DarkGreen-primary bg-white-icon bg-DarkGreen-icon";
       this.materialprimary = "navbar navbar-expand-md navbar-dark material-DarkGreen-primary";
       this.materialsecondary = "material-DarkGreen-secondary space-all";
-      
-      this.Category=true;
+
+      this.Category = true;
       this.product = false;
       this.admin = false;
       this.order = false;
       this.user = false;
+      this.fabric = false;
+      this.agent = false;
+      // this.report = false;
+    }
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "6") {
+      this.menuname = "Fabric";
+      this.menuIconClass = "icon-stack material-DarkGreen-primary bg-white-icon bg-DarkGreen-icon";
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-DarkGreen-primary";
+      this.materialsecondary = "material-DarkGreen-secondary space-all";
+
+      this.Category = false;
+      this.product = false;
+      this.admin = false;
+      this.order = false;
+      this.user = false;
+      this.fabric = true;
+      this.agent = false;
+      // this.report = false;
+    }
+    if (this._LocalStorage.getValueOnLocalStorage("Selected") == "7") {
+      this.menuname = "Agent";
+      this.menuIconClass = "icon-stack material-DarkGreen-primary bg-white-icon bg-DarkGreen-icon";
+      this.materialprimary = "navbar navbar-expand-md navbar-dark material-DarkGreen-primary";
+      this.materialsecondary = "material-DarkGreen-secondary space-all";
+
+      this.Category = false;
+      this.product = false;
+      this.admin = false;
+      this.order = false;
+      this.user = false;
+      this.fabric = false;
+      this.agent = true;
       // this.report = false;
     }
   }
