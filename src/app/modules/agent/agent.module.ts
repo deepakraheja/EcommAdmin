@@ -9,9 +9,10 @@ import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { AppHeaderComponent } from './layout/app-header/app-header.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 
 
@@ -29,6 +30,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgxSpinnerModule,
-  ]
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  
+  ],
 })
 export class AgentModule { }
