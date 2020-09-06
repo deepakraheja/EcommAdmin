@@ -62,7 +62,7 @@ export class ProductDetailComponent implements OnInit {
   displayedColumns: string[] = ['color', 'size', 'setNo', 'qty', 'price', 'salePrice', 'availableSize', 'availableColors', 'discount', 'Edit', 'Delete'];
   dataSource = new MatTableDataSource<any>(this.lstData);
 
-  displayedSetImagesColumns: string[] = ['Upload', 'setNo', 'View'];
+  displayedSetImagesColumns: string[] = ['Upload', 'setNo', 'totalqty', 'View'];
   SetImagesdataSource = new MatTableDataSource<any>(this.lstData);
 
   PopUpProductImg = [];
@@ -279,6 +279,16 @@ export class ProductDetailComponent implements OnInit {
       }
       this.spinner.hide();
     });
+  }
+
+  GetTotalPics(setNo) {
+    var TotalPcsBySetNo = 0;
+    (this.lstData).forEach(element => {
+      if (element.setNo == setNo) {
+        TotalPcsBySetNo += element.qty;
+      }
+    });
+    return TotalPcsBySetNo;
   }
 
   LoadBrand() {

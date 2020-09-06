@@ -11,6 +11,7 @@ import { SupplierService } from 'src/app/Service/supplier.service';
 import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
 import { environment } from 'src/environments/environment';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-product',
@@ -28,6 +29,7 @@ export class ProductComponent implements OnInit {
   displayedColumns: string[] = ['frontImage', 'productName', 'brandName', 'subcategoryName', 'supplierName', 'setType', 'active', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   SelectsupplierID = new FormControl('');
   constructor(
     private formBuilder: FormBuilder,
@@ -70,6 +72,7 @@ export class ProductComponent implements OnInit {
     this._ProductService.GetAllProductBySupplierId(obj).subscribe(res => {
       this.spinner.hide();
       this.dataSource = new MatTableDataSource<any>(res);
+      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   }

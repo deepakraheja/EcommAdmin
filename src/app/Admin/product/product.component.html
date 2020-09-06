@@ -44,23 +44,23 @@
                                     </td>
                                 </ng-container>
                                 <ng-container matColumnDef="productName">
-                                    <th mat-header-cell *matHeaderCellDef>Product Name</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
                                     <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="brandName">
-                                    <th mat-header-cell *matHeaderCellDef>Brand</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
                                     <td mat-cell *matCellDef="let element"> {{element.brandName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="subcategoryName">
-                                    <th mat-header-cell *matHeaderCellDef>Sub-Category</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub-Category</th>
                                     <td mat-cell *matCellDef="let element"> {{element.subcategoryName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="supplierName">
-                                    <th mat-header-cell *matHeaderCellDef>Supplier</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier</th>
                                     <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="setType">
-                                    <th mat-header-cell *matHeaderCellDef>SetType</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>SetType</th>
                                     <td mat-cell *matCellDef="let element"> {{element.setType==1?'Without Set':(element.setType==2?'With Set':'Minimum')}} </td>
                                 </ng-container>
                                 <!-- <ng-container matColumnDef="subTitle">
@@ -68,7 +68,7 @@
                                     <td mat-cell *matCellDef="let element"> {{element.subTitle}} </td>
                                 </ng-container> -->
                                 <ng-container matColumnDef="active">
-                                    <th mat-header-cell *matHeaderCellDef>Active</th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Active</th>
                                     <td mat-cell *matCellDef="let element"> {{element.active?'Active':'In-Active'}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Edit">
