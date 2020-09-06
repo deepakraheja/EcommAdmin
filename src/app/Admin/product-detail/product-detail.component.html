@@ -122,7 +122,7 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
                                                         <mat-label>Fabric / Material</mat-label>
-                                                        <mat-select formControlName="fabricId" (selectionChange)="LoadFabricType($event)">
+                                                        <mat-select formControlName="fabricId">
                                                             <mat-option value="0">Select</mat-option>
                                                             <mat-option *ngFor="let row of lstFabric" [value]="row.fabricId">
                                                                 {{row.name}}

@@ -307,7 +307,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadCategory(event: any) {
-  
+
     if (this.ProductForm.value.mainCategoryID != "") {
       let obj = {
         MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
@@ -375,28 +375,28 @@ export class ProductDetailComponent implements OnInit {
 
   LoadFabricType(event: any) {
     debugger
-    if (this.ProductForm.value.fabricId != "" && this.ProductForm.value.fabricId != "0") {
-      let obj = {
-        FabricId: Number(this.ProductForm.value.fabricId),
-        Active: 1
-      }
-      this.spinner.show();
-      this._FabricService.GetAllFabricType(obj).subscribe(res => {
-        this.spinner.hide();
-        this.lstFabricType = res;
-      });
+    // if (this.ProductForm.value.fabricId != "" && this.ProductForm.value.fabricId != "0") {
+    let obj = {
+      //FabricId: Number(this.ProductForm.value.fabricId),
+      Active: 1
     }
-    else {
-      this.lstFabricType = [];
-      const fabricTypeId = this.ProductForm.get('fabricTypeId');
-      fabricTypeId.setValue(0);
-      fabricTypeId.updateValueAndValidity();
+    this.spinner.show();
+    this._FabricService.GetAllFabricType(obj).subscribe(res => {
       this.spinner.hide();
-    }
+      this.lstFabricType = res;
+    });
+    // }
+    // else {
+    //   this.lstFabricType = [];
+    //   const fabricTypeId = this.ProductForm.get('fabricTypeId');
+    //   fabricTypeId.setValue(0);
+    //   fabricTypeId.updateValueAndValidity();
+    //   this.spinner.hide();
+    // }
   }
 
   LoadSubCategory(event: any) {
-   
+
     debugger
     if (this.ProductForm.value.categoryID != "") {
       let obj = {

@@ -33,7 +33,7 @@ export class FabricTypeComponent implements OnInit {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.FabricTypeForm = this.formBuilder.group({
       fabricTypeId: [0],
-      fabricId: ['', Validators.required],
+      //fabricId: ['', Validators.required],
       fabricType: ['', Validators.required],
       description: [''],
       active: [false],
@@ -43,7 +43,7 @@ export class FabricTypeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fnGetFabric();
+    //this.fnGetFabric();
   }
 
   applyFilter(event: Event) {
@@ -52,22 +52,22 @@ export class FabricTypeComponent implements OnInit {
   }
 
 
-  fnGetFabric() {
-    let obj =
-      {}
-    this.spinner.show();
-    this._FabricService.GetAllFabric(obj)
-      .subscribe(res => {
+  // fnGetFabric() {
+  //   let obj =
+  //     {}
+  //   this.spinner.show();
+  //   this._FabricService.GetAllFabric(obj)
+  //     .subscribe(res => {
 
-        this.lstFabric = res
-        this.spinner.hide();
-      });
-  }
+  //       this.lstFabric = res
+  //       this.spinner.hide();
+  //     });
+  // }
 
   LoadData(event: any) {
     let obj = {
-      fabricId: Number(this.SelectfabricId.value),
-      Active: 1
+      //fabricId: Number(this.SelectfabricId.value),
+      Active: 0
     }
     this.spinner.show();
     this._FabricService.GetAllFabricType(obj).subscribe(res => {
@@ -79,7 +79,7 @@ export class FabricTypeComponent implements OnInit {
   onAddNew(template: TemplateRef<any>, lst) {
     this.FabricTypeForm = this.formBuilder.group({
       fabricTypeId: [0],
-      fabricId: ['', Validators.required],
+      //fabricId: ['', Validators.required],
       fabricType: ['', Validators.required],
       description: [''],
       active: [false],
@@ -99,7 +99,7 @@ export class FabricTypeComponent implements OnInit {
     debugger
     this.FabricTypeForm = this.formBuilder.group({
       fabricTypeId: [lst.fabricTypeId],
-      fabricId: [lst.fabricId, Validators.required],
+      //fabricId: [lst.fabricId, Validators.required],
       fabricType: [lst.fabricType, Validators.required],
       description: [lst.description],
       active: [lst.active],
