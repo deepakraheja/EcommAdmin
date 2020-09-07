@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 //import { StorageService } from '../../../../shared/services/storage.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'src/app/Service/local-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AgentService } from 'src/app/Service/agent.service';
 //import { AccountService } from '../../service/account.service';
 
 @Component({
@@ -18,9 +21,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService,
-    
+    private _LocalStorage: LocalStorageService,
+    private _ToastrService: ToastrService,
+    private spinner: NgxSpinnerService,
     private fb: FormBuilder,
+    private _agentService: AgentService
   ) {
 
     this.loginForm = this.fb.group({
@@ -46,9 +51,38 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.loginStart = true;
+    //this.loginStart = true;
+    let UserObj = {
+      LoginId: this.loginForm.value.username,
+      Password: this.loginForm.value.password
+    }
 
-      this.router.navigate(['service/dashboard']);
-  } 
-
+    this._agentService.ValidAgentLogin(UserObj).subscribe(_user => {
+      this.spinner.hide();
+      debugger
+      if (_user != null) {
+        debugger
+        if (_user.length > 0) {
+          debugger
+          this._LocalStorage.storeOnLocalStorage("LoggedInUserId", _user[0].agentId.toString());
+          this._LocalStorage.storeOnLocalStorage("Name", _user[0].fname.toString() + ' ' + _user[0].lName.toString());
+          this._LocalStorage.storeOnLocalStorage("Token", _user[0].token);
+          this._LocalStorage.storeOnLocalStorage("Selected", "0");
+          this.router.navigate(['service/dashboard']);
+        }
+        else {
+          this._ToastrService.error("Invalid username and password");
+        }
+      }
+      else {
+        this._ToastrService.error("Invalid username and password", 'Authentication failed');
+      }
+    },
+      err => {
+        if (err.status == 400) {
+          this._ToastrService.error("Invalid username and password");
+        }
+      }
+    )
+  }
 }

@@ -44,4 +44,11 @@ export class AgentService {
       this._url + this._methodName, this._param
     );
   }
+  ValidAgentLogin(_obj: any): Observable<any> {
+    this._methodName = "ValidAgentLogin/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
 }
