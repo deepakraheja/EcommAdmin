@@ -73,7 +73,14 @@
                                         </a>
                                     </td>
                                 </ng-container>
-
+                                <ng-container matColumnDef="AssignCustomer">
+                                    <th mat-header-cell *matHeaderCellDef> Assign Customer </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="AssignCustomer(templateAssignCustomer,element)">
+                                            <i class="icon-user mr-2" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                             </table>
@@ -135,6 +142,82 @@
     <mat-dialog-actions align="end">
         <div class="col-md-12 add-info-foot">
             <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #templateAssignCustomer>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Assign Customer</h2>
+
+        <!-- <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div> -->
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="col-md-12">
+            <table mat-table [dataSource]="dataSourceUser" class="mat-elevation-z8 col-md-12">
+                <ng-container matColumnDef="isChecked">
+                    <th mat-header-cell *matHeaderCellDef>Select</th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-checkbox [(ngModel)]="element.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>Email Address</th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="mobileNo">
+                    <th mat-header-cell *matHeaderCellDef>MobileNo</th>
+                    <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="additionalDiscount">
+                    <th mat-header-cell *matHeaderCellDef>Discount</th>
+                    <td mat-cell *matCellDef="let element"> {{element.additionalDiscount}} </td>
+                </ng-container>
+                <ng-container matColumnDef="isActive">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let element"> {{element.isActive?'Active':'In-Active'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="isApproval">
+                    <th mat-header-cell *matHeaderCellDef>IsApproval</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.isApproval==0?'Pending':(element.isApproval==1?'Approved':'Denied')}}
+                    </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="approvedByUserName">
+                    <th mat-header-cell *matHeaderCellDef>ApprovedBy</th>
+                    <td mat-cell *matCellDef="let element"> {{element.approvedByUserName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="approvedDate">
+                    <th mat-header-cell *matHeaderCellDef>Approved Date</th>
+                    <td mat-cell *matCellDef="let element"> {{element.approvedDate | date : 'dd/MM/yyyy'}} </td>
+                </ng-container> -->
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsUser; sticky:true;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsUser;"></tr>
+            </table>
+            <div *ngIf="dataSourceUser?.filteredData?.length === 0">No records found</div>
+            <!-- <mat-paginator [pageSizeOptions]="[10,20,30,50,100]" showFirstLastButtons></mat-paginator> -->
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="SaveAssignCustomer()">
             Save
         </button>
             <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>

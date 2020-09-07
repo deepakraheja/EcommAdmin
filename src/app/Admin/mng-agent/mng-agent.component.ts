@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { AgentService } from 'src/app/Service/agent.service';
+import { UserService } from 'src/app/Service/user.service';
 
 @Component({
   selector: 'app-mng-agent',
@@ -19,12 +20,16 @@ export class MngAgentComponent implements OnInit {
   AgentForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
-  displayedColumns: string[] = ['fname', 'lName', 'email', 'mobile', 'isActive', 'createdUserName', 'createdDate', 'modifiedUserName', 'modifiedDate', 'Edit'];
+  displayedColumns: string[] = ['fname', 'lName', 'email', 'mobile', 'isActive', 'createdUserName', 'createdDate', 'modifiedUserName', 'modifiedDate', 'Edit', 'AssignCustomer'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  lstDataUser: any = [];
+  displayedColumnsUser: string[] = ['isChecked', 'name', 'email', 'mobileNo', 'additionalDiscount', 'isActive', 'createdDate', 'isApproval'];
+  dataSourceUser = new MatTableDataSource<any>(this.lstDataUser);
   showMask = false;
   PhoneMask = null;
   DecimalMask = null;
+  SelectedAgentId = 0;
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -32,7 +37,8 @@ export class MngAgentComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private _toasterService: ToastrService,
     private _agentService: AgentService,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _userService: UserService
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.AgentForm = this.formBuilder.group({
@@ -93,6 +99,29 @@ export class MngAgentComponent implements OnInit {
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
+  AssignCustomer(template: TemplateRef<any>, lst) {
+    debugger
+    this.spinner.show();
+    let obj = {
+      AgentId: lst.agentId
+    }
+    this.SelectedAgentId = lst.agentId;
+    this._userService.GetAgentCustomer(obj).subscribe(res => {
+      this.spinner.hide();
+      this.lstDataUser = res;
+      this.dataSourceUser = new MatTableDataSource<any>(res);
+      const dialogRef = this.dialog.open(template, {
+        width: '100vw',
+        data: this.lstDataUser
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+        //console.log(`Dialog result: ${result}`);
+      });
     });
   }
 
@@ -160,6 +189,22 @@ export class MngAgentComponent implements OnInit {
     });
   }
 
+  SaveAssignCustomer() {
+    let selectedUser = '';
+    (this.dataSourceUser.filteredData).forEach(element => {
+      debugger
+      if (element.isChecked == true) {
+        selectedUser += element.userID + ',';
+      }
+    });
+    let obj = {
+      AgentId: this.SelectedAgentId,
+      UserIds: selectedUser
+    };
+    this._agentService.SaveAgentCustomer(obj).subscribe(res => {
+      this._toasterService.success("Record has been saved successfully.");
+    });
+  }
 }
 
 

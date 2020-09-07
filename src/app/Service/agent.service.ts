@@ -37,4 +37,11 @@ export class AgentService {
       this._url + this._methodName, this._param
     );
   }
+  SaveAgentCustomer(_obj: any): Observable<any> {
+    this._methodName = "SaveAgentCustomer/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
 }
