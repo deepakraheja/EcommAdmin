@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         debugger
         if (_user.length > 0) {
           debugger
-          this._LocalStorage.storeOnLocalStorage("LoggedInUserId", _user[0].agentId.toString());
+          this._LocalStorage.storeOnLocalStorage("LoggedInAgentId", _user[0].agentId.toString());
           this._LocalStorage.storeOnLocalStorage("Name", _user[0].fname.toString() + ' ' + _user[0].lName.toString());
           this._LocalStorage.storeOnLocalStorage("Token", _user[0].token);
           this._LocalStorage.storeOnLocalStorage("Selected", "0");

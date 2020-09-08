@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
- 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +20,7 @@ export class LocalStorageService {
     debugger
     this.storage.remove("FirstName");
     this.storage.remove("LastName");
-   
+
     this.storage.remove("LoggedInUserId");
     this.storage.remove("LoggedInUserType");
     this.storage.remove("pageIndex");
@@ -28,5 +28,7 @@ export class LocalStorageService {
     this.storage.remove("yrsValue");
     this.storage.remove("IsPostBack");
     this.storage.remove("Token");
+
+    this.storage.remove("LoggedInAgentId");
   }
 }

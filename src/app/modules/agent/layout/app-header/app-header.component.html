@@ -33,19 +33,12 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-left main-navigation dropdown-menu-left">
-                        <a href="home" class="dropdown-item" (click)="ChangeName('0')"><i
+                        <a href="service/dashboard" class="dropdown-item" (click)="ChangeName('0')"><i
                         class="fa-tachometer icon-users material-dark-grey-primary"></i>Dashboard</a>
-                        <a href="customer" class="dropdown-item" (click)="ChangeName('1')"><i
-                            class="fa-tachometer icon-users material-dark-grey-primary"></i>Customer</a>
+                        <a href="service/customer" class="dropdown-item" (click)="ChangeName('1')"><i
+                            class="icon-users material-dark-yellow-primary"></i>Customer</a>
 
                     </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav navbar-light-shade d-inline-box">
-                <li *ngIf="Category" class="nav-item ">
-                    <a [routerLink]="'/MainCategory'" class="navbar-nav-link" routerLinkActive="active">
-                        <span> Main Category</span>
-                    </a>
                 </li>
             </ul>
 
