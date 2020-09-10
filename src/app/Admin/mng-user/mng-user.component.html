@@ -125,6 +125,174 @@
                             <input type="text" matInput formControlName="mobileNo" readonly maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Business Type </mat-label>
+                            <mat-select formControlName="businessType">
+                                <mat-option value="">Select a business type</mat-option>
+                                <mat-option value="SoleProprietorship">Sole Proprietorship</mat-option>
+                                <mat-option value="Partnership">Partnership</mat-option>
+                                <mat-option value="PublicLimitedCompany">Public Limited Company</mat-option>
+                                <mat-option value="PrivateLimitedCompany">Private Limited Company</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Industry </mat-label>
+                            <mat-select formControlName="industry">
+                                <mat-option value="">Select an industry</mat-option>
+                                <mat-option value="Automotive">
+                                    Automotive
+                                </mat-option>
+                                <mat-option value="Business Services">
+                                    Business Services
+                                </mat-option>
+                                <mat-option value="Construction">
+                                    Construction
+                                </mat-option>
+                                <mat-option value="Education">
+                                    Education
+                                </mat-option>
+                                <mat-option value="Financial Services">
+                                    Financial Services
+                                </mat-option>
+                                <mat-option value="Government">
+                                    Government
+                                </mat-option>
+                                <mat-option value="Healthcare">
+                                    Healthcare
+                                </mat-option>
+                                <mat-option value="Lab &amp; Scientific">
+                                    Lab &amp; Scientific
+                                </mat-option>
+                                <mat-option value="Manufacturing">
+                                    Manufacturing
+                                </mat-option>
+                                <mat-option value="Media &amp; Entertainment">
+                                    Media &amp; Entertainment
+                                </mat-option>
+                                <mat-option value="Non-Profit">
+                                    Non-Profit
+                                </mat-option>
+                                <mat-option value="Restaurant &amp; Food Services">
+                                    Restaurant &amp; Food Services
+                                </mat-option>
+                                <mat-option value="Retail">
+                                    Retail
+                                </mat-option>
+                                <mat-option value="Technology">
+                                    Technology
+                                </mat-option>
+                                <mat-option value="Wholesale">
+                                    Wholesale
+                                </mat-option>
+                                <mat-option value="Other">
+                                    Other
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Business License Type </mat-label>
+                            <mat-select formControlName="businessLicenseType">
+                                <mat-option value="">Select a business license type</mat-option>
+                                <mat-option value="GSTIN">Goods & Services Tax Number (GSTIN)</mat-option>
+                                <mat-option value="BusinessPAN">Business PAN</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='GSTIN'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>GSTNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="gstNo" maxlength="50">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PANNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="panNo" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>BusinessName <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="businessName" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address1 <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="address1" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address2 </mat-label>
+                            <input type="text" matInput formControlName="address2" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PinCode <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="pinCode" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="city" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State </mat-label>
+                            <mat-select formControlName="state">
+                                <mat-option value="">Select State</mat-option>
+                                <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
+                                <mat-option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</mat-option>
+                                <mat-option value="Arunachal Pradesh">Arunachal Pradesh</mat-option>
+                                <mat-option value="Assam">Assam</mat-option>
+                                <mat-option value="Bihar">Bihar</mat-option>
+                                <mat-option value="Chandigarh">Chandigarh</mat-option>
+                                <mat-option value="Chhattisgarh">Chhattisgarh</mat-option>
+                                <mat-option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</mat-option>
+                                <mat-option value="Daman and Diu">Daman and Diu</mat-option>
+                                <mat-option value="Delhi">Delhi</mat-option>
+                                <mat-option value="Lakshadweep">Lakshadweep</mat-option>
+                                <mat-option value="Puducherry">Puducherry</mat-option>
+                                <mat-option value="Goa">Goa</mat-option>
+                                <mat-option value="Gujarat">Gujarat</mat-option>
+                                <mat-option value="Haryana">Haryana</mat-option>
+                                <mat-option value="Himachal Pradesh">Himachal Pradesh</mat-option>
+                                <mat-option value="Jammu and Kashmir">Jammu and Kashmir</mat-option>
+                                <mat-option value="Jharkhand">Jharkhand</mat-option>
+                                <mat-option value="Karnataka">Karnataka</mat-option>
+                                <mat-option value="Kerala">Kerala</mat-option>
+                                <mat-option value="Madhya Pradesh">Madhya Pradesh</mat-option>
+                                <mat-option value="Maharashtra">Maharashtra</mat-option>
+                                <mat-option value="Manipur">Manipur</mat-option>
+                                <mat-option value="Meghalaya">Meghalaya</mat-option>
+                                <mat-option value="Mizoram">Mizoram</mat-option>
+                                <mat-option value="Nagaland">Nagaland</mat-option>
+                                <mat-option value="Odisha">Odisha</mat-option>
+                                <mat-option value="Punjab">Punjab</mat-option>
+                                <mat-option value="Rajasthan">Rajasthan</mat-option>
+                                <mat-option value="Sikkim">Sikkim</mat-option>
+                                <mat-option value="Tamil Nadu">Tamil Nadu</mat-option>
+                                <mat-option value="Telangana">Telangana</mat-option>
+                                <mat-option value="Tripura">Tripura</mat-option>
+                                <mat-option value="Uttar Pradesh">Uttar Pradesh</mat-option>
+                                <mat-option value="Uttarakhand">Uttarakhand</mat-option>
+                                <mat-option value="West Bengal">West Bengal</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
                     <div class="col-md-4 mt-2">
                         <mat-checkbox formControlName="isActive">Active</mat-checkbox>
                     </div>

@@ -45,12 +45,50 @@ export class MngUserComponent implements OnInit {
       isApproval: [0, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
       approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      additionalDiscount: ['', Validators.required]
+      additionalDiscount: ['', Validators.required],
+      businessType: ['', Validators.required],
+      industry: ['', Validators.required],
+      businessLicenseType: ['', Validators.required],
+      gstNo: [''],
+      panNo: [''],
+      businessName: ['', Validators.required],
+      address1: ['', Validators.required],
+      address2: [''],
+      pinCode: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required]
     });
     this.LoadData();
+    this.formControlValueChanged();
   }
 
+  get f() { return this.UserForm.controls; }
+
   ngOnInit(): void {
+  }
+
+  formControlValueChanged() {
+    debugger
+    const businessLicenseType = this.UserForm.get('businessLicenseType');
+    const gstNo = this.UserForm.get('gstNo');
+    const panNo = this.UserForm.get('panNo');
+    
+
+    if (businessLicenseType.value == 'GSTIN') {
+      gstNo.setValidators([Validators.required]);
+      panNo.clearValidators();
+
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+    }
+    if (businessLicenseType.value == 'BusinessPAN') {
+      panNo.setValidators([Validators.required]);
+      gstNo.clearValidators();
+
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+    }
+   
   }
 
   applyFilter(event: Event) {
@@ -84,8 +122,20 @@ export class MngUserComponent implements OnInit {
       isApproval: [lst.isApproval, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
       approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-      additionalDiscount: [lst.additionalDiscount, Validators.required]
+      additionalDiscount: [lst.additionalDiscount, Validators.required],
+      businessType: [lst.businessType, Validators.required],
+      industry: [lst.industry, Validators.required],
+      businessLicenseType: [lst.businessLicenseType, Validators.required],
+      gstNo: [lst.gstNo],
+      panNo: [lst.panNo],
+      businessName: [lst.businessName, Validators.required],
+      address1: [lst.address1, Validators.required],
+      address2: [lst.address2],
+      pinCode: [lst.pinCode, Validators.required],
+      city: [lst.city, Validators.required],
+      state: [lst.state, Validators.required]
     });
+    this.formControlValueChanged();
     const dialogRef = this.dialog.open(template, {
       width: '700px',
       data: this.UserForm
@@ -97,6 +147,7 @@ export class MngUserComponent implements OnInit {
   }
 
   Save() {
+    this.formControlValueChanged();
     if (this.UserForm.invalid) {
       this.UserForm.markAllAsTouched();
       this._toasterService.error("All the * marked fields are mandatory");
