@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     //this.loginStart = true;
     let UserObj = {
       LoginId: this.loginForm.value.username,
-      Password: this.loginForm.value.password
+      password: this.loginForm.value.password
     }
 
     this._agentService.ValidAgentLogin(UserObj).subscribe(_user => {
@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
         debugger
         if (_user.length > 0) {
           debugger
-          this._LocalStorage.storeOnLocalStorage("LoggedInAgentId", _user[0].agentId.toString());
-          this._LocalStorage.storeOnLocalStorage("Name", _user[0].fname.toString() + ' ' + _user[0].lName.toString());
+          this._LocalStorage.storeOnLocalStorage("LoggedInUserId", _user[0].userID.toString());
+          this._LocalStorage.storeOnLocalStorage("Name", _user[0].name.toString());
           this._LocalStorage.storeOnLocalStorage("Token", _user[0].token);
           this._LocalStorage.storeOnLocalStorage("Selected", "0");
           this.router.navigate(['service/dashboard']);

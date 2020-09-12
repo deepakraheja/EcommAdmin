@@ -20,7 +20,7 @@ export class MngUserComponent implements OnInit {
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'isActive', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'isActive', 'isAgent', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
@@ -56,7 +56,8 @@ export class MngUserComponent implements OnInit {
       address2: [''],
       pinCode: ['', Validators.required],
       city: ['', Validators.required],
-      state: ['', Validators.required]
+      state: ['', Validators.required],
+      isAgent: [false]
     });
     this.LoadData();
     this.formControlValueChanged();
@@ -72,7 +73,7 @@ export class MngUserComponent implements OnInit {
     const businessLicenseType = this.UserForm.get('businessLicenseType');
     const gstNo = this.UserForm.get('gstNo');
     const panNo = this.UserForm.get('panNo');
-    
+
 
     if (businessLicenseType.value == 'GSTIN') {
       gstNo.setValidators([Validators.required]);
@@ -88,7 +89,7 @@ export class MngUserComponent implements OnInit {
       gstNo.updateValueAndValidity();
       panNo.updateValueAndValidity();
     }
-   
+
   }
 
   applyFilter(event: Event) {
@@ -133,7 +134,8 @@ export class MngUserComponent implements OnInit {
       address2: [lst.address2],
       pinCode: [lst.pinCode, Validators.required],
       city: [lst.city, Validators.required],
-      state: [lst.state, Validators.required]
+      state: [lst.state, Validators.required],
+      isAgent: [lst.isAgent]
     });
     this.formControlValueChanged();
     const dialogRef = this.dialog.open(template, {

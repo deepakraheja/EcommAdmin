@@ -20,7 +20,7 @@ export class MngAgentComponent implements OnInit {
   AgentForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
-  displayedColumns: string[] = ['fname', 'lName', 'email', 'mobile', 'isActive', 'createdUserName', 'createdDate', 'modifiedUserName', 'modifiedDate', 'Edit', 'AssignCustomer'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'isActive', 'createdDate', 'modifiedDate', 'AssignCustomer'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   lstDataUser: any = [];
@@ -107,9 +107,9 @@ export class MngAgentComponent implements OnInit {
     debugger
     this.spinner.show();
     let obj = {
-      AgentId: lst.agentId
+      AgentId: lst.userID
     }
-    this.SelectedAgentId = lst.agentId;
+    this.SelectedAgentId = lst.userID;
     this._userService.GetAgentCustomer(obj).subscribe(res => {
       this.spinner.hide();
       this.lstDataUser = res;

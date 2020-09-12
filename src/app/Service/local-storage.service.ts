@@ -29,6 +29,6 @@ export class LocalStorageService {
     this.storage.remove("IsPostBack");
     this.storage.remove("Token");
 
-    this.storage.remove("LoggedInAgentId");
+    //this.storage.remove("LoggedInAgentId");
   }
 }
