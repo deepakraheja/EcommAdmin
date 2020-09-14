@@ -12,7 +12,7 @@ import { UserService } from 'src/app/Service/user.service';
 })
 export class CustomerComponent implements OnInit {
   lstData: any = [];
-  LoggedInAgentId: string;
+  LoggedInUserId: string;
   LoggedInUserType: string;
   displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'isActive'];
   dataSource = new MatTableDataSource<any>(this.lstData);
@@ -25,7 +25,7 @@ export class CustomerComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private _userService: UserService,
   ) {
-    this.LoggedInAgentId = this._LocalStorage.getValueOnLocalStorage("LoggedInAgentId");
+    this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
 
     this.LoadData();
   }
@@ -41,7 +41,7 @@ export class CustomerComponent implements OnInit {
   LoadData() {
     this.spinner.show();
     let obj = {
-      AgentId: Number(this.LoggedInAgentId)
+      AgentId: Number(this.LoggedInUserId)
     };
     this._userService.GetAgentCustomerByAgentId(obj).subscribe(res => {
       this.spinner.hide();
