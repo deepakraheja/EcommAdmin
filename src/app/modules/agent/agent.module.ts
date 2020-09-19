@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSortModule,
     MatSidenavModule,
     MatChipsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     {

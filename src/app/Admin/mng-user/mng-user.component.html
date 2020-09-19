@@ -39,9 +39,9 @@
                                     <th mat-header-cell *matHeaderCellDef>Discount</th>
                                     <td mat-cell *matCellDef="let element"> {{element.additionalDiscount}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="isActive">
+                                <ng-container matColumnDef="statusId">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.isActive?'Active':'In-Active'}} </td>
+                                    <td mat-cell *matCellDef="let element"> {{element.statusId==0?'In-Active':element.statusId==1?'Active':element.statusId==2?'Hold':''}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="isAgent">
                                     <th mat-header-cell *matHeaderCellDef>IsAgent</th>
@@ -258,8 +258,18 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-md-4 mt-2">
+                    <!-- <div class="col-md-4 mt-2">
                         <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+                    </div> -->
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Status </mat-label>
+                            <mat-select formControlName="statusId">
+                                <mat-option [value]="0">In-Active</mat-option>
+                                <mat-option [value]="1">Active</mat-option>
+                                <mat-option [value]="2">Hold</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
