@@ -20,6 +20,7 @@ import { MainCategoryComponent } from './Admin/main-category/main-category.compo
 import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 import { CreateEmailComponent } from './Admin/create-email/create-email.component';
 import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
+import { TransportComponent } from './Admin/transport/transport.component';
 
 
 const routes: Routes = [
@@ -53,7 +54,8 @@ const routes: Routes = [
       { path: 'order', component: OrderComponent },
       { path: 'user', component: MngUserComponent },
       { path: 'CreateEmail', component: CreateEmailComponent },
-      { path: 'agent', component: MngAgentComponent }
+      { path: 'agent', component: MngAgentComponent },
+      { path: 'transport', component: TransportComponent }
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

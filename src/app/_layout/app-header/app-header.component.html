@@ -118,6 +118,11 @@
                         <span> Email Template</span>
                     </a>
                 </li>
+                <li *ngIf="admin" class="nav-item ">
+                    <a [routerLink]="'/transport'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Transport</span>
+                    </a>
+                </li>
                 <li *ngIf="agent" class="nav-item ">
                     <a [routerLink]="'/agent'" class="navbar-nav-link" routerLinkActive="active">
                         <span> Agent</span>

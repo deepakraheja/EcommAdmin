@@ -77,6 +77,7 @@ import { MngUserComponent } from './Admin/mng-user/mng-user.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CreateEmailComponent } from './Admin/create-email/create-email.component';
 import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
+import { TransportComponent } from './Admin/transport/transport.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
     MngUserComponent,
     CreateEmailComponent,
     MngAgentComponent,
+    TransportComponent,
   ],
   imports: [
     SafePipeModule,
