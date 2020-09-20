@@ -81,7 +81,10 @@
                                 </ng-container>
                                 <ng-container matColumnDef="statusId">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.statusId==1?'New Order':(element.statusId==2?'Shipped':(element.statusId==3?'Delivered':'No Status'))}} </td>
+                                    <td mat-cell *matCellDef="let element">
+                                        <!-- {{element.statusId==1?'New Order':(element.statusId==2?'Shipped':(element.statusId==3?'Delivered':'No Status'))}}  -->
+                                        {{GetStatusName(element.statusId)}}
+                                    </td>
                                 </ng-container>
                                 <ng-container matColumnDef="totalAmount">
                                     <th mat-header-cell *matHeaderCellDef>Total Amount</th>
@@ -318,7 +321,9 @@
                     <br>
                     <b>Payment Mode: </b> {{lstOrderDetails.paymentTypeId==1?'Cash on Delivery (COD)':'Online Payment'}}
                     <br>
-                    <b>Order Status: </b> {{lstOrderDetails.statusId==1?'New Order':(lstOrderDetails.statusId==2?'Shipped':(lstOrderDetails.statusId==3?'Delivered':'No Status'))}}
+                    <b>Order Status: </b>
+                    <!-- {{lstOrderDetails.statusId==1?'New Order':(lstOrderDetails.statusId==2?'Shipped':(lstOrderDetails.statusId==3?'Delivered':'No Status'))}} -->
+                    {{GetStatusName(lstOrderDetails.statusId)}}
                     <br>
                     <b>Notes: </b> {{lstOrderDetails.notes}}
                     <br>
@@ -360,7 +365,8 @@
                                     <li class="{{lstPro.statusId==2?'active':''}}"><span>Processing</span></li>
                                     <li class="{{lstPro.statusId==3?'active':''}}"><span>Dispatched</span></li>
                                     <li class="{{lstPro.statusId==4?'active':''}}"><span>Delivered</span></li>
-                                    <li *ngIf="lstPro.statusId==5" class="{{lstPro.statusId==5?'active':''}}"><span>Returned</span></li>
+                                    <li *ngIf="lstPro.statusId==5" class="{{lstPro.statusId==5?'active':''}}"><span>Not Delivered</span></li>
+                                    <li *ngIf="lstPro.statusId==6" class="{{lstPro.statusId==6?'active':''}}"><span>Returned</span></li>
                                 </ul>
 
                                 <!-- <div class="col-md-2" *ngFor="let row of lstOrderStatus">
@@ -440,40 +446,26 @@
                                                         </span>
                                                     </div>
                                                     <div class="a-row">
+                                                        <mat-checkbox>Select</mat-checkbox>
                                                         <!-- <span class="a-color-secondary a-text-bold">
                                                         </span>
                                                         <span class="a-color-secondary">
                                                         </span> -->
-                                                        <mat-form-field appearance="outline" style="width: 200px;">
+                                                        <!-- <mat-form-field appearance="outline" style="width: 200px;">
                                                             <mat-label>Change Status </mat-label>
                                                             <mat-select [(ngModel)]="lstPro.statusId" [ngModelOptions]="{standalone: true}" (selectionChange)="UpdateStatus($event,lstPro)">
                                                                 <mat-option *ngFor="let row of lstOrderStatus" [value]="row.orderStatusId">
                                                                     {{row.status}}
                                                                 </mat-option>
                                                             </mat-select>
-                                                        </mat-form-field>
+                                                        </mat-form-field> -->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="a-fixed-right-grid-col a-col-right" style="width:230px;margin-right:-230px;float:left;">
-                                    <div class="a-row">
-                                        <div class="a-button-stack">
-                                            <mat-form-field appearance="outline">
-                                                <mat-label>Change Status </mat-label>
-                                                <mat-select>
-                                                    <mat-option [value]="0">All</mat-option>
-                                                    <mat-option [value]="1">New Order</mat-option>
-                                                    <mat-option [value]="2">Shipped</mat-option>
-                                                    <mat-option [value]="3">Delivered</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
 
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -483,12 +475,22 @@
 
 
     </mat-dialog-content>
-    <!-- <mat-dialog-actions align="end">
-        <div class="col-md-12 add-info-foot">
-           
-            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot" style="padding: 0px 0px 0px;">
+            <mat-form-field appearance="outline" style="width: 200px; margin-left: 63px;">
+                <mat-label>Change Status </mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let row of ForwardStatus(lstOrderDetails.statusId)" [value]="row.orderStatusId">
+                        {{row.status}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-    </mat-dialog-actions> -->
+        <!-- <div class="col-md-6 add-info-foot">
+
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div> -->
+    </mat-dialog-actions>
 </ng-template>
 
 <style>

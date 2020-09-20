@@ -66,6 +66,15 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  GetStatusName(val){
+    var lst=this.lstOrderStatus.filter(a=>a.orderStatusId==val);
+    return lst[0].status;
+  }
+
+  ForwardStatus(val){
+    return this.lstOrderStatus.filter(a=>a.orderStatusId>val);
+  }
+
   Search(event: any) {
     let obj = {
       StatusId: Number(this.OrderForm.value.statusId),
