@@ -30,6 +30,7 @@ export class OrderComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   LoggedInUserId: string;
   bsModalRef: BsModalRef;
+  public ChangeStatusId: any;
   constructor(
     private _OrderService: OrderService,
     private spinner: NgxSpinnerService,
@@ -66,13 +67,13 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  GetStatusName(val){
-    var lst=this.lstOrderStatus.filter(a=>a.orderStatusId==val);
+  GetStatusName(val) {
+    var lst = this.lstOrderStatus.filter(a => a.orderStatusId == val);
     return lst[0].status;
   }
 
-  ForwardStatus(val){
-    return this.lstOrderStatus.filter(a=>a.orderStatusId>val);
+  ForwardStatus(val) {
+    return this.lstOrderStatus.filter(a => a.orderStatusId > val);
   }
 
   Search(event: any) {
@@ -127,24 +128,27 @@ export class OrderComponent implements OnInit {
       //console.log(`Dialog result: ${result}`);
       if (result) {
         debugger
-        let obj = {
-          OrderStatusHistoryId: 0,
-          OrderDetailsID: Number(lst.orderDetailsID),
-          OrderStatusId: Number(lst.statusId),
-          CreatedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
-          CreatedBy: Number(this.LoggedInUserId),
-          OrderId: Number(lst.orderId),
-          SetNo: Number(lst.setNo),
-          ProductId: Number(lst.productId)
-        };
-        this.spinner.show();
-        this._OrderService.UpdateOrderDetailStatus(obj).subscribe(res => {
-          this.spinner.hide();
-          this.Search("");
-          this._toastrService.success('Status has been updated successfully.');
-        });
+        // let obj = {
+        //   OrderStatusHistoryId: 0,
+        //   OrderDetailsID: Number(lst.orderDetailsID),
+        //   OrderStatusId: Number(lst.statusId),
+        //   CreatedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
+        //   CreatedBy: Number(this.LoggedInUserId),
+        //   OrderId: Number(lst.orderId),
+        //   SetNo: Number(lst.setNo),
+        //   ProductId: Number(lst.productId)
+        // };
+        // this.spinner.show();
+        // this._OrderService.UpdateOrderDetailStatus(obj).subscribe(res => {
+        //   this.spinner.hide();
+        //   this.Search("");
+        //   this._toastrService.success('Status has been updated successfully.');
+        // });
+      }
+      else {
+        this.ChangeStatusId = '';
       }
     });
-    
+
   }
 }

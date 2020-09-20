@@ -446,7 +446,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="a-row">
-                                                        <mat-checkbox>Select</mat-checkbox>
+                                                        <mat-checkbox [(ngModel)]="lstPro.isSelected">Select</mat-checkbox>
                                                         <!-- <span class="a-color-secondary a-text-bold">
                                                         </span>
                                                         <span class="a-color-secondary">
@@ -479,7 +479,7 @@
         <div class="col-md-12 add-info-foot" style="padding: 0px 0px 0px;">
             <mat-form-field appearance="outline" style="width: 200px; margin-left: 63px;">
                 <mat-label>Change Status </mat-label>
-                <mat-select>
+                <mat-select [(ngModel)]="ChangeStatusId" [ngModelOptions]="{standalone: true}" (selectionChange)="UpdateStatus($event,lstOrderDetails.orderDetails)">
                     <mat-option *ngFor="let row of ForwardStatus(lstOrderDetails.statusId)" [value]="row.orderStatusId">
                         {{row.status}}
                     </mat-option>
