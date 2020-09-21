@@ -364,7 +364,7 @@
                                     <li class="{{lstPro.statusId==1?'active':''}}"><span>New Order</span></li>
                                     <li class="{{lstPro.statusId==2?'active':''}}"><span>Processing</span></li>
                                     <li class="{{lstPro.statusId==3?'active':''}}"><span>Dispatched</span></li>
-                                    <li class="{{lstPro.statusId==4?'active':''}}"><span>Delivered</span></li>
+                                    <li *ngIf="lstPro.statusId!=5" class="{{lstPro.statusId==4?'active':''}}"><span>Delivered</span></li>
                                     <li *ngIf="lstPro.statusId==5" class="{{lstPro.statusId==5?'active':''}}"><span>Not Delivered</span></li>
                                     <li *ngIf="lstPro.statusId==6" class="{{lstPro.statusId==6?'active':''}}"><span>Returned</span></li>
                                 </ul>
