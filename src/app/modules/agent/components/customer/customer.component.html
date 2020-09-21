@@ -40,7 +40,9 @@
                                 </ng-container>
                                 <ng-container matColumnDef="statusId">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.statusId==0?'In-Active':element.statusId==1?'Active':element.statusId==2?'Hold':''}} </td>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.statusId==1?'Pending':element.statusId==2?'Active':element.statusId==3?'In-Active':element.statusId==4?'Hold':''}}
+                                    </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Edit">
                                     <th mat-header-cell *matHeaderCellDef> Edit </th>
@@ -82,9 +84,8 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Status </mat-label>
                             <mat-select formControlName="statusId">
-                                <mat-option [value]="0">In-Active</mat-option>
-                                <mat-option [value]="1">Active</mat-option>
-                                <mat-option [value]="2">Hold</mat-option>
+                                <mat-option [value]="2">Active</mat-option>
+                                <mat-option [value]="4">Hold</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

@@ -166,7 +166,7 @@ export class OrderComponent implements OnInit {
                 SelectedOrderDetailsIds += element.orderDetailsID + ',';
               }
               else {
-                this._toastrService.error('Product (' + (element.productName).split('(')[0] + ') status cannot be change ' + this.GetStatusName(element.statusId) + ' to ' + this.GetStatusName(this.ChangeStatusId) + '.');
+                this._toastrService.error('Product (' + element.productName + ') status cannot be changed from ' + this.GetStatusName(element.statusId) + ' to ' + this.GetStatusName(this.ChangeStatusId) + '.');
                 IsValid = false;
                 this.ChangeStatusId = '';
                 return;
@@ -175,7 +175,7 @@ export class OrderComponent implements OnInit {
           });
         }
         else {
-          this._toastrService.error('Please select a product');
+          this._toastrService.error('Please select a product to change status');
           this.ChangeStatusId = '';
           return;
         }
