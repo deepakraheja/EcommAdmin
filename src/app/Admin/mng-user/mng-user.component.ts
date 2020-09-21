@@ -101,7 +101,7 @@ export class MngUserComponent implements OnInit {
   addMask(obj: Object) {
     this.PhoneMask = "0000000000";
     this.DecimalMask = "0*.00";
-    this.PinCodeMask = "00000";
+    this.PinCodeMask = "000000";
     this.showMask = false;
   }
 
