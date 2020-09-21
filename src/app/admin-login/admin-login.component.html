@@ -2,7 +2,7 @@
     <p class="loading"></p>
 </ngx-spinner>
 <form>
-    <div class="accountbg"></div>
+    <div class="accountbg" style="background: #044a75;"></div>
 
     <div class="wrapper-page">
         <div class="display-table">
@@ -15,20 +15,22 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center pt-3">
-                                        <h1>Login</h1>
+                                        <h1 class="content__heading">Log In</h1>
                                         <!-- <img src="assets/global_assets/images/wish-logo1.png" alt="logo" height="65" /> -->
                                     </div>
                                     <div class="px-3 pb-3">
                                         <form class="form-horizontal m-t-20 mb-0" action="">
 
                                             <div class="form-group">
-                                                <label for="txtLoginId" class="label">Username</label>
-                                                <input name="txtLoginId" type="text" [(ngModel)]="LoginId" class="form-control">
+                                                <label for="txtLoginId" class="entry__label">User name</label>
+                                                <input name="txtLoginId" type="text" [(ngModel)]="LoginId"
+                                                    class="form-control">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="txtPwd" class="label">Password</label>
-                                                <input name="txtPwd" type="password" [(ngModel)]="Password" class="form-control">
+                                                <label for="txtPwd" class="entry__label">Password</label>
+                                                <input name="txtPwd" type="password" [(ngModel)]="Password"
+                                                    class="form-control">
                                             </div>
 
                                             <!-- <div class="form-group ">
@@ -41,7 +43,9 @@
 
                                             <div class="form-group text-right row m-t-20">
                                                 <div class="col-12 m-t-30">
-                                                    <button class="btn btn-primary btn-raised btn-block waves-effect waves-light" type="submit" (click)="Login()">Log In</button>
+                                                    <button
+                                                        class="btn btn-primary btn-raised btn-block waves-effect waves-light"
+                                                        type="submit" (click)="Login()">Log In</button>
                                                     <!-- <p>
                                                     <img  id="spinner" style="display:none;" src="assets/images/Spinner-1s-50px.gif" />
                                                   </p> -->
