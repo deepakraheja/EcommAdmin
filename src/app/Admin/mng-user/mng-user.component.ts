@@ -26,6 +26,7 @@ export class MngUserComponent implements OnInit {
   showMask = false;
   PhoneMask = null;
   DecimalMask = null;
+  PinCodeMask = null;
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -100,6 +101,7 @@ export class MngUserComponent implements OnInit {
   addMask(obj: Object) {
     this.PhoneMask = "0000000000";
     this.DecimalMask = "0*.00";
+    this.PinCodeMask = "00000";
     this.showMask = false;
   }
 
@@ -119,7 +121,7 @@ export class MngUserComponent implements OnInit {
       name: [lst.name, Validators.required],
       email: [lst.email, Validators.required],
       mobileNo: [lst.mobileNo, Validators.required],
-      statusId: [lst.statusId,Validators.required],
+      statusId: [lst.statusId, Validators.required],
       //isApproval: [lst.isApproval, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
       approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),

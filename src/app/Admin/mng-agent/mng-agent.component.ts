@@ -20,11 +20,11 @@ export class MngAgentComponent implements OnInit {
   AgentForm: FormGroup;
   lstData: any = [];
   LoggedInUserId: string;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'isActive', 'createdDate', 'modifiedDate', 'AssignCustomer'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'statusId', 'createdDate', 'modifiedDate', 'AssignCustomer'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   lstDataUser: any = [];
-  displayedColumnsUser: string[] = ['isChecked', 'name', 'email', 'mobileNo', 'additionalDiscount', 'isActive', 'createdDate', 'isApproval'];
+  displayedColumnsUser: string[] = ['isChecked', 'name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'createdDate'];
   dataSourceUser = new MatTableDataSource<any>(this.lstDataUser);
   showMask = false;
   PhoneMask = null;

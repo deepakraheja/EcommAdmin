@@ -198,7 +198,7 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>PinCode <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="pinCode" maxlength="50">
+                            <input type="text" matInput formControlName="pinCode" maxlength="6" [mask]="PinCodeMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
