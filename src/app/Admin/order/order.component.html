@@ -479,7 +479,7 @@
         <div class="col-md-12 add-info-foot" style="padding: 0px 0px 0px;">
             <mat-form-field appearance="outline" style="width: 200px; margin-left: 63px;">
                 <mat-label>Change Status </mat-label>
-                <mat-select [(ngModel)]="ChangeStatusId" [ngModelOptions]="{standalone: true}" (selectionChange)="UpdateStatus($event,lstOrderDetails.orderDetails)">
+                <mat-select [(ngModel)]="ChangeStatusId" [ngModelOptions]="{standalone: true}" (selectionChange)="UpdateStatus($event,lstOrderDetails.orderDetails,lstOrderDetails,templateDispatched)">
                     <mat-option *ngFor="let row of ForwardStatus(lstOrderDetails.statusId)" [value]="row.orderStatusId">
                         {{row.status}}
                     </mat-option>
@@ -490,6 +490,59 @@
 
             <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
         </div> -->
+    </mat-dialog-actions>
+</ng-template>
+
+
+<ng-template #templateDispatched>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Dispatched Detail</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="DispatchedForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Transport Name <span class="error">*</span></mat-label>
+                            <mat-select formControlName="transportID">
+                                <mat-option *ngFor="let row of lstTransport" [value]="row.transportID">
+                                    {{row.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>DispatchDate</mat-label>
+                            <input matInput [matDatepicker]="dpDispatchDate" readonly formControlName="dispatchDate" (click)="dpDispatchDate.open()">
+                            <mat-datepicker-toggle matSuffix [for]="dpDispatchDate"></mat-datepicker-toggle>
+                            <mat-datepicker #dpDispatchDate disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bilty <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="bilty" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="SaveDispatched()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
     </mat-dialog-actions>
 </ng-template>
 
