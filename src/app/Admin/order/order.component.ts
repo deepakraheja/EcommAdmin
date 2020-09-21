@@ -162,7 +162,9 @@ export class OrderComponent implements OnInit {
           this.SelectedLst.forEach(element => {
             debugger
             if (IsValid) {
-              if (element.isSelected && element.statusId >= this.lstOrderDetails.statusId && (Number(element.statusId + 1) == Number(this.ChangeStatusId))) {
+              if (element.isSelected && element.statusId >= this.lstOrderDetails.statusId &&
+                (Number(element.statusId + 1) == Number(this.ChangeStatusId) || (Number(element.statusId) == 3 ? (Number(this.ChangeStatusId) == 4 || Number(this.ChangeStatusId) == 5) : false))
+              ) {
                 SelectedOrderDetailsIds += element.orderDetailsID + ',';
               }
               else {
