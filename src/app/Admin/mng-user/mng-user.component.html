@@ -41,7 +41,9 @@
                                 </ng-container>
                                 <ng-container matColumnDef="statusId">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.statusId==0?'In-Active':element.statusId==1?'Active':element.statusId==2?'Hold':''}} </td>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.statusId==1?'Pending':element.statusId==2?'Approved':element.statusId==3?'In-Active':element.statusId==4?'Hold':''}}
+                                    </td>
                                 </ng-container>
                                 <ng-container matColumnDef="isAgent">
                                     <th mat-header-cell *matHeaderCellDef>IsAgent</th>
@@ -51,21 +53,13 @@
                                     <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
                                     <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="isApproval">
+                                <!-- <ng-container matColumnDef="isApproval">
                                     <th mat-header-cell *matHeaderCellDef>IsApproval</th>
                                     <td mat-cell *matCellDef="let element">
                                         {{element.isApproval==0?'Pending':(element.isApproval==1?'Approved':'Denied')}}
-                                        <!-- <mat-form-field appearance="outline">
-                                            <mat-label>Main Category Name </mat-label>
-                                            <mat-select formControlName="mainCategoryID">
-                                                <mat-option value="0">Pending</mat-option>
-                                                <mat-option value="1">Approved</mat-option>
-                                                <mat-option value="2">Denied</mat-option>
-                                              
-                                            </mat-select>
-                                        </mat-form-field> -->
+                                       
                                     </td>
-                                </ng-container>
+                                </ng-container> -->
                                 <ng-container matColumnDef="approvedByUserName">
                                     <th mat-header-cell *matHeaderCellDef>ApprovedBy</th>
                                     <td mat-cell *matCellDef="let element"> {{element.approvedByUserName}} </td>
@@ -265,13 +259,14 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Status </mat-label>
                             <mat-select formControlName="statusId">
-                                <mat-option [value]="0">In-Active</mat-option>
-                                <mat-option [value]="1">Active</mat-option>
-                                <mat-option [value]="2">Hold</mat-option>
+                                <mat-option [value]="1">Pending</mat-option>
+                                <mat-option [value]="2">Approved</mat-option>
+                                <mat-option [value]="3">In-Active</mat-option>
+                                <mat-option [value]="4">Hold</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>IsApproval </mat-label>
                             <mat-select formControlName="isApproval">
@@ -281,7 +276,7 @@
 
                             </mat-select>
                         </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Additional Discount <span class="error">*</span></mat-label>

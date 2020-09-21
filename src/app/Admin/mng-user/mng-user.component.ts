@@ -20,7 +20,7 @@ export class MngUserComponent implements OnInit {
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent', 'createdDate', 'isApproval', 'approvedByUserName', 'approvedDate', 'Edit'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
@@ -41,8 +41,8 @@ export class MngUserComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', Validators.required],
       mobileNo: ['', Validators.required],
-      statusId: 0,
-      isApproval: [0, Validators.required],
+      statusId: ['', Validators.required],
+      //isApproval: [0, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
       approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
       additionalDiscount: ['', Validators.required],
@@ -119,8 +119,8 @@ export class MngUserComponent implements OnInit {
       name: [lst.name, Validators.required],
       email: [lst.email, Validators.required],
       mobileNo: [lst.mobileNo, Validators.required],
-      statusId: [lst.statusId],
-      isApproval: [lst.isApproval, Validators.required],
+      statusId: [lst.statusId,Validators.required],
+      //isApproval: [lst.isApproval, Validators.required],
       approvedBy: Number(this.LoggedInUserId),
       approvedDate: this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd HH:mm:ss'),
       additionalDiscount: [lst.additionalDiscount, Validators.required],
