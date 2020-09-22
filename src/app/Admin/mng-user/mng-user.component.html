@@ -49,6 +49,10 @@
                                     <th mat-header-cell *matHeaderCellDef>IsAgent</th>
                                     <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} </td>
                                 </ng-container>
+                                <ng-container matColumnDef="isVIPMember">
+                                    <th mat-header-cell *matHeaderCellDef>IsVIP</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isVIPMember?'Yes':'No'}} </td>
+                                </ng-container>
                                 <ng-container matColumnDef="createdDate">
                                     <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
                                     <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
@@ -284,7 +288,10 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <mat-checkbox formControlName="isAgent">Is Agent</mat-checkbox>
+                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="selected = 1">Is Agent</mat-checkbox>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="selected = 2">Is VIP Member</mat-checkbox>
                     </div>
                 </div>
             </div>

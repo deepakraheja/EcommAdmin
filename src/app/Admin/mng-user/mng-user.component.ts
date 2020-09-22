@@ -20,7 +20,8 @@ export class MngUserComponent implements OnInit {
   lstData: any = [];
   LoggedInUserId: string;
   LoggedInUserType: string;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
+  selected: any;
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent', 'isVIPMember', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
@@ -58,7 +59,8 @@ export class MngUserComponent implements OnInit {
       pinCode: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      isAgent: [false]
+      isAgent: [false],
+      isVIPMember: [false]
     });
     this.LoadData();
     this.formControlValueChanged();
@@ -137,7 +139,8 @@ export class MngUserComponent implements OnInit {
       pinCode: [lst.pinCode, Validators.required],
       city: [lst.city, Validators.required],
       state: [lst.state, Validators.required],
-      isAgent: [lst.isAgent]
+      isAgent: [lst.isAgent],
+      isVIPMember: [lst.isVIPMember]
     });
     this.formControlValueChanged();
     const dialogRef = this.dialog.open(template, {
