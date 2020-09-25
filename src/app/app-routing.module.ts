@@ -55,7 +55,11 @@ const routes: Routes = [
       { path: 'user', component: MngUserComponent },
       { path: 'CreateEmail', component: CreateEmailComponent },
       { path: 'agent', component: MngAgentComponent },
-      { path: 'transport', component: TransportComponent }
+      { path: 'transport', component: TransportComponent },
+      {
+        path: 'report',
+        loadChildren: () => import('./Reports/report.module').then(m => m.ReportModule)
+      },
     ]
   },
   { path: 'confrimBox', component: ConfirmBoxComponent, },

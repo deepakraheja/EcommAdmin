@@ -79,6 +79,7 @@ import { CreateEmailComponent } from './Admin/create-email/create-email.componen
 import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
 import { TransportComponent } from './Admin/transport/transport.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,7 +107,8 @@ import { TransportComponent } from './Admin/transport/transport.component';
     MngUserComponent,
     CreateEmailComponent,
     MngAgentComponent,
-    TransportComponent,
+    TransportComponent
+
   ],
   imports: [
     SafePipeModule,

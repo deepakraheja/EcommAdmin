@@ -1,0 +1,49 @@
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <form [formGroup]="OrderForm">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput [matDatepicker]="dpFromDate" readonly formControlName="startDate" (click)="dpFromDate.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="dpFromDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #dpFromDate disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>End Date</mat-label>
+                                    <input matInput [matDatepicker]="dpToDate" readonly formControlName="endDate" (click)="dpToDate.open()">
+                                    <mat-datepicker-toggle matSuffix [for]="dpToDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #dpToDate disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Status <span class="error">*</span></mat-label>
+                                    <mat-select formControlName="statusId">
+                                        <mat-option [value]="0">All</mat-option>
+                                        <mat-option *ngFor="let row of lstOrderStatus" [value]="row.orderStatusId">
+                                            {{row.status}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-md-9 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
+                                </button></div> -->
+                            <div class="col-md-2 mt-2">
+                                <button mat-raised-button class="btn btn-warning btn-lg" style="line-height: 36px !important; background-color: #2c4982; color: #fff;" (click)="ProduceReport($event);">Produce Report </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
