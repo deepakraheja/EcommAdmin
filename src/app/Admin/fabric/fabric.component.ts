@@ -49,7 +49,7 @@ export class FabricComponent implements OnInit {
 
   LoadData() {
     let obj = {
-      isActive: 1
+      isActive: true
     }
     this.spinner.show();
     this._FabricService.GetAllFabric(obj).subscribe(res => {

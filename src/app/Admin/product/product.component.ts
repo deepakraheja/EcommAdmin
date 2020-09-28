@@ -56,7 +56,7 @@ export class ProductComponent implements OnInit {
 
   LoadSupplier() {
     let obj = {
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._supplierService.GetSupplier(obj).subscribe(res => {

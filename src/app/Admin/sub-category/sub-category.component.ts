@@ -85,7 +85,7 @@ export class SubCategoryComponent implements OnInit {
     debugger
     let obj = {
       categoryID: this.SelectcategoryID.value == "" ? 0 : Number(this.SelectcategoryID.value),
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._CategoryService.GetAllSubCategory(obj).subscribe(res => {
@@ -98,7 +98,7 @@ export class SubCategoryComponent implements OnInit {
     debugger
     let obj = {
       mainCategoryID: Number(this.SelectMainCategoryID.value),
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._CategoryService.GetAllCategory(obj).subscribe(res => {
@@ -113,7 +113,7 @@ export class SubCategoryComponent implements OnInit {
   LoadPopUpCategoryData(event: any) {
     let obj = {
       mainCategoryID: Number(this.CategoryForm.value.mainCategoryID),
-      Active: 1
+      Active: true
     }
     debugger
     this.spinner.show();

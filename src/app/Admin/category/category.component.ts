@@ -66,7 +66,7 @@ export class CategoryComponent implements OnInit {
   LoadData(event: any) {
     let obj = {
       mainCategoryID: Number(this.SelectMainCategoryID.value),
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._CategoryService.GetAllCategory(obj).subscribe(res => {

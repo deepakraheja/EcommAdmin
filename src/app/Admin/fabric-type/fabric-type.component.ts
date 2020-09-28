@@ -67,7 +67,7 @@ export class FabricTypeComponent implements OnInit {
   LoadData(event: any) {
     let obj = {
       //fabricId: Number(this.SelectfabricId.value),
-      Active: 0
+      Active: false
     }
     this.spinner.show();
     this._FabricService.GetAllFabricType(obj).subscribe(res => {

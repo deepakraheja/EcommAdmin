@@ -50,7 +50,7 @@ export class MainCategoryComponent implements OnInit {
 
   LoadData() {
     let obj = {
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._CategoryService.GetAllMainCategory(obj).subscribe(res => {

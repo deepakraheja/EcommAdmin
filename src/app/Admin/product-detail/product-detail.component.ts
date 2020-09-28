@@ -293,7 +293,7 @@ export class ProductDetailComponent implements OnInit {
 
   LoadBrand() {
     let obj = {
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._BrandService.GetAllBrand(obj).subscribe(res => {
@@ -303,7 +303,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   fnGetMainCategory() {
-    let obj = { Active: 1 };
+    let obj = { Active: true };
     this.spinner.show();
     this._CategoryService.GetMainCategory(obj)
       .subscribe(res => {
@@ -321,7 +321,7 @@ export class ProductDetailComponent implements OnInit {
     if (this.ProductForm.value.mainCategoryID != "") {
       let obj = {
         MainCategoryID: Number(this.ProductForm.value.mainCategoryID),
-        Active: 1
+        Active: true
       }
       debugger;
       this.spinner.show();
@@ -353,7 +353,7 @@ export class ProductDetailComponent implements OnInit {
 
   LoadSupplier() {
     let obj = {
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._supplierService.GetSupplier(obj).subscribe(res => {
@@ -364,7 +364,7 @@ export class ProductDetailComponent implements OnInit {
 
   LoadTag() {
     let obj = {
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._TagService.GetTag(obj).subscribe(res => {
@@ -374,7 +374,7 @@ export class ProductDetailComponent implements OnInit {
 
   LoadFabric() {
     let obj = {
-      IsActive: 1
+      IsActive: true
     }
     this.spinner.show();
     this._FabricService.GetFabric(obj).subscribe(res => {
@@ -388,7 +388,7 @@ export class ProductDetailComponent implements OnInit {
     // if (this.ProductForm.value.fabricId != "" && this.ProductForm.value.fabricId != "0") {
     let obj = {
       //FabricId: Number(this.ProductForm.value.fabricId),
-      Active: 1
+      Active: true
     }
     this.spinner.show();
     this._FabricService.GetAllFabricType(obj).subscribe(res => {
@@ -411,7 +411,7 @@ export class ProductDetailComponent implements OnInit {
     if (this.ProductForm.value.categoryID != "") {
       let obj = {
         categoryID: Number(this.ProductForm.value.categoryID),
-        Active: 1
+        Active: true
       }
       this.spinner.show();
       this._CategoryService.GetAllSubCategory(obj).subscribe(res => {
@@ -434,7 +434,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   LoadProduct() {
-    let objmain = { Active: 1 };
+    let objmain = { Active: true };
 
 
     this.images = [];
