@@ -53,6 +53,7 @@ export class MngUserComponent implements OnInit {
       businessLicenseType: ['', Validators.required],
       gstNo: [''],
       panNo: [''],
+      aadharCard: [''],
       businessName: ['', Validators.required],
       address1: ['', Validators.required],
       address2: [''],
@@ -76,19 +77,35 @@ export class MngUserComponent implements OnInit {
     const businessLicenseType = this.UserForm.get('businessLicenseType');
     const gstNo = this.UserForm.get('gstNo');
     const panNo = this.UserForm.get('panNo');
+    const AadharCard = this.UserForm.get('aadharCard');
 
 
     if (businessLicenseType.value == 'GSTIN') {
       gstNo.setValidators([Validators.required]);
       panNo.clearValidators();
+      AadharCard.clearValidators();
 
       gstNo.updateValueAndValidity();
       panNo.updateValueAndValidity();
+      AadharCard.updateValueAndValidity();
     }
     if (businessLicenseType.value == 'BusinessPAN') {
       panNo.setValidators([Validators.required]);
       gstNo.clearValidators();
+      AadharCard.clearValidators();
 
+      gstNo.updateValueAndValidity();
+      panNo.updateValueAndValidity();
+      AadharCard.updateValueAndValidity();
+    }
+    else if (businessLicenseType.value == 'AadharCard') {
+
+      AadharCard.setValidators([Validators.required]);
+
+      panNo.clearValidators();
+      gstNo.clearValidators();
+
+      AadharCard.updateValueAndValidity();
       gstNo.updateValueAndValidity();
       panNo.updateValueAndValidity();
     }
@@ -133,6 +150,7 @@ export class MngUserComponent implements OnInit {
       businessLicenseType: [lst.businessLicenseType, Validators.required],
       gstNo: [lst.gstNo],
       panNo: [lst.panNo],
+      aadharCard: [lst.aadharCard],
       businessName: [lst.businessName, Validators.required],
       address1: [lst.address1, Validators.required],
       address2: [lst.address2],

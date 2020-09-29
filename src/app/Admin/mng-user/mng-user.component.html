@@ -161,24 +161,32 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Business License Type </mat-label>
-                            <mat-select formControlName="businessLicenseType">
+                            <mat-select formControlName="businessLicenseType" disabled>
                                 <mat-option value="">Select a business license type</mat-option>
                                 <mat-option value="GSTIN">Goods & Services Tax Number (GSTIN)</mat-option>
                                 <mat-option value="BusinessPAN">Business PAN</mat-option>
+                                <mat-option value="AadharCard">Aadhar Card</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4" *ngIf="f.businessLicenseType.value=='GSTIN'">
                         <mat-form-field appearance="outline">
                             <mat-label>GSTNo <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="gstNo" maxlength="50">
+                            <input type="text" matInput formControlName="gstNo" maxlength="15">
                         </mat-form-field>
                     </div>
 
                     <div class="col-md-4" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
                         <mat-form-field appearance="outline">
                             <mat-label>PANNo <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="panNo" maxlength="50">
+                            <input type="text" matInput formControlName="panNo" maxlength="10">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='AadharCard'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>AadharCard <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="aadharCard" maxlength="12">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">

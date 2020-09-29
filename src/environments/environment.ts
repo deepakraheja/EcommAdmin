@@ -1,0 +1,44 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
+export const environment = {
+  production: false,
+  isContentLoading: false,
+  // ReportPath: 'http://localhost:62692/TempImages/',
+  //BASE_API_URL: 'http://localhost:5205/api/',
+  //BASE_API_URL: 'http://ecomapi.uccnoida.com/api/',
+  // BASE_API_URL: 'http://wish.protatechindia.com/WishService3/api/',
+  //Domain: 'http://localhost:4200/',
+  //DocPath: 'P://',
+  //ReportPath: 'http://wish.protatechindia.com/WishService3/TempImages/',
+  //ImagePath:'http://localhost:5205/ProductImage',
+  //ImagePath:'http://ecomapi.uccnoida
+  //BASE_API_URL: 'http://34.67.65.213/ecommapi/api/',
+  //ImagePath: 'http://34.67.65.213/ecommapi/ProductImage/',
+  //APIURL: 'http://localhost:5205',
+
+  Report_Path: 'http://localhost:44391/ReportHandler.ashx?',
+
+
+  /*********************Local Server************* */
+
+  ImagePath: 'http://localhost:56283/ProductImage/',
+  BASE_API_URL: 'http://localhost:56283/api/',
+  APIURL: 'http://localhost:56283',
+
+  //*********************Production Server************* */
+
+  //BASE_API_URL: 'http://34.67.65.213/EcommApiV3/api/',
+  //ImagePath: 'http://34.67.65.213/EcommApiV3/ProductImage/',
+  //APIURL: 'http://34.67.65.213/EcommApiV3',
+};
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
