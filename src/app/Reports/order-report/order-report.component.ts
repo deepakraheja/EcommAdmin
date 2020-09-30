@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ConfirmBoxComponent } from 'src/app/confirm-box/confirm-box.component';
 import { TransportService } from 'src/app/Service/Transport.service';
+import { ReportService } from 'src/app/Service/report.service';
 
 @Component({
   selector: 'app-order-report',
@@ -21,32 +22,19 @@ import { TransportService } from 'src/app/Service/Transport.service';
 })
 export class OrderReportComponent implements OnInit {
   public Report_Path = environment.Report_Path;
-  // public Currency = { name: 'Rupees', currency: 'INR', price: 1 } // Default Currency
-  // public lstOrder: any = [];
-  // public lstOrderDetails: any = [];
   public lstOrderStatus: any = [];
-  // public ProductImage = environment.ImagePath;
   OrderForm: FormGroup;
-  // DispatchedForm: FormGroup;
-  // displayedColumns: string[] = ['orderNumber', 'View', 'orderDate', 'fName', 'phone', 'statusId', 'totalAmount'];
-  // dataSource = new MatTableDataSource<any>(this.lstOrder);
-  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   LoggedInUserId: string;
-  // bsModalRef: BsModalRef;
-  // public ChangeStatusId: any;
-  // public lstTransport: any = [];
-  // public SelectedLst: any = [];
+  
   constructor(
-    //private _OrderService: OrderService,
-    //private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private _datePipe: DatePipe,
     // public dialog: MatDialog,
     public _lookupService: LookupService,
     public _LocalStorage: LocalStorageService,
-    // public _toastrService: ToastrService,
-    //private modalService: BsModalService,
-    //private _TransportService: TransportService
+    public _toastrService: ToastrService,
+    private _ReportService: ReportService,
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.OrderForm = this.formBuilder.group({
@@ -78,18 +66,14 @@ export class OrderReportComponent implements OnInit {
       startDate: (this._datePipe.transform(new Date(this.OrderForm.value.startDate).toString(), 'yyyy-MM-dd') + ' 00:00:00'),
       endDate: (this._datePipe.transform(new Date(this.OrderForm.value.endDate).toString(), 'yyyy-MM-dd') + ' 23:59:00')
     };
-    debugger
-    var url = this.Report_Path + "ReportType=2&StatusId=" + obj.StatusId
-      + "&StartDate=" + obj.startDate + "&EndDate=" + obj.endDate
-    window.open(url, "_blank");
-    // this.spinner.show();
-    // this._OrderService.GetAllOrder(obj).subscribe(res => {
-    //   this.spinner.hide();
-    //   //this.lstOrder = res;
-    //   this.dataSource = res;
-    //   this.dataSource.paginator = this.paginator;
-    //   //console.log(res);
-    // });
+    this.spinner.show();
+    debugger;
+    this._ReportService.GenerateOrderDetail(obj).subscribe(res => {
+      debugger;
+      this.spinner.hide();
+      window.open(this.Report_Path + res, "_blank");
+      this._toastrService.success("Report has been downloaded successfully.");
+    });
   }
 
 }
