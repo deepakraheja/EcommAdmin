@@ -27,6 +27,7 @@
                                     </ul>
                                 </form>
                                 <div class="tab-content w-100 tab-right-sec">
+                                    <h3 *ngIf="f.productID?.value>0">{{f.productName.value}}</h3>
                                     <!-- {{ProductForm.value | json}} -->
                                     <div class="tab-pane fade active show" id="ProductInfo-tab1">
                                         <form [formGroup]="ProductForm">
