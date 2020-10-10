@@ -102,6 +102,18 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field appearance="outline">
+                                                        <mat-label>HSN/SAC
+                                                        </mat-label>
+                                                        <mat-select formControlName="lookupHSNId">
+                                                            <mat-option value="0">Select</mat-option>
+                                                            <mat-option *ngFor="let row of lstHSN" [value]="row.lookupHSNId">
+                                                                {{row.hsnCode}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
                                                         <mat-label>Tag Design
                                                         </mat-label>
                                                         <!-- <input type="text" placeholder="Tag Design" matInput formControlName="tagDesign"> -->
