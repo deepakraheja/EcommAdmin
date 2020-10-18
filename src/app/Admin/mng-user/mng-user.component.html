@@ -296,10 +296,10 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="selected = 1;f.isVIPMember.value=false;">Is Agent</mat-checkbox>
+                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="ChangeMember(1)">Is Agent</mat-checkbox>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="selected = 2;f.isAgent.value=false;">Is VIP Member</mat-checkbox>
+                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="ChangeMember(2)">Is VIP Member</mat-checkbox>
                     </div>
                 </div>
             </div>

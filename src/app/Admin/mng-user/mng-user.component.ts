@@ -201,6 +201,21 @@ export class MngUserComponent implements OnInit {
     }
   }
 
+  ChangeMember(val) {
+    if (val == 1) {
+      this.selected = 1;
+      const isVIPMember = this.UserForm.get('isVIPMember');
+      isVIPMember.setValue(false);
+      isVIPMember.updateValueAndValidity();
+    }
+    if (val == 2) {
+      this.selected = 2;
+      const isAgent = this.UserForm.get('isAgent');
+      isAgent.setValue(false);
+      isAgent.updateValueAndValidity();
+    }
+  }
+
 }
 
 
