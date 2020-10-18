@@ -160,6 +160,10 @@ export class MngUserComponent implements OnInit {
       isAgent: [lst.isAgent],
       isVIPMember: [lst.isVIPMember]
     });
+    if (this.UserForm.value.isAgent)
+      this.selected = 1;
+    if (this.UserForm.value.isVIPMember)
+      this.selected = 2;
     this.formControlValueChanged();
     const dialogRef = this.dialog.open(template, {
       width: '700px',
