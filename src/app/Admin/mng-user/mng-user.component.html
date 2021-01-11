@@ -45,13 +45,26 @@
                                         {{element.statusId==1?'Pending':element.statusId==2?'Approved':element.statusId==3?'In-Active':element.statusId==4?'Hold':''}}
                                     </td>
                                 </ng-container>
-                                <ng-container matColumnDef="isAgent">
+                                <!-- <ng-container matColumnDef="isAgent">
                                     <th mat-header-cell *matHeaderCellDef>Agent</th>
                                     <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="isVIPMember">
                                     <th mat-header-cell *matHeaderCellDef>VIP</th>
                                     <td mat-cell *matCellDef="let element"> {{element.isVIPMember?'Yes':'No'}} </td>
+                                </ng-container> -->
+
+                                <ng-container matColumnDef="isAgent">
+                                    <th mat-header-cell *matHeaderCellDef>Agent|VIP</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} | {{element.isVIPMember?'Yes':'No'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Upload">
+                                    <th mat-header-cell *matHeaderCellDef>Upload</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="OpenImagePopUp(templateImagesShow,element)">Upload
+                                            Document</a>
+                                    </td>
                                 </ng-container>
                                 <ng-container matColumnDef="createdDate">
                                     <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
@@ -295,12 +308,12 @@
                             <input type="text" matInput formControlName="additionalDiscount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4 mt-2">
+                    <!-- <div class="col-md-4 mt-2">
                         <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="ChangeMember(1)">Is Agent</mat-checkbox>
                     </div>
                     <div class="col-md-4 mt-2">
                         <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="ChangeMember(2)">Is VIP Member</mat-checkbox>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </form>
@@ -312,5 +325,48 @@
         </button>
             <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
         </div>
+    </mat-dialog-actions>
+</ng-template>
+<ng-template #templateImagesShow>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>View Image</h2>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row" style="margin-left: 1px;">
+                            Document Images :<button (click)="file.click()" class="fHbZUJ" style="width:158px;height:50px">
+                                <i class="fa fa-upload"></i>
+                                <div class="sc-pQGev lbdMzz"></div><span>Upload Document</span>
+                            </button>
+                            <input #file id="ProductImg" type="file" style="display: none;" (change)="UploadProductImages($event)" multiple="" />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <div *ngFor='let url of PopUpDocumentImg; index as i;'>
+                                <img class="example-header-image" [src]="url" (click)="ShowPopUpImage(url);">
+                                <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-card class="example-card">
+                                    <img mat-card-image [src]="PopUpPreviewUrl" style="height: auto;max-width: 50%;">
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button class="btn btn-primary btn-lg" (click)="SaveUserDocument();">Save</button>
+        <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
     </mat-dialog-actions>
 </ng-template>

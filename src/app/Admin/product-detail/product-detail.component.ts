@@ -119,7 +119,7 @@ export class ProductDetailComponent implements OnInit {
       smallImg: ['', [Validators.required]],
       title: [''],
       subTitle: [''],
-      lookupHSNId:['0'],
+      lookupHSNId: ['0'],
       tagId: ['0'],
       articalNo: [''],
       fabricId: ['0'],
@@ -201,22 +201,44 @@ export class ProductDetailComponent implements OnInit {
     spellcheck: true,
     height: '15rem',
     minHeight: '15rem',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
     placeholder: 'Enter text here...',
-    translate: 'no',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+    ],
     customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
         class: 'redText'
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
+    ],
+    uploadUrl: 'v1/image',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
     ]
   }
 
@@ -485,7 +507,7 @@ export class ProductDetailComponent implements OnInit {
           smallImg: [[this.product.frontImage], [Validators.required]],
           title: [this.product.title],
           subTitle: [this.product.subTitle],
-          lookupHSNId:[this.product.lookupHSNId],
+          lookupHSNId: [this.product.lookupHSNId],
           tagId: [this.product.tagId],
           articalNo: [this.product.articalNo],
           fabricId: [this.product.fabricId],
@@ -596,7 +618,7 @@ export class ProductDetailComponent implements OnInit {
         smallImg: this.ProductForm.value.smallImg,
         title: this.ProductForm.value.title,
         subTitle: this.ProductForm.value.subTitle,
-        lookupHSNId:Number(this.ProductForm.value.lookupHSNId),
+        lookupHSNId: Number(this.ProductForm.value.lookupHSNId),
         tagId: Number(this.ProductForm.value.tagId),
         articalNo: this.ProductForm.value.articalNo,
         fabricId: Number(this.ProductForm.value.fabricId),
