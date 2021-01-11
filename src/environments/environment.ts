@@ -13,6 +13,7 @@ export const environment = {
   BASE_API_URL: 'http://localhost:56283/api/',
   APIURL: 'http://localhost:56283',
   Report_Path: 'http://localhost:56283/ReportGenerate/',
+  UserDocumentPath: 'http://localhost:56283/UserDocument/',
 
   //*********************Production Server************* */
 
@@ -20,6 +21,7 @@ export const environment = {
   //ImagePath: 'http://34.67.65.213/EcommApiV3/ProductImage/',
   //APIURL: 'http://34.67.65.213/EcommApiV3',
   //Report_Path: 'http://34.67.65.213/EcommApiV3/ReportGenerate/',
+  //UserDocumentPath: 'http://34.67.65.213/EcommApiV3/UserDocument/',
 };
 
 /*
