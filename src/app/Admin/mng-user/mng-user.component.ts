@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
@@ -12,6 +12,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from 'src/environments/environment';
 import { ConfirmBoxComponent } from 'src/app/confirm-box/confirm-box.component';
+import { DomSanitizer } from '@angular/platform-browser';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
+
 
 @Component({
   selector: 'app-mng-user',
@@ -241,7 +251,7 @@ export class MngUserComponent implements OnInit {
     this.PopUpPreviewUrl = this.PopUpDocumentImg[0];
 
     const dialogRef = this.dialog.open(template, {
-      width: '60vw',
+      width: '90vw',
       height: '80vh',
       data: lst
     });
