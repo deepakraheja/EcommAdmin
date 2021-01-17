@@ -321,8 +321,8 @@
     <mat-dialog-actions align="end">
         <div class="col-md-12 add-info-foot">
             <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
-            Save
-        </button>
+                Save
+            </button>
             <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
         </div>
     </mat-dialog-actions>
@@ -347,7 +347,8 @@
                             <br />
                             <br />
                             <div *ngFor='let url of PopUpDocumentImg; index as i;'>
-                                <img class="example-header-image" [src]="url" (click)="ShowPopUpImage(url);">
+                                <img class="example-header-image" *ngIf="url.includes('data:application/pdf;base64') || url.includes('.pdf')" src="assets/images/placeholder.jpg" (click)="ShowPopUpImage(url);">
+                                <img class="example-header-image" *ngIf="!url.includes('data:application/pdf;base64')  && !url.includes('.pdf')" [src]="url" (click)="ShowPopUpImage(url);">
                                 <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
                             </div>
                         </div>

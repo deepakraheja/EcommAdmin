@@ -9,11 +9,11 @@ export const environment = {
 
   /*********************Local Server************* */
 
-  ImagePath: 'http://localhost:56283/ProductImage/',
-  BASE_API_URL: 'http://localhost:56283/api/',
-  APIURL: 'http://localhost:56283',
-  Report_Path: 'http://localhost:56283/ReportGenerate/',
-  UserDocumentPath: 'http://localhost:56283/UserDocument/',
+  ImagePath: 'http://localhost:54444/ProductImage/',
+  BASE_API_URL: 'http://localhost:54444/api/',
+  APIURL: 'http://localhost:54444',
+  Report_Path: 'http://localhost:54444/ReportGenerate/',
+  UserDocumentPath: 'http://localhost:54444/UserDocument/',
 
   //*********************Production Server************* */
 
