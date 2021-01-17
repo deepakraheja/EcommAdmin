@@ -73,7 +73,7 @@ import { FabricTypeComponent } from './Admin/fabric-type/fabric-type.component';
 import { TagMasterComponent } from './Admin/tag-master/tag-master.component';
 import { OrderComponent } from './Admin/order/order.component';
 import { MainCategoryComponent } from './Admin/main-category/main-category.component';
-import { MngUserComponent } from './Admin/mng-user/mng-user.component';
+import { MngUserComponent, SafePipe } from './Admin/mng-user/mng-user.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CreateEmailComponent } from './Admin/create-email/create-email.component';
 import { MngAgentComponent } from './Admin/mng-agent/mng-agent.component';
@@ -107,7 +107,8 @@ import { TransportComponent } from './Admin/transport/transport.component';
     MngUserComponent,
     CreateEmailComponent,
     MngAgentComponent,
-    TransportComponent
+    TransportComponent,
+    SafePipe,
 
   ],
   imports: [
