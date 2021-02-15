@@ -15,6 +15,6 @@ export const environment = {
   ImagePath: 'http://103.108.220.24/EcommApiV3/ProductImage/',
   APIURL: 'http://103.108.220.24/EcommApiV3',
   Report_Path: 'http://103.108.220.24/EcommApiV3/ReportGenerate/',
-
+  UserDocumentPath: 'http://103.108.220.24/EcommApiV3/UserDocument/',
 
 };
