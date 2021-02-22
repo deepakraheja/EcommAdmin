@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   public User = [];
   IsLoggedIn: boolean;
   private BASE_API_URL = environment.BASE_API_URL;
-  private _controllerName: string = "User/";
+  private _controllerName: string = "Users/";
   private _url: string = this.BASE_API_URL + this._controllerName;
   private _methodName: string = "";
   private _param: {};
@@ -39,6 +39,7 @@ export class AuthGuard implements CanActivate {
     }
     this._methodName = "GetUserAccess/";
     this._param = UserObj;
+    debugger
     return this._http.post<any>(this._url + this._methodName, this._param).pipe(
       map(res => {
         
