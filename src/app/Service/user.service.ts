@@ -31,6 +31,14 @@ export class UserService {
     );
   }
 
+  GetAllCusotmers(): Observable<any> {
+    this._methodName = "GetAllCusotmers/";
+    this._param = {};
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   UpdateUser(_Obj: any): Observable<any> {
     this._methodName = "UpdateUser";
     this._param = _Obj;
@@ -41,6 +49,14 @@ export class UserService {
 
   GetAgentCustomer(_Obj: any): Observable<any> {
     this._methodName = "GetAgentCustomer";
+    this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
+  GetUserPages(_Obj: any): Observable<any> {
+    this._methodName = "GetUserPages";
     this._param = _Obj;
     return this._http.post<any>(
       this._url + this._methodName, this._param
@@ -74,6 +90,13 @@ export class UserService {
   SaveUserDocumentImages(_Obj: any): Observable<any> {
     this._methodName = "SaveUserDocumentImages";
     this._param = _Obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+  SaveUserFunctions(_obj: any): Observable<any> {
+    this._methodName = "SaveUserFunctions/";
+    this._param = _obj;
     return this._http.post<any>(
       this._url + this._methodName, this._param
     );

@@ -1,0 +1,374 @@
+<div class="content">
+    <!-- Main charts -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <!-- <div class="row">
+                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
+                                </button></div>
+                    </div> -->
+                    <div class="new-section">
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
+                                <mat-form-field class="example-chip-list example-full-width">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)" class="btn-search" style=" padding-bottom: 15px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 col-md-12">
+
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                                    <td mat-cell *matCellDef="let element" matTooltip="Login Id : {{element.loginId}}, Password : {{element.password}}" matTooltipPosition="above"> {{element.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="email">
+                                    <th mat-header-cell *matHeaderCellDef>Email Address</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.email}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="mobileNo">
+                                    <th mat-header-cell *matHeaderCellDef>MobileNo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="additionalDiscount">
+                                    <th mat-header-cell *matHeaderCellDef>Discount</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.additionalDiscount}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="statusId">
+                                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.statusId==1?'Pending':element.statusId==2?'Approved':element.statusId==3?'In-Active':element.statusId==4?'Hold':''}}
+                                    </td>
+                                </ng-container>
+                                <!-- <ng-container matColumnDef="isAgent">
+                                    <th mat-header-cell *matHeaderCellDef>Agent</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="isVIPMember">
+                                    <th mat-header-cell *matHeaderCellDef>VIP</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isVIPMember?'Yes':'No'}} </td>
+                                </ng-container> -->
+
+                                <ng-container matColumnDef="isAgent">
+                                    <th mat-header-cell *matHeaderCellDef>Agent|VIP</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} | {{element.isVIPMember?'Yes':'No'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Upload">
+                                    <th mat-header-cell *matHeaderCellDef>Upload</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="OpenImagePopUp(templateImagesShow,element)">Upload
+                                            Document</a>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
+                                </ng-container>
+                                <!-- <ng-container matColumnDef="isApproval">
+                                    <th mat-header-cell *matHeaderCellDef>IsApproval</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.isApproval==0?'Pending':(element.isApproval==1?'Approved':'Denied')}}
+                                       
+                                    </td>
+                                </ng-container> -->
+                                <ng-container matColumnDef="approvedByUserName">
+                                    <th mat-header-cell *matHeaderCellDef>ApprovedBy</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.approvedByUserName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="approvedDate">
+                                    <th mat-header-cell *matHeaderCellDef>Approved Date</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.approvedDate | date : 'dd/MM/yyyy'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Edit">
+                                    <th mat-header-cell *matHeaderCellDef> Edit </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a href="javaScript:void(0);" (click)="Edit(templateUser,element)">
+                                            <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <div *ngIf="dataSource.filteredData.length === 0">No records found</div>
+                            <mat-paginator [pageSizeOptions]="[10,20,30,50,100]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateUser>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Edit Customer</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="UserForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="name" maxlength="45">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="email" maxlength="50" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>MobileNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="mobileNo" readonly maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Business Type </mat-label>
+                            <mat-select formControlName="businessType">
+                                <mat-option value="">Select a business type</mat-option>
+                                <mat-option value="SoleProprietorship">Sole Proprietorship</mat-option>
+                                <mat-option value="Partnership">Partnership</mat-option>
+                                <mat-option value="PublicLimitedCompany">Public Limited Company</mat-option>
+                                <mat-option value="PrivateLimitedCompany">Private Limited Company</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Industry </mat-label>
+                            <mat-select formControlName="industry">
+                                <mat-option value="">Select an industry</mat-option>
+                                <mat-option value="Retail">
+                                    Accessories Retail (fashion)
+                                </mat-option>
+                                <mat-option value="Wholesale">
+                                    Fashion Wholesale/Agency
+                                </mat-option>
+                                <mat-option value="Other">
+                                    Other
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Business License Type </mat-label>
+                            <mat-select formControlName="businessLicenseType" disabled>
+                                <mat-option value="">Select a business license type</mat-option>
+                                <mat-option value="GSTIN">Goods & Services Tax Number (GSTIN)</mat-option>
+                                <mat-option value="BusinessPAN">Business PAN</mat-option>
+                                <mat-option value="AadharCard">Aadhar Card</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='GSTIN'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>GSTNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="gstNo" maxlength="15">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='BusinessPAN'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PANNo <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="panNo" maxlength="10">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="f.businessLicenseType.value=='AadharCard'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>AadharCard <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="aadharCard" maxlength="12">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>BusinessName <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="businessName" maxlength="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address1 <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="address1" maxlength="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address2 </mat-label>
+                            <input type="text" matInput formControlName="address2" maxlength="70">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>PinCode <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="pinCode" maxlength="6" [mask]="PinCodeMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="city" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State </mat-label>
+                            <mat-select formControlName="state">
+                                <mat-option value="">Select State</mat-option>
+                                <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
+                                <mat-option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</mat-option>
+                                <mat-option value="Arunachal Pradesh">Arunachal Pradesh</mat-option>
+                                <mat-option value="Assam">Assam</mat-option>
+                                <mat-option value="Bihar">Bihar</mat-option>
+                                <mat-option value="Chandigarh">Chandigarh</mat-option>
+                                <mat-option value="Chhattisgarh">Chhattisgarh</mat-option>
+                                <mat-option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</mat-option>
+                                <mat-option value="Daman and Diu">Daman and Diu</mat-option>
+                                <mat-option value="Delhi">Delhi</mat-option>
+                                <mat-option value="Lakshadweep">Lakshadweep</mat-option>
+                                <mat-option value="Puducherry">Puducherry</mat-option>
+                                <mat-option value="Goa">Goa</mat-option>
+                                <mat-option value="Gujarat">Gujarat</mat-option>
+                                <mat-option value="Haryana">Haryana</mat-option>
+                                <mat-option value="Himachal Pradesh">Himachal Pradesh</mat-option>
+                                <mat-option value="Jammu and Kashmir">Jammu and Kashmir</mat-option>
+                                <mat-option value="Jharkhand">Jharkhand</mat-option>
+                                <mat-option value="Karnataka">Karnataka</mat-option>
+                                <mat-option value="Kerala">Kerala</mat-option>
+                                <mat-option value="Madhya Pradesh">Madhya Pradesh</mat-option>
+                                <mat-option value="Maharashtra">Maharashtra</mat-option>
+                                <mat-option value="Manipur">Manipur</mat-option>
+                                <mat-option value="Meghalaya">Meghalaya</mat-option>
+                                <mat-option value="Mizoram">Mizoram</mat-option>
+                                <mat-option value="Nagaland">Nagaland</mat-option>
+                                <mat-option value="Odisha">Odisha</mat-option>
+                                <mat-option value="Punjab">Punjab</mat-option>
+                                <mat-option value="Rajasthan">Rajasthan</mat-option>
+                                <mat-option value="Sikkim">Sikkim</mat-option>
+                                <mat-option value="Tamil Nadu">Tamil Nadu</mat-option>
+                                <mat-option value="Telangana">Telangana</mat-option>
+                                <mat-option value="Tripura">Tripura</mat-option>
+                                <mat-option value="Uttar Pradesh">Uttar Pradesh</mat-option>
+                                <mat-option value="Uttarakhand">Uttarakhand</mat-option>
+                                <mat-option value="West Bengal">West Bengal</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-md-4 mt-2">
+                        <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+                    </div> -->
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Status </mat-label>
+                            <mat-select formControlName="statusId">
+                                <mat-option [value]="1">Pending</mat-option>
+                                <mat-option [value]="2">Approved</mat-option>
+                                <mat-option [value]="3">In-Active</mat-option>
+                                <mat-option [value]="4">Hold</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>IsApproval </mat-label>
+                            <mat-select formControlName="isApproval">
+                                <mat-option [value]="0">Pending</mat-option>
+                                <mat-option [value]="1">Approved</mat-option>
+                                <mat-option [value]="2">Denied</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Additional Discount <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="additionalDiscount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="ChangeMember(1)">Is Agent</mat-checkbox>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="ChangeMember(2)">Is VIP Member</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
+                Save
+            </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
+<ng-template #templateImagesShow>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>View Image</h2>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form class="w-100">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row" style="margin-left: 1px;">
+                            Document Images :<button (click)="file.click()" class="fHbZUJ" style="width:158px;height:50px">
+                                <i class="fa fa-upload"></i>
+                                <div class="sc-pQGev lbdMzz"></div><span>Upload Document</span>
+                            </button>
+                            <input #file id="ProductImg" type="file" style="display: none;" (change)="UploadProductImages($event)" multiple="" />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <div *ngFor='let url of PopUpDocumentImg; index as i;'>
+                                <img class="example-header-image" *ngIf="url.includes('data:application/pdf;base64') || url.includes('.pdf')" src="assets/images/placeholder.jpg" (click)="ShowPopUpImage(url);">
+                                <img class="example-header-image" *ngIf="!url.includes('data:application/pdf;base64')  && !url.includes('.pdf')" [src]="url" (click)="ShowPopUpImage(url);">
+                                <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-card class="example-card">
+                                    <iframe [src]="PopUpPreviewUrl | safe" width="100%" height="320px" allowfullscreen *ngIf="PopUpDocumentImg?.length>0"></iframe>
+                                    <!-- <img mat-card-image [src]="PopUpPreviewUrl" style="height: auto;max-width: 50%;"> -->
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-button class="btn btn-primary btn-lg" (click)="SaveUserDocument();">Save</button>
+        <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+    </mat-dialog-actions>
+</ng-template>

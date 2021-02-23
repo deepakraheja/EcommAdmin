@@ -44,6 +44,8 @@
                         class="icon-stack material-blue-primary"></i>Product</a>
                         <a href="user" class="dropdown-item" (click)="ChangeName('3')"><i
                             class="icon-users material-green-primary"></i>User</a>
+                        <a href="customer" class="dropdown-item" (click)="ChangeName('9')"><i
+                                class="icon-users material-green-primary"></i>Customer</a>
                         <a href="order" class="dropdown-item" (click)="ChangeName('4')"><i
                         class="icon-cash material-navyblue-primary"></i>Order</a>
                         <a href="agent" class="dropdown-item" (click)="ChangeName('7')"><i
@@ -113,6 +115,11 @@
                 <li *ngIf="user" class="nav-item ">
                     <a [routerLink]="'/user'" class="navbar-nav-link" routerLinkActive="active">
                         <span> User</span>
+                    </a>
+                </li>
+                <li *ngIf="customer" class="nav-item ">
+                    <a [routerLink]="'/customer'" class="navbar-nav-link" routerLinkActive="active">
+                        <span> Customer</span>
                     </a>
                 </li>
                 <li *ngIf="admin" class="nav-item ">
