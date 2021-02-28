@@ -32,7 +32,8 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
     var pathArray = window.location.pathname.split('/');
-    let path = pathArray[1];
+    //let path = pathArray[1];
+    let path = pathArray[2];
 
     let UserObj = {
       PageName: path,
