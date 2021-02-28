@@ -19,37 +19,42 @@ export class AuthGuard implements CanActivate {
   private _url: string = this.BASE_API_URL + this._controllerName;
   private _methodName: string = "";
   private _param: {};
+  LoggedInUserType: string;
 
 
   constructor(private router: Router,
     private _LocalStorage: LocalStorageService,
- 
+
     private _UserService: UserService,
-   
+
     private _http: HttpClient) {
   }
   canActivate(
+
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
+    this.LoggedInUserType = this._LocalStorage.getValueOnLocalStorage("LoggedInUserType");
     var pathArray = window.location.pathname.split('/');
     //let path = pathArray[1];
     let path = pathArray[2];
 
     let UserObj = {
       PageName: path,
+      UserType: Number(this.LoggedInUserType)
+
     }
     this._methodName = "GetUserAccess/";
     this._param = UserObj;
     debugger
     return this._http.post<any>(this._url + this._methodName, this._param).pipe(
       map(res => {
-        
+
         // 
         this.User = res;
         if (res != null) {
           if (this.User.length > 0) {
             console.log(this.User)
-           //  
+            //  
             this._LocalStorage.storeOnLocalStorage("PageName", this.User[0].pageName.toString());
             this._LocalStorage.storeOnLocalStorage("CanAdd", this.User[0].canAdd.toString());
             this._LocalStorage.storeOnLocalStorage("CanUpdate", this.User[0].canUpdate.toString());
