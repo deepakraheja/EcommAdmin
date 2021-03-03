@@ -5,10 +5,10 @@
             <div class="card">
 
                 <div class="card-body">
-                    <!-- <div class="row">
-                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
+                    <div class="row">
+                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateUser,'');" class="btn btn-warning btn-lg">Add New User
                                 </button></div>
-                    </div> -->
+                    </div>
                     <div class="new-section">
                         <div class="row">
                             <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
@@ -26,65 +26,31 @@
                                     <th mat-header-cell *matHeaderCellDef>Name</th>
                                     <td mat-cell *matCellDef="let element" matTooltip="Login Id : {{element.loginId}}, Password : {{element.password}}" matTooltipPosition="above"> {{element.name}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="email">
-                                    <th mat-header-cell *matHeaderCellDef>Email Address</th>
+                                <ng-container matColumnDef="loginId">
+                                    <th mat-header-cell *matHeaderCellDef>LoginId</th>
                                     <td mat-cell *matCellDef="let element">
-                                        {{element.email}} </td>
+                                        {{element.loginId}} </td>
                                 </ng-container>
-                                <!-- <ng-container matColumnDef="mobileNo">
-                                    <th mat-header-cell *matHeaderCellDef>MobileNo</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                                <ng-container matColumnDef="isActive">
+                                    <th mat-header-cell *matHeaderCellDef>IsActive</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.isActive==1?'Active':'In-Active'}}
+                                    </td>
                                 </ng-container>
-                                <ng-container matColumnDef="additionalDiscount">
-                                    <th mat-header-cell *matHeaderCellDef>Discount</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.additionalDiscount}} </td>
-                                </ng-container> -->
-                                <ng-container matColumnDef="statusId">
+                                <!-- <ng-container matColumnDef="statusId">
                                     <th mat-header-cell *matHeaderCellDef>Status</th>
                                     <td mat-cell *matCellDef="let element">
                                         {{element.statusId==1?'Pending':element.statusId==2?'Approved':element.statusId==3?'In-Active':element.statusId==4?'Hold':''}}
                                     </td>
-                                </ng-container>
-                                <!-- <ng-container matColumnDef="isAgent">
-                                    <th mat-header-cell *matHeaderCellDef>Agent</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="isVIPMember">
-                                    <th mat-header-cell *matHeaderCellDef>VIP</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.isVIPMember?'Yes':'No'}} </td>
                                 </ng-container> -->
-
-                                <!-- <ng-container matColumnDef="isAgent">
-                                    <th mat-header-cell *matHeaderCellDef>Agent|VIP</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} | {{element.isVIPMember?'Yes':'No'}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="Upload">
-                                    <th mat-header-cell *matHeaderCellDef>Upload</th>
+                                <ng-container matColumnDef="Edit">
+                                    <th mat-header-cell *matHeaderCellDef> Edit </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a href="javaScript:void(0);" (click)="OpenImagePopUp(templateImagesShow,element)">Upload
-                                            Document</a>
+                                        <a href="javaScript:void(0);" (click)="Edit(templateUser,element)">
+                                            <i class="icon-pencil mr-2" aria-hidden="true"></i>
+                                        </a>
                                     </td>
                                 </ng-container>
-                                <ng-container matColumnDef="createdDate">
-                                    <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
-                                </ng-container> -->
-                                <!-- <ng-container matColumnDef="isApproval">
-                                    <th mat-header-cell *matHeaderCellDef>IsApproval</th>
-                                    <td mat-cell *matCellDef="let element">
-                                        {{element.isApproval==0?'Pending':(element.isApproval==1?'Approved':'Denied')}}
-                                       
-                                    </td>
-                                </ng-container> -->
-                                <!-- <ng-container matColumnDef="approvedByUserName">
-                                    <th mat-header-cell *matHeaderCellDef>ApprovedBy</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.approvedByUserName}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="approvedDate">
-                                    <th mat-header-cell *matHeaderCellDef>Approved Date</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.approvedDate | date : 'dd/MM/yyyy'}} </td>
-                                </ng-container> -->
 
                                 <ng-container matColumnDef="AssignPages">
                                     <th mat-header-cell *matHeaderCellDef> Assign Pages </th>
@@ -135,6 +101,56 @@
     <mat-dialog-actions align="end">
         <div class="col-md-12 add-info-foot">
             <button mat-raised-button class="btn btn-success btn-lg" (click)="SaveUserPages()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #templateUser>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Add / Edit User</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="UserForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="name" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field appearance="outline">
+                            <mat-label>LoginId <span class="error">*</span></mat-label>
+                            <input type="text" matInput formControlName="loginId" maxlength="50" [readonly]="IsEdit">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password <span class="error">*</span></mat-label>
+                            <input type="password" matInput formControlName="password" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
             Save
         </button>
             <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>

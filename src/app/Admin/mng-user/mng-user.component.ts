@@ -36,8 +36,9 @@ export class MngUserComponent implements OnInit {
   LoggedInUserId: string;
   LoggedInUserType: string;
   selected: any;
+  IsEdit: boolean = false;
   //displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent','Upload', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
-  displayedColumns: string[] = ['name', 'email', 'statusId', 'AssignPages'];
+  displayedColumns: string[] = ['name', 'loginId', 'isActive', 'Edit', 'AssignPages'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
@@ -62,9 +63,15 @@ export class MngUserComponent implements OnInit {
     private modalService: BsModalService,
   ) {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
-    
+    this.UserForm = this.formBuilder.group({
+      userID: [0],
+      name: ['', Validators.required],
+      loginId: ['', Validators.required],
+      password: ['', Validators.required],
+      isActive: [false]
+    });
     this.LoadData();
-    
+
   }
 
   get f() { return this.UserForm.controls; }
@@ -93,6 +100,45 @@ export class MngUserComponent implements OnInit {
     });
   }
 
+  onAddNew(template: TemplateRef<any>, lst) {
+    this.UserForm = this.formBuilder.group({
+      userID: [0],
+      name: ['', Validators.required],
+      loginId: ['', Validators.required],
+      password: ['', Validators.required],
+      isActive: [false]
+    });
+    this.IsEdit = false;
+    const dialogRef = this.dialog.open(template, {
+      width: '500px',
+      data: this.UserForm
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  Edit(template: TemplateRef<any>, lst) {
+    debugger
+    this.UserForm = this.formBuilder.group({
+      userID: [Number(lst.userID)],
+      name: [lst.name, Validators.required],
+      loginId: [lst.loginId, Validators.required],
+      password: [lst.password, Validators.required],
+      isActive: [lst.isActive]
+    });
+    this.IsEdit = true;
+    const dialogRef = this.dialog.open(template, {
+      width: '500px',
+      data: this.UserForm
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+    });
+  }
+
   AssignPages(template: TemplateRef<any>, lst) {
     debugger
     this.spinner.show();
@@ -115,7 +161,7 @@ export class MngUserComponent implements OnInit {
     });
   }
 
-  SaveUserPages(){
+  SaveUserPages() {
     let selectedPageName = '';
     (this.dataSourceUserPages.filteredData).forEach(element => {
       debugger
@@ -132,6 +178,32 @@ export class MngUserComponent implements OnInit {
       this.spinner.hide();
       this._toasterService.success("Record has been saved successfully.");
     });
+  }
+
+  Save() {
+    if (this.UserForm.invalid) {
+      this.UserForm.markAllAsTouched();
+      this._toasterService.error("All the * marked fields are mandatory");
+      return;
+    }
+    else {
+      this.spinner.show();
+      this._userService.UserRegistrationByAdmin(this.UserForm.value).subscribe(res => {
+        this.spinner.hide();
+        if (res > 0) {
+          this._toasterService.success("Record has been saved successfully.");
+          this.dialog.closeAll();
+          this.LoadData();
+          this.IsEdit = false;
+        }
+        else if (res == -1) {
+          this._toasterService.error("LoginId name already exists.");
+        }
+        else {
+          this._toasterService.error("Server error, Please try again after some time.");
+        }
+      });
+    }
   }
 }
 

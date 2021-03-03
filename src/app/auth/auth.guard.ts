@@ -35,8 +35,8 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> {
     this.LoggedInUserType = this._LocalStorage.getValueOnLocalStorage("LoggedInUserType");
     var pathArray = window.location.pathname.split('/');
-    //let path = pathArray[1];
-    let path = pathArray[2];
+    let path = pathArray[1];
+    // let path = pathArray[2];
 
     let UserObj = {
       PageName: path,
