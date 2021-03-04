@@ -37,7 +37,7 @@ export class AdminLoginComponent implements OnInit {
     //this._LocalStorage.storeOnLocalStorage("LoggedInUserId", "1");
     //this.spinner.hide();
     //this.router.navigate(['/home']);
-    this._UserService.ValidLogin(UserObj).subscribe(_user => {
+    this._UserService.AdminValidLogin(UserObj).subscribe(_user => {
       this.spinner.hide();
       this.User = _user;
       if (_user != null) {

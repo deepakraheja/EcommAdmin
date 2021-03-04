@@ -23,6 +23,14 @@ export class UserService {
     );
   }
 
+  AdminValidLogin(_obj: any): Observable<any> {
+    this._methodName = "AdminValidLogin/";
+    this._param = _obj;
+    return this._http.post<any>(
+      this._url + this._methodName, this._param
+    );
+  }
+
   GetAllUsers(): Observable<any> {
     this._methodName = "GetAllUsers/";
     this._param = {};

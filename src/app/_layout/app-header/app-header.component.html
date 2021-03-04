@@ -168,11 +168,11 @@
                         <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle legitRipple username-dropdown" data-toggle="dropdown">
                             <!-- {{global.ProfilePic}} -->
                             <!-- <img src="../../../assets/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt=""> -->
-                            <span>&nbsp;&nbsp; Admin</span>
+                            <span>&nbsp;&nbsp; {{LoggedInName}}</span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="javaScript:void(0);" class="dropdown-item user-name"><i class="icon-user"></i>&nbsp;Test User</a>
+                            <a href="javaScript:void(0);" class="dropdown-item" (click)="onChangePassword(templateChangePassword,'');"><i class="icon-user"></i>&nbsp;Change Password</a>
                             <a href="javaScript:void(0);" class="dropdown-item" (click)="logout();"><i class="icon-switch2"></i> &nbsp;Logout</a>
                         </div>
                     </li>
@@ -228,3 +228,52 @@
     </div>
 </div>
 <!-- /main navbar -->
+
+
+
+<ng-template #templateChangePassword>
+    <div class="col-md-12 add-info-head modal-text-heading">
+        <h2 mat-dialog-title>Change Password</h2>
+
+        <div class="header-elements">
+            <div class="list-icons" style="color: red;">
+                Note: All the * marked fields are mandatory
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="ChangePasswordForm" class="w-100">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Old Password <span class="error">*</span></mat-label>
+                            <input type="password" matInput formControlName="password" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>New Password <span class="error">*</span></mat-label>
+                            <input type="password" matInput formControlName="newPassword" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Confirm Password <span class="error">*</span></mat-label>
+                            <input type="password" matInput formControlName="confirmPassword" maxlength="50">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="col-md-12 add-info-foot">
+            <button mat-raised-button class="btn btn-success btn-lg" (click)="Save()">
+            Save
+        </button>
+            <button mat-button mat-dialog-close class="btn btn-secondary btn-lg">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</ng-template>

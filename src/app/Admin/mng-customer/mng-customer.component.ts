@@ -214,6 +214,9 @@ export class MngCustomerComponent implements OnInit {
         else if (res == -1) {
           this._toasterService.error("Email already exists.");
         }
+        else if (res == -2) {
+          this._toasterService.error("This user assigned customer");
+        }
         else {
           this._toasterService.error("Server error, Please try again after some time.");
         }

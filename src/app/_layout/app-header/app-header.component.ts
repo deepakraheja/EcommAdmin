@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LocalStorageService } from 'src/app/Service/local-storage.service';
 import { Router } from '@angular/router';
 import { GlobalConstantsService } from 'src/app/Service/global-constants.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +23,16 @@ export class AppHeaderComponent implements OnInit {
   public agent: boolean = false;
   public customer: boolean = false;
   menuIconClass: string = "";
-
+  public LoggedInName: string = "";
   public materialprimary: string;
   public materialsecondary: string;
+  public ChangePasswordForm: FormGroup;
   constructor(
     private _LocalStorage: LocalStorageService,
     private router: Router,
-    public global: GlobalConstantsService
+    public global: GlobalConstantsService,
+    public formBuilder: FormBuilder,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -181,8 +186,10 @@ export class AppHeaderComponent implements OnInit {
       this.menuname = "Customer";
       this.menuIconClass = "icon-cash material-green-primary bg-white-icon bg-green-icon";
     }
-  }
+    this.LoggedInName = this._LocalStorage.getValueOnLocalStorage("Name");
 
+
+  }
 
   public ChangeName(name: string): void {
     debugger;
@@ -195,5 +202,26 @@ export class AppHeaderComponent implements OnInit {
     debugger
     this._LocalStorage.removeAllLocalStorage();
     this.router.navigate(['/adminlogin']);
+  }
+
+  onChangePassword(template: TemplateRef<any>, lst) {
+    this.ChangePasswordForm = this.formBuilder.group({
+      userID: Number(this._LocalStorage.getValueOnLocalStorage("LoggedInUserId")),
+      password: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
+    const dialogRef = this.dialog.open(template, {
+      width: '500px',
+      data: this.ChangePasswordForm
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  Save() {
+
   }
 }
