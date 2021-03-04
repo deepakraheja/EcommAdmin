@@ -9,19 +9,19 @@ export const environment = {
 
   /*********************Local Server************* */
 
-  ImagePath: 'http://localhost:54444/ProductImage/',
-  BASE_API_URL: 'http://localhost:54444/api/',
-  APIURL: 'http://localhost:54444',
-  Report_Path: 'http://localhost:54444/ReportGenerate/',
-  UserDocumentPath: 'http://localhost:54444/UserDocument/',
+  // ImagePath: 'http://localhost:54444/ProductImage/',
+  // BASE_API_URL: 'http://localhost:54444/api/',
+  // APIURL: 'http://localhost:54444',
+  // Report_Path: 'http://localhost:54444/ReportGenerate/',
+  // UserDocumentPath: 'http://localhost:54444/UserDocument/',
 
   //*********************Production Server************* */
 
-  // BASE_API_URL: 'http://103.108.220.24/EcommApiV3/api/',
-  // ImagePath: 'http://103.108.220.24/EcommApiV3/ProductImage/',
-  // APIURL: 'http://103.108.220.24/EcommApiV3',
-  // Report_Path: 'http://103.108.220.24/EcommApiV3/ReportGenerate/',
-  // UserDocumentPath: 'http://103.108.220.24/EcommApiV3/UserDocument/',
+  BASE_API_URL: 'http://103.108.220.24/EcommApiV3/api/',
+  ImagePath: 'http://103.108.220.24/EcommApiV3/ProductImage/',
+  APIURL: 'http://103.108.220.24/EcommApiV3',
+  Report_Path: 'http://103.108.220.24/EcommApiV3/ReportGenerate/',
+  UserDocumentPath: 'http://103.108.220.24/EcommApiV3/UserDocument/',
 };
 
 /*
