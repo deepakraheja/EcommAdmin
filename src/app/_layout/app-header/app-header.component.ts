@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { GlobalConstantsService } from 'src/app/Service/global-constants.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/Service/user.service';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +34,9 @@ export class AppHeaderComponent implements OnInit {
     private router: Router,
     public global: GlobalConstantsService,
     public formBuilder: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public _toasterService: ToastrService,
+    public _UserService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -206,7 +210,6 @@ export class AppHeaderComponent implements OnInit {
 
   onChangePassword(template: TemplateRef<any>, lst) {
     this.ChangePasswordForm = this.formBuilder.group({
-      userID: Number(this._LocalStorage.getValueOnLocalStorage("LoggedInUserId")),
       password: ['', Validators.required],
       newPassword: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -222,6 +225,31 @@ export class AppHeaderComponent implements OnInit {
   }
 
   Save() {
-
+    if (this.ChangePasswordForm.invalid) {
+      this.ChangePasswordForm.markAllAsTouched();
+      this._toasterService.error("All the * marked fields are mandatory");
+      return;
+    }
+    else {
+      if (this.ChangePasswordForm.value.newPassword != this.ChangePasswordForm.value.confirmPassword) {
+        this._toasterService.error("New password & confirm password must be same.");
+        return;
+      }
+      else {
+        let obj = {
+          password: this.ChangePasswordForm.value.password,
+          NewPassword: this.ChangePasswordForm.value.newPassword
+        }
+        this._UserService.UserPasswordChange(obj).subscribe(res => {
+          if (res > 0) {
+            this._toasterService.success("Password has been changed sucessfully.");
+            this.dialog.closeAll();
+          }
+          else {
+            this._toasterService.error("Old password is invalid");
+          }
+        });
+      }
+    }
   }
 }
