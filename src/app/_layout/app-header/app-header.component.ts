@@ -227,7 +227,7 @@ export class AppHeaderComponent implements OnInit {
   Save() {
     if (this.ChangePasswordForm.invalid) {
       this.ChangePasswordForm.markAllAsTouched();
-      this._toasterService.error("All the * marked fields are mandatory");
+      this._toasterService.error("All the * marked fields are mandatory.");
       return;
     }
     else {
