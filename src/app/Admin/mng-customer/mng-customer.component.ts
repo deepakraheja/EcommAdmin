@@ -34,7 +34,7 @@ export class MngCustomerComponent implements OnInit {
   LoggedInUserId: string;
   LoggedInUserType: string;
   selected: any;
-  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent','Upload', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
+  displayedColumns: string[] = ['name', 'email', 'mobileNo', 'additionalDiscount', 'statusId', 'isAgent', 'Upload', 'createdDate', 'approvedByUserName', 'approvedDate', 'Edit'];
   dataSource = new MatTableDataSource<any>(this.lstData);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   showMask = false;
@@ -215,7 +215,7 @@ export class MngCustomerComponent implements OnInit {
           this._toasterService.error("Email already exists.");
         }
         else if (res == -2) {
-          this._toasterService.error("This user assigned customer");
+          this._toasterService.error("Yuo can not uncheck the box because this agent has some assigned customers. First unassigned them.");
         }
         else {
           this._toasterService.error("Server error, Please try again after some time.");
