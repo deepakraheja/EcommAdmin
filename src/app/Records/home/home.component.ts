@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   TotalDispatched = 0;
   TotalDelivered = 0;
   TotalReturned = 0;
+  TotalPendingApproval=0;
   constructor(
     private orderService: OrderService,
     private _datePipe: DatePipe,
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
       this.lstDashBoardSummary = res;
       this.TotalCustomer = res[0].totalCustomers;
       this.TotalOrders = res.length;
-
+      this.TotalPendingApproval = res[0].totalPendingApproval;
       //this.TotalOrders = 0;
       this.TodayOrders = res.filter(a => this._datePipe.transform(new Date(a.orderDate).toString(), 'yyyy-MM-dd') == this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')).length;
       this.TotalDispatched = res.filter(a => a.statusId == 3).length;
