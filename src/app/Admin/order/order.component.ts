@@ -50,7 +50,7 @@ export class OrderComponent implements OnInit {
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.LoadOrderStatus();
     this.OrderForm = this.formBuilder.group({
-      startDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
+      startDate: [this._datePipe.transform(new Date().setMonth((new Date().getMonth() - 1)).toString(), 'yyyy-MM-dd')],
       endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
       statusId: [0]
     });
