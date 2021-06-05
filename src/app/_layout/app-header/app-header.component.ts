@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
+import { SharedDataService } from 'src/app/Service/shared-data.service';
 
 @Component({
   selector: 'app-header',
@@ -36,10 +37,20 @@ export class AppHeaderComponent implements OnInit {
     public formBuilder: FormBuilder,
     public dialog: MatDialog,
     public _toasterService: ToastrService,
-    public _UserService: UserService
+    public _UserService: UserService,
+    private _SharedDataService: SharedDataService,
   ) { }
 
   ngOnInit(): void {
+
+    this._SharedDataService.val.subscribe(res => {
+      this.LoadHeaderChanges();
+    });
+
+  }
+
+  LoadHeaderChanges(){
+    
     if (this._LocalStorage.getValueOnLocalStorage("Selected") == "0") {
       this.menuname = "Dashboard";
       this.menuIconClass = "fa-tachometer icon-users bg-white-icon";

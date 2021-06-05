@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ConfirmBoxComponent } from 'src/app/confirm-box/confirm-box.component';
 import { TransportService } from 'src/app/Service/Transport.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -35,6 +36,7 @@ export class OrderComponent implements OnInit {
   public ChangeStatusId: any;
   public lstTransport: any = [];
   public SelectedLst: any = [];
+  public param_statusId: any;
   constructor(
     private _OrderService: OrderService,
     private spinner: NgxSpinnerService,
@@ -45,14 +47,20 @@ export class OrderComponent implements OnInit {
     public _LocalStorage: LocalStorageService,
     public _toastrService: ToastrService,
     private modalService: BsModalService,
-    private _TransportService: TransportService
+    private _TransportService: TransportService,
+    private route: ActivatedRoute,
   ) {
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.param_statusId = params.get('statusId') == null ? 0 : Number(params.get('statusId'));
+    });
+
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.LoadOrderStatus();
     this.OrderForm = this.formBuilder.group({
       startDate: [this._datePipe.transform(new Date().setMonth((new Date().getMonth() - 1)).toString(), 'yyyy-MM-dd')],
       endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
-      statusId: [0]
+      statusId: [this.param_statusId]
     });
 
     this.DispatchedForm = this.formBuilder.group({
