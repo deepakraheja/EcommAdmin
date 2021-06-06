@@ -52,16 +52,26 @@ export class OrderComponent implements OnInit {
   ) {
 
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.param_statusId = params.get('statusId') == null ? 0 : Number(params.get('statusId'));
+      this.param_statusId = params.get('statusId');
     });
 
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.LoadOrderStatus();
-    this.OrderForm = this.formBuilder.group({
-      startDate: [this._datePipe.transform(new Date().setMonth((new Date().getMonth() - 1)).toString(), 'yyyy-MM-dd')],
-      endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
-      statusId: [this.param_statusId]
-    });
+    if (this.param_statusId == 0) {
+      this.OrderForm = this.formBuilder.group({
+        startDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
+        endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
+        statusId: [this.param_statusId == null ? 0 : Number(this.param_statusId)]
+      });
+    }
+    else {
+      this.OrderForm = this.formBuilder.group({
+        startDate: [this._datePipe.transform(new Date().setMonth((new Date().getMonth() - 1)).toString(), 'yyyy-MM-dd')],
+        endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
+        statusId: [this.param_statusId == null ? 0 : Number(this.param_statusId)]
+      });
+    }
+
 
     this.DispatchedForm = this.formBuilder.group({
       selectedOrderDetailsIds: [''],

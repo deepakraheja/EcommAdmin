@@ -1,5 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, AbstractControl, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from 'src/app/Service/local-storage.service';
@@ -13,6 +13,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from 'src/environments/environment';
 import { ConfirmBoxComponent } from 'src/app/confirm-box/confirm-box.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -45,6 +46,7 @@ export class MngCustomerComponent implements OnInit {
   PopUpDocumentImg = [];
   SelectedUserId = 0;
   bsModalRef: BsModalRef;
+  SelectStatusID = new FormControl('0');
   constructor(
     private formBuilder: FormBuilder,
     private _LocalStorage: LocalStorageService,
@@ -54,7 +56,13 @@ export class MngCustomerComponent implements OnInit {
     private _userService: UserService,
     private _datePipe: DatePipe,
     private modalService: BsModalService,
+    private route: ActivatedRoute,
   ) {
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.SelectStatusID.setValue(params.get('statusId') == null ? '0' : Number(params.get('statusId')));
+    });
+
     this.LoggedInUserId = this._LocalStorage.getValueOnLocalStorage("LoggedInUserId");
     this.UserForm = this.formBuilder.group({
       userID: 0,
@@ -82,7 +90,7 @@ export class MngCustomerComponent implements OnInit {
       isVIPMember: [false],
       userDocument: []
     });
-    this.LoadData();
+    this.LoadData("");
     this.formControlValueChanged();
   }
 
@@ -143,12 +151,19 @@ export class MngCustomerComponent implements OnInit {
     this.showMask = false;
   }
 
-  LoadData() {
+  LoadData(event: any) {
     this.spinner.show();
     this._userService.GetAllCusotmers().subscribe(res => {
       this.spinner.hide();
-      this.dataSource = new MatTableDataSource<any>(res);
-      this.dataSource.paginator = this.paginator;
+      if (this.SelectStatusID.value != "0") {
+        var lstFilter = res.filter(a => a.statusId == Number(this.SelectStatusID.value))
+        this.dataSource = new MatTableDataSource<any>(lstFilter);
+        this.dataSource.paginator = this.paginator;
+      }
+      else {
+        this.dataSource = new MatTableDataSource<any>(res);
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
 
@@ -209,7 +224,7 @@ export class MngCustomerComponent implements OnInit {
         if (res > 0) {
           this._toasterService.success("Record has been saved successfully.");
           this.dialog.closeAll();
-          this.LoadData();
+          this.LoadData("");
         }
         else if (res == -1) {
           this._toasterService.error("Email already exists.");
@@ -259,7 +274,7 @@ export class MngCustomerComponent implements OnInit {
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
       this.SelectedUserId = 0;
-      this.LoadData();
+      this.LoadData("");
     });
   }
 

@@ -5,16 +5,27 @@
             <div class="card">
 
                 <div class="card-body">
-                    <!-- <div class="row">
-                        <div class="col-md-12 text-right pb-3"><button mat-raised-button (click)="onAddNew(templateCategory,'');" class="btn btn-warning btn-lg">Add New
-                                </button></div>
-                    </div> -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Status <span class="error">*</span></mat-label>
+                                <mat-select [formControl]="SelectStatusID" (selectionChange)="LoadData($event)">
+                                    <mat-option value="0">All</mat-option>
+                                    <mat-option [value]="1">Pending</mat-option>
+                                    <mat-option [value]="2">Approved</mat-option>
+                                    <mat-option [value]="3">In-Active</mat-option>
+                                    <mat-option [value]="4">Hold</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
                     <div class="new-section">
                         <div class="row">
                             <div class="col-lg-12 col-xs-12 col-sm-12 pl-4 pr-4 pt-1">
                                 <mat-form-field class="example-chip-list example-full-width">
                                     <mat-label>Search</mat-label>
-                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)" class="btn-search" style=" padding-bottom: 15px;">
+                                    <input matInput placeholder="Search" (keyup)="applyFilter($event)"
+                                        class="btn-search" style=" padding-bottom: 15px;">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -24,7 +35,9 @@
 
                                 <ng-container matColumnDef="name">
                                     <th mat-header-cell *matHeaderCellDef>Name</th>
-                                    <td mat-cell *matCellDef="let element" matTooltip="Login Id : {{element.loginId}}, Password : {{element.password}}" matTooltipPosition="above"> {{element.name}} </td>
+                                    <td mat-cell *matCellDef="let element"
+                                        matTooltip="Login Id : {{element.loginId}}, Password : {{element.password}}"
+                                        matTooltipPosition="above"> {{element.name}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="email">
                                     <th mat-header-cell *matHeaderCellDef>Email Address</th>
@@ -56,19 +69,22 @@
 
                                 <ng-container matColumnDef="isAgent">
                                     <th mat-header-cell *matHeaderCellDef>Agent|VIP</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} | {{element.isVIPMember?'Yes':'No'}} </td>
+                                    <td mat-cell *matCellDef="let element"> {{element.isAgent?'Yes':'No'}} |
+                                        {{element.isVIPMember?'Yes':'No'}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Upload">
                                     <th mat-header-cell *matHeaderCellDef>Upload</th>
                                     <td mat-cell *matCellDef="let element">
-                                        <a href="javaScript:void(0);" (click)="OpenImagePopUp(templateImagesShow,element)">Upload
+                                        <a href="javaScript:void(0);"
+                                            (click)="OpenImagePopUp(templateImagesShow,element)">Upload
                                             Document</a>
                                     </td>
                                 </ng-container>
                                 <ng-container matColumnDef="createdDate">
                                     <th mat-header-cell *matHeaderCellDef>Reg. Date</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'dd/MM/yyyy'}} </td>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date :
+                                        'dd/MM/yyyy'}} </td>
                                 </ng-container>
                                 <!-- <ng-container matColumnDef="isApproval">
                                     <th mat-header-cell *matHeaderCellDef>IsApproval</th>
@@ -83,7 +99,8 @@
                                 </ng-container>
                                 <ng-container matColumnDef="approvedDate">
                                     <th mat-header-cell *matHeaderCellDef>Approved Date</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.approvedDate | date : 'dd/MM/yyyy'}} </td>
+                                    <td mat-cell *matCellDef="let element"> {{element.approvedDate | date :
+                                        'dd/MM/yyyy'}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Edit">
@@ -137,7 +154,9 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>MobileNo <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="mobileNo" readonly maxlength="10" [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                            <input type="text" matInput formControlName="mobileNo" readonly maxlength="10"
+                                [mask]="PhoneMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask"
+                                (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
 
@@ -223,7 +242,8 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>PinCode <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="pinCode" maxlength="6" [mask]="PinCodeMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                            <input type="text" matInput formControlName="pinCode" maxlength="6" [mask]="PinCodeMask"
+                                [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
@@ -305,14 +325,18 @@
                     <div class="col-md-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Additional Discount <span class="error">*</span></mat-label>
-                            <input type="text" matInput formControlName="additionalDiscount" maxlength="10" [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask" (focus)="addMask($event);">
+                            <input type="text" matInput formControlName="additionalDiscount" maxlength="10"
+                                [mask]="DecimalMask" [dropSpecialCharacters]="false" [showMaskTyped]="showMask"
+                                (focus)="addMask($event);">
                         </mat-form-field>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="ChangeMember(1)">Is Agent</mat-checkbox>
+                        <mat-checkbox formControlName="isAgent" [checked]="selected === 1" (change)="ChangeMember(1)">Is
+                            Agent</mat-checkbox>
                     </div>
                     <div class="col-md-4 mt-2">
-                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2" (change)="ChangeMember(2)">Is VIP Member</mat-checkbox>
+                        <mat-checkbox formControlName="isVIPMember" [checked]="selected === 2"
+                            (change)="ChangeMember(2)">Is VIP Member</mat-checkbox>
                     </div>
                 </div>
             </div>
@@ -337,19 +361,26 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group row" style="margin-left: 1px;">
-                            Document Images :<button (click)="file.click()" class="fHbZUJ" style="width:158px;height:50px">
+                            Document Images :<button (click)="file.click()" class="fHbZUJ"
+                                style="width:158px;height:50px">
                                 <i class="fa fa-upload"></i>
                                 <div class="sc-pQGev lbdMzz"></div><span>Upload Document</span>
                             </button>
-                            <input #file id="ProductImg" type="file" style="display: none;" (change)="UploadProductImages($event)" multiple="" />
+                            <input #file id="ProductImg" type="file" style="display: none;"
+                                (change)="UploadProductImages($event)" multiple="" />
                             <br />
                             <br />
                             <br />
                             <br />
                             <div *ngFor='let url of PopUpDocumentImg; index as i;'>
-                                <img class="example-header-image" *ngIf="url.includes('data:application/pdf;base64') || url.includes('.pdf')" src="assets/images/placeholder.jpg" (click)="ShowPopUpImage(url);">
-                                <img class="example-header-image" *ngIf="!url.includes('data:application/pdf;base64')  && !url.includes('.pdf')" [src]="url" (click)="ShowPopUpImage(url);">
-                                <label class="mi-delete mi-1x" style="color: red;" (click)="removeImg(i,'product');"></label>
+                                <img class="example-header-image"
+                                    *ngIf="url.includes('data:application/pdf;base64') || url.includes('.pdf')"
+                                    src="assets/images/placeholder.jpg" (click)="ShowPopUpImage(url);">
+                                <img class="example-header-image"
+                                    *ngIf="!url.includes('data:application/pdf;base64')  && !url.includes('.pdf')"
+                                    [src]="url" (click)="ShowPopUpImage(url);">
+                                <label class="mi-delete mi-1x" style="color: red;"
+                                    (click)="removeImg(i,'product');"></label>
                             </div>
                         </div>
                     </div>
@@ -357,7 +388,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <mat-card class="example-card">
-                                    <iframe [src]="PopUpPreviewUrl | safe" width="100%" height="320px" allowfullscreen *ngIf="PopUpDocumentImg?.length>0"></iframe>
+                                    <iframe [src]="PopUpPreviewUrl | safe" width="100%" height="320px" allowfullscreen
+                                        *ngIf="PopUpDocumentImg?.length>0"></iframe>
                                     <!-- <img mat-card-image [src]="PopUpPreviewUrl" style="height: auto;max-width: 50%;"> -->
                                 </mat-card>
                             </div>

@@ -56,6 +56,7 @@ const routes: Routes = [
       { path: 'order/:statusId', component: OrderComponent, canActivate: [AuthGuard] },
       { path: 'user', component: MngUserComponent, canActivate: [AuthGuard] },
       { path: 'customer', component: MngCustomerComponent, canActivate: [AuthGuard] },
+      { path: 'customer/:statusId', component: MngCustomerComponent, canActivate: [AuthGuard] },
       { path: 'CreateEmail', component: CreateEmailComponent, canActivate: [AuthGuard] },
       { path: 'agent', component: MngAgentComponent, canActivate: [AuthGuard] },
       { path: 'transport', component: TransportComponent, canActivate: [AuthGuard] },
