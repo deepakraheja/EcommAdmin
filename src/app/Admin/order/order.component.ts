@@ -66,7 +66,7 @@ export class OrderComponent implements OnInit {
     }
     else {
       this.OrderForm = this.formBuilder.group({
-        startDate: [this._datePipe.transform(new Date().setMonth((new Date().getMonth() - 1)).toString(), 'yyyy-MM-dd')],
+        startDate: [this._datePipe.transform(new Date('01/01/2021').toString(), 'yyyy-MM-dd')],
         endDate: [this._datePipe.transform(new Date().toString(), 'yyyy-MM-dd')],
         statusId: [this.param_statusId == null ? 0 : Number(this.param_statusId)]
       });
@@ -124,7 +124,7 @@ export class OrderComponent implements OnInit {
     this._OrderService.GetAllOrder(obj).subscribe(res => {
       this.spinner.hide();
       //this.lstOrder = res;
-      this.dataSource = res;
+      this.dataSource = new MatTableDataSource<any>(res);
       this.dataSource.paginator = this.paginator;
       //console.log(res);
     });
