@@ -725,7 +725,7 @@ export class ProductDetailComponent implements OnInit {
         sizeId: this.EditProductDetailForm.value.sizeId,
         setNo: Number(this.EditProductDetailForm.value.setNo),
         lookupColorId: Number(this.EditProductDetailForm.value.lookupColorId),
-        discount: Number(this.EditProductDetailForm.value.discount.toFixed(4)),
+        discount: Number(this.EditProductDetailForm.value.discount) > 0 ? Number(this.EditProductDetailForm.value.discount.toFixed(4)) : Number(this.EditProductDetailForm.value.discount),
         discountAvailable: Number(this.EditProductDetailForm.value.discount) > 0 ? true : false,//this.EditProductDetailForm.value.discountAvailable,
         CreatedBy: Number(this.LoggedInUserId),
         Modifiedby: Number(this.LoggedInUserId),
