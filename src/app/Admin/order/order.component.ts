@@ -28,7 +28,7 @@ export class OrderComponent implements OnInit {
   public ProductImage = environment.ImagePath;
   OrderForm: FormGroup;
   DispatchedForm: FormGroup;
-  displayedColumns: string[] = ['orderNumber', 'View', 'orderDate', 'fName', 'phone', 'statusId', 'totalAmount'];
+  displayedColumns: string[] = ['orderNumber', 'View', 'orderDate', 'companyName', 'phone', 'statusId', 'totalAmount'];
   dataSource = new MatTableDataSource<any>(this.lstOrder);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   LoggedInUserId: string;
